@@ -28,6 +28,12 @@ import {
   getAllBookings,
   getBookingById,
 } from '#backend/controllers/adminController.js';
+import {
+  getAllSponsors,
+  createSponsor,
+  updateSponsor,
+  deleteSponsor,
+} from '#backend/controllers/sponsorController.js';
 
 const router = Router();
 
@@ -76,5 +82,11 @@ router.delete('/exhibitors/:id', deleteExhibitor);
 // Bookings
 router.get('/bookings', getAllBookings);
 router.get('/bookings/:id', getBookingById);
+
+// Sponsors
+router.get('/sponsors', getAllSponsors);
+router.post('/sponsors', upload.single('logo'), createSponsor);
+router.put('/sponsors/:id', upload.single('logo'), updateSponsor);
+router.delete('/sponsors/:id', deleteSponsor);
 
 export default router;
