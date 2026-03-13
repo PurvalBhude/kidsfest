@@ -1,11 +1,20 @@
-const cloudinary = require('cloudinary').v2;
+import { v2 as cloudinary } from 'cloudinary';
 
-cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
-});
+let _configured = false;
 
-console.log('Cloudinary config:', cloudinary.config());
+/**
+ * Lazy-configure Cloudinary so env vars are guaranteed to be loaded.
+ */
+const getCloudinary = () => {
+  if (!_configured) {
+    cloudinary.config({
+      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+      api_key: process.env.CLOUDINARY_API_KEY,
+      api_secret: process.env.CLOUDINARY_API_SECRET,
+    });
+    _configured = true;
+  }
+  return cloudinary;
+};
 
-module.exports = { cloudinary };
+export { getCloudinary };

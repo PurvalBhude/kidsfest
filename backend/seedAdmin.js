@@ -1,37 +1,44 @@
-const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '.env') });
-const mongoose = require('mongoose');
-const Admin = require('./models/adminModel');
-const bcrypt = require('bcryptjs');
+import 'dotenv/config';
+import mongoose from 'mongoose';
+import User from './models/User.js';
 
 async function seed() {
-  await mongoose.connect(process.env.MONGO_URL);
+  const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/kidsfest';
+  await mongoose.connect(mongoUri);
   console.log('Connected to MongoDB');
 
-  const USERNAME = 'superadmin';
-  const PASSWORD = 'password123';
-  const hashed = await bcrypt.hash(PASSWORD, 10);
+  const NAME = 'Super Admin';
+  const EMAIL = 'admin@kidsfest.com';
+  const PASSWORD = 'password123'; // change in production!
+  const ROLE = 'superadmin';
 
-  const existing = await Admin.findOne({ username: USERNAME });
+  const existing = await User.findOne({ email: EMAIL });
   if (existing) {
-    existing.password = hashed;
-    existing.trainNo = existing.trainNo || 'ALL';
+    existing.password = PASSWORD; // pre-save hook will re-hash
+    existing.role = ROLE;
+    existing.name = NAME;
     await existing.save();
-    console.log('Admin updated:', existing.username, 'trainNo:', existing.trainNo);
+    console.log('Admin updated:', existing.email);
   } else {
-    const admin = await Admin.create({
-      username: USERNAME,
-      email: 'superadmin@railway.com',
-      password: hashed,
-      trainNo: 'ALL',
+    const user = await User.create({
+      name: NAME,
+      email: EMAIL,
+      password: PASSWORD,
+      role: ROLE,
     });
-    console.log('Admin created:', admin.username);
+    console.log('Admin created:', user.email);
   }
 
-  const all = await Admin.find({});
-  console.log('All admins in DB:', all.map(a => ({ username: a.username, trainNo: a.trainNo, email: a.email })));
+  const all = await User.find({});
+  console.log(
+    'All users in DB:',
+    all.map((u) => ({ name: u.name, email: u.email, role: u.role }))
+  );
   await mongoose.disconnect();
   console.log('Done.');
 }
 
-seed().catch(e => { console.error(e); process.exit(1); });
+seed().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});

@@ -2,25 +2,22 @@
 
 // Set authentication cookie
 const setAuthCookie = (res, cookieName, token) => {
-    res.cookie(cookieName, token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'lax',
-        maxAge: 24 * 60 * 60 * 1000, // 24 hours
-        path: '/'
-    });
+  res.cookie(cookieName, token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    path: '/',
+  });
 };
 
 // Clear authentication cookie
 const clearAuthCookie = (res, cookieName) => {
-    res.cookie(cookieName, '', {
-        httpOnly: true,
-        expires: new Date(0),
-        path: '/'
-    });
+  res.cookie(cookieName, '', {
+    httpOnly: true,
+    expires: new Date(0),
+    path: '/',
+  });
 };
 
-module.exports = {
-    setAuthCookie,
-    clearAuthCookie
-};
+export { setAuthCookie, clearAuthCookie };

@@ -1,16 +1,13 @@
+import 'dotenv/config'; // must be first — loads .env before any other module reads process.env
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 
-import apiRoutes from '@backend/routes/apiRoutes.js';
-import { errorHandler } from '@backend/utils/errorHandler.js';
-import logger from '@backend/config/logger.js';
-import { initializeTransporter } from '@backend/utils/emailService.js';
-
-// Load environment variables
-dotenv.config();
+import apiRoutes from '#backend/routes/apiRoutes.js';
+import { errorHandler } from '#backend/utils/errorHandler.js';
+import logger from '#backend/config/logger.js';
+import { initializeTransporter } from '#backend/utils/emailService.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -46,10 +43,7 @@ const connectDB = async () => {
   try {
     const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/kidsfest';
 
-    await mongoose.connect(mongoUri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
+    await mongoose.connect(mongoUri);
 
     logger.info('✅ MongoDB connected successfully');
   } catch (error) {

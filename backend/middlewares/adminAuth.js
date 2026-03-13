@@ -1,11 +1,11 @@
 import jwt from 'jsonwebtoken';
 
 /**
- * Generic user JWT middleware (cookie-based).
- * Not currently used in KidsFest — kept for future user-auth flows.
+ * Middleware: verifies admin JWT from cookie.
+ * Attaches adminId and adminRole to req.
  */
-const userAuthentication = (req, res, next) => {
-  const token = req.cookies.userToken;
+const adminAuth = (req, res, next) => {
+  const token = req.cookies.adminToken;
 
   if (!token) {
     return res.status(401).json({
@@ -16,7 +16,8 @@ const userAuthentication = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.userId = decoded.userId;
+    req.adminId = decoded.adminId;
+    req.adminRole = decoded.role;
     next();
   } catch (error) {
     return res.status(401).json({
@@ -29,5 +30,4 @@ const userAuthentication = (req, res, next) => {
   }
 };
 
-export default userAuthentication;
-
+export default adminAuth;
