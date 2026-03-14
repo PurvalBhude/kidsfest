@@ -6,9 +6,10 @@ import { Link } from 'react-router-dom';
 
 const tierConfig = {
   'Title Sponsor': { color: 'from-yellow-400 to-amber-500', badge: Crown, label: '👑 Title Sponsor', ring: 'ring-amber-400', bg: 'bg-amber-50' },
+  'Platinum Sponsor': { color: 'from-indigo-400 to-purple-500', badge: Award, label: '💎 Platinum', ring: 'ring-purple-400', bg: 'bg-purple-50' },
   'Gold Sponsor': { color: 'from-yellow-300 to-yellow-500', badge: Award, label: '🥇 Gold', ring: 'ring-yellow-400', bg: 'bg-yellow-50' },
   'Silver Sponsor': { color: 'from-gray-300 to-gray-400', badge: Medal, label: '🥈 Silver', ring: 'ring-gray-400', bg: 'bg-gray-100' },
-  'Stall / Booth': { color: 'from-orange-400 to-orange-500', badge: Building2, label: '🏪 Exhibitor', ring: 'ring-orange-300', bg: 'bg-orange-50' },
+  'Stall / Booth': { color: 'from-orange-400 to-orange-500', badge: Building2, label: '🏪 Stall Partner', ring: 'ring-orange-300', bg: 'bg-orange-50' },
   'Food Partner': { color: 'from-red-400 to-red-500', badge: Star, label: '🍕 Food Partner', ring: 'ring-red-300', bg: 'bg-red-50' },
 };
 
@@ -59,9 +60,9 @@ export default function Exhibitor() {
           <div className="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <CheckCircle className="w-12 h-12 text-orange-600" />
           </div>
-          <h2 className="text-2xl font-bold mb-2">Thank You! 🏪</h2>
+          <h2 className="text-2xl font-bold mb-2">Thank You! 🚀</h2>
           <p className="text-gray-600 mb-6">
-            Your exhibitor enquiry has been submitted. Our team will reach out to you shortly!
+            Your sponsorship enquiry has been submitted. Our team will reach out shortly!
           </p>
           <Link to="/" className="inline-flex items-center gap-2 px-6 py-3 bg-secondary text-white font-bold rounded-full hover:bg-secondary-dark transition-colors">
             Back Home
@@ -71,8 +72,7 @@ export default function Exhibitor() {
     );
   }
 
-  // Group sponsors by tier
-  const tierOrder = ['Title Sponsor', 'Gold Sponsor', 'Silver Sponsor', 'Stall / Booth', 'Food Partner'];
+  const tierOrder = ['Title Sponsor', 'Platinum Sponsor', 'Gold Sponsor', 'Silver Sponsor', 'Stall / Booth', 'Food Partner'];
   const groupedSponsors = {};
   sponsors.forEach((s) => {
     const tier = s.tier || 'Other';
@@ -82,51 +82,40 @@ export default function Exhibitor() {
 
   return (
     <div className="min-h-screen">
-      {/* Hero */}
       <section className="relative overflow-hidden bg-linear-to-br from-secondary via-orange-500 to-red-400 py-16 sm:py-24 text-white text-center">
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-10 -left-10 w-60 h-60 bg-white/10 rounded-full blur-2xl" />
-          {['🏪', '🎪', '📣', '🏢'].map((e, i) => (
+          {['🚀', '🤝', '💎', '🏢'].map((e, i) => (
             <span key={i} className="absolute text-3xl opacity-20 animate-float"
-              style={{ top: `${10 + i * 22}%`, left: `${8 + i * 25}%`, animationDelay: `${i * 0.7}s` }}>
-              {e}
-            </span>
+              style={{ top: `${10 + i * 22}%`, left: `${8 + i * 25}%`, animationDelay: `${i * 0.7}s` }}>{e}</span>
           ))}
         </div>
         <div className="relative max-w-4xl mx-auto px-4">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 animate-slide-up">Our Sponsors & Partners 🏪</h1>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 animate-slide-up">Sponsors & Partners 🚀</h1>
           <p className="text-lg sm:text-xl text-white/85 max-w-2xl mx-auto animate-slide-up delay-100">
-            Meet the amazing brands powering KidsFest — and join them!
+            Meet the brands powering Intellofest — and partner with us!
           </p>
         </div>
       </section>
 
-      {/* ───── Current Sponsors Showcase ───── */}
       <section className="py-16 sm:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Our Proud Sponsors ⭐</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Our Proud Partners ⭐</h2>
             <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-              Thank you to our incredible partners who make KidsFest possible!
+              Thank you to our incredible sponsors who make Intellofest possible!
             </p>
           </div>
-
           {loadingSponsors ? (
-            <div className="flex items-center justify-center py-12">
-              <Loader2 className="w-8 h-8 text-secondary animate-spin" />
-            </div>
+            <div className="flex items-center justify-center py-12"><Loader2 className="w-8 h-8 text-secondary animate-spin" /></div>
           ) : sponsors.length === 0 ? (
             <div className="text-center py-12 animate-fade-in">
               <div className="w-20 h-20 bg-orange-50 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Crown className="w-10 h-10 text-orange-300" />
               </div>
               <h3 className="text-xl font-bold text-gray-700 mb-2">Be Our First Sponsor!</h3>
-              <p className="text-gray-500 max-w-md mx-auto mb-6">
-                Sponsorship spots are now open. Get premium brand visibility to 10,000+ families!
-              </p>
-              <a href="#become-sponsor" className="inline-flex items-center gap-2 px-6 py-3 bg-secondary text-white font-bold rounded-full hover:bg-secondary-dark transition-all hover:scale-105">
-                Apply Now
-              </a>
+              <p className="text-gray-500 max-w-md mx-auto mb-6">Sponsorship spots are open. Get premium brand visibility to 2,000+ families!</p>
+              <a href="#become-sponsor" className="inline-flex items-center gap-2 px-6 py-3 bg-secondary text-white font-bold rounded-full hover:bg-secondary-dark transition-all hover:scale-105">Apply Now</a>
             </div>
           ) : (
             <div className="space-y-12">
@@ -135,7 +124,6 @@ export default function Exhibitor() {
                 if (!list || list.length === 0) return null;
                 const config = tierConfig[tier] || tierConfig['Stall / Booth'];
                 const TierIcon = config.badge;
-
                 return (
                   <div key={tier} className="animate-slide-up">
                     <div className="flex items-center justify-center gap-2 mb-6">
@@ -143,15 +131,12 @@ export default function Exhibitor() {
                       <h3 className="text-lg font-bold text-gray-700">{config.label}</h3>
                     </div>
                     <div className={`grid gap-4 ${
-                      tier === 'Title Sponsor' ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 max-w-3xl mx-auto' :
-                      tier === 'Gold Sponsor' ? 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-4' :
+                      tier === 'Title Sponsor' ? 'grid-cols-1 sm:grid-cols-2 max-w-3xl mx-auto' :
+                      tier === 'Platinum Sponsor' || tier === 'Gold Sponsor' ? 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-4' :
                       'grid-cols-2 sm:grid-cols-3 lg:grid-cols-5'
                     }`}>
                       {list.map((sponsor) => (
-                        <div
-                          key={sponsor._id}
-                          className={`${config.bg} rounded-2xl p-5 text-center ring-2 ${config.ring} ring-opacity-30 hover:shadow-lg transition-all duration-300 group hover:-translate-y-1`}
-                        >
+                        <div key={sponsor._id} className={`${config.bg} rounded-2xl p-5 text-center ring-2 ${config.ring} ring-opacity-30 hover:shadow-lg transition-all duration-300 group hover:-translate-y-1`}>
                           {sponsor.logoUrl ? (
                             <img src={sponsor.logoUrl} alt={sponsor.brandName} className="w-16 h-16 mx-auto mb-3 rounded-xl object-contain" />
                           ) : (
@@ -161,8 +146,7 @@ export default function Exhibitor() {
                           )}
                           <h4 className="font-bold text-gray-900 text-sm mb-1">{sponsor.brandName}</h4>
                           {sponsor.website && (
-                            <a href={sponsor.website} target="_blank" rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1 text-xs text-secondary hover:underline mt-1">
+                            <a href={sponsor.website} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs text-secondary hover:underline mt-1">
                               Visit <ExternalLink className="w-3 h-3" />
                             </a>
                           )}
@@ -172,86 +156,57 @@ export default function Exhibitor() {
                   </div>
                 );
               })}
-
-              {/* Ungrouped sponsors (no tier) */}
-              {groupedSponsors['Exhibitor'] && groupedSponsors['Exhibitor'].length > 0 && (
-                <div className="animate-slide-up">
-                  <div className="flex items-center justify-center gap-2 mb-6">
-                    <Building2 className="w-5 h-5 text-gray-500" />
-                    <h3 className="text-lg font-bold text-gray-700">🏪 Exhibitors</h3>
-                  </div>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-                    {groupedSponsors['Exhibitor'].map((sponsor) => (
-                      <div key={sponsor._id} className="bg-gray-50 rounded-2xl p-4 text-center hover:shadow-md transition-all group hover:-translate-y-1">
-                        <div className="w-12 h-12 mx-auto mb-2 rounded-lg bg-linear-to-br from-gray-300 to-gray-400 flex items-center justify-center shadow group-hover:scale-110 transition-transform">
-                          <span className="text-white font-bold text-lg">{sponsor.brandName.charAt(0).toUpperCase()}</span>
-                        </div>
-                        <h4 className="font-semibold text-gray-800 text-xs">{sponsor.brandName}</h4>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
             </div>
           )}
         </div>
       </section>
 
-      {/* ───── Sponsorship Tiers Available ───── */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Sponsorship Opportunities 📊</h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-              Choose the tier that best fits your brand and budget. Premium visibility guaranteed!
-            </p>
+            <p className="text-gray-600 text-lg max-w-2xl mx-auto">Tiered partnerships designed to maximize brand visibility and ROI.</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {[
-              { tier: 'Title Sponsor', emoji: '👑', perks: ['Largest logo on all materials', 'Exclusive naming rights', 'VIP booth placement', 'Social media features'], highlight: true },
-              { tier: 'Gold Sponsor', emoji: '🥇', perks: ['Prominent logo placement', 'Prime booth location', 'Stage announcements', 'Social media mentions'] },
-              { tier: 'Silver Sponsor', emoji: '🥈', perks: ['Logo on event banners', 'Standard booth space', 'Website listing', 'Certificate'] },
+              { tier: 'Title Sponsor', price: '₹10 Lakhs', emoji: '👑', perks: ['Event naming rights', 'All-media prominence', 'VIP booth', 'PR features'], highlight: true },
+              { tier: 'Platinum', price: '₹5 Lakhs', emoji: '💎', perks: ['Zone naming rights', 'Dedicated branded area', 'Stage mentions', 'Social media'] },
+              { tier: 'Gold', price: '₹3 Lakhs', emoji: '🥇', perks: ['Activity partner', 'Prime booth', 'Stage mentions', 'Social media'] },
+              { tier: 'Silver', price: '₹1.5 Lakhs', emoji: '🥈', perks: ['Brand visibility', 'Event collateral', 'Digital branding', 'Certificate'] },
             ].map((t) => (
               <div key={t.tier} className={`bg-white rounded-2xl p-6 border-2 hover:shadow-xl transition-all hover:-translate-y-1 ${t.highlight ? 'border-amber-400 relative' : 'border-gray-100'}`}>
-                {t.highlight && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-400 text-white text-xs font-bold px-4 py-1 rounded-full">
-                    MOST POPULAR
-                  </div>
-                )}
+                {t.highlight && <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-400 text-white text-xs font-bold px-4 py-1 rounded-full">NAMING RIGHTS</div>}
                 <div className="text-center mb-4">
                   <span className="text-4xl">{t.emoji}</span>
                   <h3 className="text-xl font-bold text-gray-900 mt-2">{t.tier}</h3>
+                  <p className="text-lg font-bold text-primary mt-1">{t.price}</p>
                 </div>
                 <ul className="space-y-2 mb-6">
                   {t.perks.map((p) => (
-                    <li key={p} className="flex items-center gap-2 text-sm text-gray-600">
-                      <CheckCircle className="w-4 h-4 text-green-500 shrink-0" /> {p}
+                    <li key={p} className="flex items-start gap-2 text-sm text-gray-600">
+                      <CheckCircle className="w-4 h-4 text-green-500 shrink-0 mt-0.5" /> {p}
                     </li>
                   ))}
                 </ul>
-                <a href="#become-sponsor"
-                  className={`block text-center py-2.5 rounded-xl font-bold text-sm transition-all ${t.highlight ? 'bg-secondary text-white hover:bg-secondary-dark' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}>
-                  Apply for {t.tier}
+                <a href="#become-sponsor" className={`block text-center py-2.5 rounded-xl font-bold text-sm transition-all ${t.highlight ? 'bg-secondary text-white hover:bg-secondary-dark' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}>
+                  Apply Now
                 </a>
               </div>
             ))}
           </div>
           <div className="text-center mt-8">
-            <p className="text-sm text-gray-500">Also available: <strong>Stall/Booth</strong> and <strong>Food Partner</strong> opportunities</p>
+            <p className="text-sm text-gray-500">Also available: <strong>Stall Partners</strong> — Exhibition booths with direct access to 2,000+ families</p>
           </div>
         </div>
       </section>
 
-      {/* ───── Become a Sponsor Form ───── */}
       <section id="become-sponsor" className="py-16 sm:py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Become a Sponsor 🤝</h2>
-            <p className="text-gray-600 text-lg">Fill out the form below and our team will get in touch!</p>
+            <p className="text-gray-600 text-lg">Fill out the form and our team will get in touch!</p>
           </div>
-
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-            {/* Form */}
             <div className="lg:col-span-3">
               <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 space-y-5 animate-slide-up border border-gray-100">
                 <div className="flex items-center gap-3 mb-2">
@@ -259,11 +214,10 @@ export default function Exhibitor() {
                     <Building2 className="w-5 h-5 text-orange-600" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold">Sponsor / Exhibitor Enquiry</h3>
+                    <h3 className="text-lg font-bold">Sponsorship Enquiry</h3>
                     <p className="text-sm text-gray-500">Tell us about your brand</p>
                   </div>
                 </div>
-
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Brand Name *</label>
                   <input type="text" value={form.brandName} onChange={(e) => setForm({ ...form, brandName: e.target.value })}
@@ -291,19 +245,19 @@ export default function Exhibitor() {
                   <select value={form.interestTier} onChange={(e) => setForm({ ...form, interestTier: e.target.value })}
                     className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-secondary focus:border-transparent outline-none">
                     <option value="">Select tier (optional)</option>
-                    <option value="Title Sponsor">Title Sponsor</option>
-                    <option value="Gold Sponsor">Gold Sponsor</option>
-                    <option value="Silver Sponsor">Silver Sponsor</option>
-                    <option value="Stall / Booth">Stall / Booth</option>
-                    <option value="Food Partner">Food Partner</option>
+                    <option value="Title Sponsor">Title Sponsor — ₹10 Lakhs</option>
+                    <option value="Platinum Sponsor">Platinum — ₹5 Lakhs</option>
+                    <option value="Gold Sponsor">Gold — ₹3 Lakhs</option>
+                    <option value="Silver Sponsor">Silver — ₹1.5 Lakhs</option>
+                    <option value="Stall / Booth">Stall Partner</option>
                     <option value="Other">Other</option>
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Brand Brochure (optional)</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Brochure (optional)</label>
                   <label className="flex items-center justify-center gap-2 px-4 py-5 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:border-secondary hover:bg-orange-50/50 transition-all">
                     <Upload className="w-5 h-5 text-gray-400" />
-                    <span className="text-sm text-gray-500">{brochure ? brochure.name : 'Click to upload PDF or image'}</span>
+                    <span className="text-sm text-gray-500">{brochure ? brochure.name : 'Upload PDF or image'}</span>
                     <input type="file" accept=".pdf,.jpg,.jpeg,.png,.webp" onChange={(e) => setBrochure(e.target.files?.[0] || null)} className="hidden" />
                   </label>
                 </div>
@@ -314,15 +268,13 @@ export default function Exhibitor() {
                 </button>
               </form>
             </div>
-
-            {/* Benefits */}
             <div className="lg:col-span-2 space-y-4 animate-slide-up delay-300">
-              <h3 className="text-lg font-bold text-gray-900 mb-2">Why Sponsor KidsFest? 📈</h3>
+              <h3 className="text-lg font-bold text-gray-900 mb-2">Why Sponsor Intellofest? 📈</h3>
               {[
-                { icon: Eye, title: '10,000+ Visitors', desc: 'Massive footfall of engaged families.' },
-                { icon: Star, title: 'Premium Branding', desc: 'Logo on all marketing materials.' },
-                { icon: Users, title: 'Direct Engagement', desc: 'Interact directly with your audience.' },
-                { icon: TrendingUp, title: 'Brand Recall', desc: 'Strong association with a loved event.' },
+                { icon: Eye, title: '2,000+ Premium Families', desc: 'Education-focused households with strong purchasing power.' },
+                { icon: Star, title: 'Innovation Positioning', desc: 'Align with cutting-edge STEM and future tech values.' },
+                { icon: Users, title: 'CSR Education Impact', desc: 'Tangible STEM education contributions for CSR reporting.' },
+                { icon: TrendingUp, title: 'Lead Gen & Amplification', desc: 'On-ground engagement + social media visibility.' },
               ].map((p) => {
                 const Icon = p.icon;
                 return (

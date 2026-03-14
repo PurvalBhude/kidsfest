@@ -4,11 +4,11 @@ import api from '../api/axios';
 import LoadingSpinner from '../components/LoadingSpinner';
 import {
   Sparkles, Ticket, Users, Building2, Calendar, MapPin,
-  ArrowRight, Star, Music, Palette, Trophy, Heart,
-  ChevronDown, Shield, Clock, Gift,
+  ArrowRight, Star, ChevronDown, Cpu, Rocket, Lightbulb, Microscope,
+  Zap, Cog,
 } from 'lucide-react';
 
-const funIcons = [Star, Music, Palette, Trophy, Heart, Sparkles];
+const funIcons = [Star, Cpu, Rocket, Lightbulb, Microscope, Sparkles];
 
 export default function Home() {
   const [settings, setSettings] = useState(null);
@@ -30,12 +30,14 @@ export default function Home() {
   if (loading) return <LoadingSpinner />;
 
   const faqs = [
-    { q: 'What age group is KidsFest for?', a: 'KidsFest is designed for kids of all ages, from toddlers to teens! Each activity is tailored for specific age groups so everyone has a blast.' },
-    { q: 'How do I book tickets?', a: 'Simply click the "Get Your Tickets" button, select the passes you want, and proceed to our secure checkout powered by Razorpay.' },
-    { q: 'Can I cancel or refund my tickets?', a: 'Tickets are non-refundable but can be transferred to another person. Contact our support team for assistance.' },
-    { q: 'Is food available at the venue?', a: 'Yes! We have a wide variety of food stalls offering delicious and kid-friendly options throughout the event.' },
-    { q: 'Is parking available?', a: 'Yes, ample parking is available at the venue. We recommend arriving early as spots fill up fast!' },
-    { q: 'What should I bring?', a: 'Bring your enthusiasm! We recommend comfortable clothing, sunscreen, and a water bottle. Everything else is provided by us.' },
+    { q: 'What is Intellofest?', a: 'Intellofest is a two-day mega STEM & Innovation Carnival — an electrifying collision of science, robotics, space, AI, engineering, and maker culture, all under one roof, designed to ignite curiosity in thousands of young minds.' },
+    { q: 'What age group is Intellofest for?', a: 'Intellofest is designed for children ages 4–14, along with their parents and educators. Every zone and activity is curated for specific age groups.' },
+    { q: 'How do I book tickets?', a: 'Click the "Get Your Passes" button, select the passes you want, and proceed to our secure checkout powered by Razorpay. You\'ll receive an e-ticket instantly.' },
+    { q: 'Can I cancel or refund my tickets?', a: 'Tickets are non-refundable but fully transferable. Contact our support team if you\'d like to transfer to another person.' },
+    { q: 'Is there a group / bulk booking discount?', a: 'Yes! Select 5 or more passes of the same type to unlock automatic group discounts at checkout.' },
+    { q: 'Is food & parking available?', a: 'Yes! We have a curated food court with kid-friendly options, and ample parking is available near the venue. Arrive early as spots fill up fast.' },
+    { q: 'What activities can kids expect?', a: 'From drone shows and AR/VR zones to robotics showcases, 3D printing, rocketry, science fire shows, maker challenges, and 25+ DIY activity stalls — there\'s something for every young innovator!' },
+    { q: 'Are there sessions for parents?', a: 'Absolutely! We have expert panel discussions, new-age parenting roundtables, live podcasts, and drawing-based child analysis workshops for adults.' },
   ];
 
   return (
@@ -46,7 +48,7 @@ export default function Home() {
           <div className="absolute -top-20 -left-20 w-80 h-80 bg-secondary/20 rounded-full blur-3xl animate-float-slow" />
           <div className="absolute -bottom-20 -right-20 w-96 h-96 bg-accent/20 rounded-full blur-3xl animate-float-slow delay-300" />
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-white/5 rounded-full" />
-          {['🎈', '🎨', '🎭', '🎪', '🎠', '🎡', '⭐', '🎵', '🎸', '🎤'].map((emoji, i) => (
+          {['🚀', '🤖', '🔬', '⚡', '🛸', '💡', '⭐', '🧬', '🔭', '🧪'].map((emoji, i) => (
             <span
               key={i}
               className="absolute text-2xl sm:text-3xl opacity-25 animate-float"
@@ -70,16 +72,17 @@ export default function Home() {
             </span>
           </div>
 
+          <p className="text-xs uppercase tracking-[0.25em] text-white/60 font-bold mb-3 animate-slide-up delay-75">By TinkerDen</p>
           <h1 className="text-5xl sm:text-6xl lg:text-8xl font-bold text-white mb-6 leading-tight animate-slide-up delay-100">
             Welcome to{' '}
             <span className="text-secondary drop-shadow-lg animate-wiggle inline-block">
-              {settings?.eventName || 'KidsFest'} 🎉
+              {settings?.eventName || 'Intellofest 2026'} 🚀
             </span>
           </h1>
 
           <p className="text-lg sm:text-xl text-white/80 max-w-2xl mx-auto mb-8 leading-relaxed animate-slide-up delay-200">
-            The ultimate fun-filled festival for kids! 🎨 Art, 🎵 Music, 🎭 Drama, 🏆 Games
-            and so much more. An unforgettable experience for the whole family!
+            Surat's Biggest Kids STEM & Innovation Carnival! 🔬 Science, 🤖 Robotics, 🚀 Space, 💡 AI & Engineering
+            — an electrifying experience for the whole family!
           </p>
 
           {settings?.venue && (
@@ -111,7 +114,7 @@ export default function Home() {
         <div className="animate-marquee whitespace-nowrap flex gap-8 items-center text-white font-bold text-sm">
           {[...Array(2)].map((_, rep) => (
             <span key={rep} className="flex gap-8 items-center">
-              {['🎨 Creative Arts', '🎵 Live Music', '🎭 Drama & Theatre', '🏆 Competitions', '🍕 Food Stalls', '🎠 Carnival Rides', '📚 Book Fest', '🎪 Magic Shows'].map((f) => (
+              {['🤖 Robotics Arena', '🚀 Rocketry & 3D Printing', '🔬 Mega Science Show', '🛸 Drone Performances', '🥽 AR/VR Zones', '🔭 Smart Planetarium', '⚡ Maker Challenges', '🧬 25+ DIY Stalls'].map((f) => (
                 <span key={`${rep}-${f}`} className="flex items-center gap-2 px-4">{f}</span>
               ))}
             </span>
@@ -124,18 +127,18 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-              Why Choose KidsFest? ✨
+              Why Intellofest? ✨
             </h2>
             <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-              Everything fun in store — crafted to spark creativity, joy, and unforgettable memories.
+              A movement, not just a moment — positioning Surat as a hub of future-ready learning.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: Palette, title: 'Creative Workshops', desc: 'Hands-on art, craft, and DIY sessions guided by expert artists.', color: 'bg-purple-100 text-purple-600' },
-              { icon: Music, title: 'Live Performances', desc: 'Music, drama, comedy, and dance shows that wow every age group.', color: 'bg-pink-100 text-pink-600' },
-              { icon: Shield, title: 'Safe & Secure', desc: 'Child-safe environment with trained staff, CCTV, and first-aid.', color: 'bg-green-100 text-green-600' },
-              { icon: Gift, title: 'Goodies & Prizes', desc: 'Exciting giveaways, competitions, and take-home treasures.', color: 'bg-amber-100 text-amber-600' },
+              { icon: Microscope, title: 'Experiential STEM', desc: 'Learning by doing — every zone is built around tactile, real-world scientific exploration that makes concepts stick.', color: 'bg-purple-100 text-purple-600' },
+              { icon: Cog, title: 'Hands-On Engineering', desc: 'From building circuits to launching rockets, kids become engineers — designing, testing, and iterating in real time.', color: 'bg-blue-100 text-blue-600' },
+              { icon: Lightbulb, title: 'Innovation Mindset', desc: 'Cultivating creative problem-solving and entrepreneurial thinking from an early age through challenge-based learning.', color: 'bg-green-100 text-green-600' },
+              { icon: Cpu, title: 'Future Technologies', desc: 'AI, AR/VR, 3D printing, drones, and robotics — giving children firsthand access to the tools shaping tomorrow.', color: 'bg-amber-100 text-amber-600' },
             ].map((f) => {
               const Icon = f.icon;
               return (
@@ -158,10 +161,10 @@ export default function Home() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-                Exciting Activities 🎪
+                Hero Highlights & Activities 🔬
               </h2>
               <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-                From creative workshops to thrilling performances, there's something for every kid!
+                From drone shows to robotics arenas, every experience is designed for spectacle, awe, and deep learning.
               </p>
             </div>
 
@@ -227,7 +230,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Get Involved 🤝</h2>
-            <p className="text-gray-600 text-lg">Be a part of the KidsFest magic!</p>
+            <p className="text-gray-600 text-lg">Be a part of the Intellofest movement!</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <Link
@@ -235,9 +238,9 @@ export default function Home() {
               className="group bg-linear-to-br from-primary to-purple-700 rounded-2xl p-8 text-white hover:shadow-2xl transition-all hover:-translate-y-1"
             >
               <Ticket className="w-10 h-10 mb-4 group-hover:animate-wiggle" />
-              <h3 className="text-2xl font-bold mb-2">Get Tickets 🎟️</h3>
+              <h3 className="text-2xl font-bold mb-2">Get Passes 🎟️</h3>
               <p className="text-white/80 mb-4">
-                Book your passes now and join the biggest kids festival!
+                Book your passes now and join Surat's biggest STEM carnival!
               </p>
               <span className="inline-flex items-center gap-1 font-semibold group-hover:gap-3 transition-all">
                 Book Now <ArrowRight className="w-5 h-5" />
@@ -251,7 +254,7 @@ export default function Home() {
               <Users className="w-10 h-10 mb-4 group-hover:animate-wiggle" />
               <h3 className="text-2xl font-bold mb-2">Volunteer 🙋</h3>
               <p className="text-white/80 mb-4">
-                Be a part of our amazing volunteer team and make a difference!
+                Join our crew and help create magical STEM moments for kids!
               </p>
               <span className="inline-flex items-center gap-1 font-semibold group-hover:gap-3 transition-all">
                 Join Us <ArrowRight className="w-5 h-5" />
@@ -263,9 +266,9 @@ export default function Home() {
               className="group bg-linear-to-br from-secondary to-orange-500 rounded-2xl p-8 text-white hover:shadow-2xl transition-all hover:-translate-y-1"
             >
               <Building2 className="w-10 h-10 mb-4 group-hover:animate-wiggle" />
-              <h3 className="text-2xl font-bold mb-2">Exhibit 🏪</h3>
+              <h3 className="text-2xl font-bold mb-2">Sponsor 🏢</h3>
               <p className="text-white/80 mb-4">
-                Showcase your brand to thousands of families at KidsFest!
+                Partner with Intellofest and reach 2,000+ premium families!
               </p>
               <span className="inline-flex items-center gap-1 font-semibold group-hover:gap-3 transition-all">
                 Learn More <ArrowRight className="w-5 h-5" />
@@ -288,10 +291,10 @@ export default function Home() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
-              { num: '50+', label: 'Activities' },
-              { num: '10K+', label: 'Kids Expected' },
-              { num: '100+', label: 'Performers' },
-              { num: '3', label: 'Fun-Filled Days' },
+              { num: '25+', label: 'DIY Activity Stalls' },
+              { num: '2K+', label: 'Attendees Expected' },
+              { num: '10+', label: 'High-Impact Shows' },
+              { num: '2', label: 'Day Mega Festival' },
             ].map((s, i) => (
               <div key={s.label} className="animate-count-up" style={{ animationDelay: `${i * 0.15}s` }}>
                 <div className="text-4xl sm:text-5xl font-bold mb-1">{s.num}</div>
@@ -307,13 +310,13 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">What Parents Say 💬</h2>
-            <p className="text-gray-600 text-lg">Hear from families who loved KidsFest!</p>
+            <p className="text-gray-600 text-lg">Hear from families who experienced TinkerDen events!</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { name: 'Priya Sharma', text: 'My kids had the time of their lives! The art workshop was brilliant. Can\'t wait for next year!', role: 'Mother of 2' },
-              { name: 'Rahul Mehta', text: 'Amazingly organized event. Safe, fun, and educational. The live performances were outstanding!', role: 'Father of 1' },
-              { name: 'Anita Desai', text: 'Best kids festival in the city! My daughter loved the dance workshops and the carnival rides.', role: 'Mother of 3' },
+              { name: 'Priya Sharma', text: 'My son built his first robot and launched a rocket — all in one day! TinkerDen makes STEM genuinely exciting for kids.', role: 'Mother of 2' },
+              { name: 'Rahul Mehta', text: 'Amazingly organized event. The drone show and AR/VR zones blew our minds. My daughter hasn\'t stopped talking about it!', role: 'Father' },
+              { name: 'Anita Desai', text: 'The best STEM event in Gujarat. My kids loved the maker challenges and the science fire show was spectacular!', role: 'Mother of 3' },
             ].map((t, i) => (
               <div key={t.name} className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 animate-slide-up" style={{ animationDelay: `${i * 0.15}s` }}>
                 <div className="flex gap-1 mb-4">
@@ -339,7 +342,7 @@ export default function Home() {
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
               Frequently Asked Questions ❓
             </h2>
-            <p className="text-gray-600 text-lg">Everything you need to know about KidsFest</p>
+            <p className="text-gray-600 text-lg">Everything you need to know about Intellofest</p>
           </div>
           <div className="space-y-3">
             {faqs.map((faq, i) => (
@@ -363,9 +366,9 @@ export default function Home() {
       {/* ───── Final CTA ───── */}
       <section className="py-16 sm:py-20 bg-linear-to-r from-primary to-accent text-white text-center">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">Ready for the Adventure? 🚀</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-4">Ready to Ignite Curiosity? 🚀</h2>
           <p className="text-white/80 text-lg mb-8">
-            Limited passes available. Don't miss out on the most exciting kids festival!
+            Limited passes available. Don't miss Surat's biggest STEM & Innovation Carnival!
           </p>
           <Link
             to="/passes"

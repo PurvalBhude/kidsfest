@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import api from '../api/axios';
 import LoadingSpinner from '../components/LoadingSpinner';
-import { Search, Filter, Star, Music, Palette, Trophy, Heart, Sparkles } from 'lucide-react';
+import { Search, Filter, Star, Cpu, Rocket, Lightbulb, Microscope, Sparkles } from 'lucide-react';
 
-const funIcons = [Star, Music, Palette, Trophy, Heart, Sparkles];
+const funIcons = [Star, Cpu, Rocket, Lightbulb, Microscope, Sparkles];
 
 export default function Activities() {
   const [activities, setActivities] = useState([]);
@@ -40,7 +40,7 @@ export default function Activities() {
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-10 -left-10 w-60 h-60 bg-white/10 rounded-full blur-2xl" />
           <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-pink-300/15 rounded-full blur-2xl" />
-          {['🎨', '🎭', '🎵', '🏆', '🎪'].map((e, i) => (
+          {['🤖', '🚀', '🔬', '⚡', '💡'].map((e, i) => (
             <span key={i} className="absolute text-3xl opacity-20 animate-float"
               style={{ top: `${10 + i * 18}%`, left: `${5 + i * 20}%`, animationDelay: `${i * 0.6}s` }}>
               {e}
@@ -49,10 +49,10 @@ export default function Activities() {
         </div>
         <div className="relative max-w-4xl mx-auto px-4">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 animate-slide-up">
-            Activities & Fun 🎪
+            Activities & Experiences 🔬
           </h1>
           <p className="text-lg sm:text-xl text-white/85 max-w-2xl mx-auto animate-slide-up delay-100">
-            Discover all the exciting activities waiting for you at KidsFest!
+            Discover 25+ hands-on STEM activities, maker challenges, and live shows at Intellofest!
           </p>
         </div>
       </section>

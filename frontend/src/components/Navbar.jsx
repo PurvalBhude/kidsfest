@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, PartyPopper } from 'lucide-react';
+import { Menu, X, Rocket } from 'lucide-react';
 
 const links = [
   { to: '/', label: 'Home' },
   { to: '/activities', label: 'Activities' },
-  { to: '/passes', label: 'Tickets' },
+  { to: '/passes', label: 'Passes' },
   { to: '/volunteer', label: 'Volunteer' },
-  { to: '/exhibitor', label: 'Exhibitor' },
+  { to: '/exhibitor', label: 'Sponsors' },
 ];
 
 export default function Navbar({ banner }) {
@@ -25,8 +25,8 @@ export default function Navbar({ banner }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Link to="/" className="flex items-center gap-2 font-bold text-xl text-primary">
-              <PartyPopper className="w-7 h-7 text-secondary" />
-              <span className="font-heading">KidsFest</span>
+              <Rocket className="w-7 h-7 text-secondary" />
+              <span className="font-heading">Intellofest</span>
             </Link>
 
             <div className="hidden md:flex items-center gap-1">

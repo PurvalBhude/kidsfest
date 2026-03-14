@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { PartyPopper, Mail, Phone, MapPin } from 'lucide-react';
+import { Rocket, Mail, Phone, MapPin } from 'lucide-react';
 
 export default function Footer({ settings }) {
   return (
@@ -8,12 +8,13 @@ export default function Footer({ settings }) {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-1">
             <Link to="/" className="flex items-center gap-2 text-white font-bold text-xl mb-4">
-              <PartyPopper className="w-7 h-7 text-secondary" />
-              <span className="font-heading">{settings?.eventName || 'KidsFest'}</span>
+              <Rocket className="w-7 h-7 text-secondary" />
+              <span className="font-heading">{settings?.eventName || 'Intellofest'}</span>
             </Link>
             <p className="text-sm leading-relaxed">
-              The ultimate festival for kids! Fun activities, exciting shows, and unforgettable memories.
+              Surat's biggest STEM & Innovation Carnival for kids! Robotics, science, maker culture, and unforgettable experiences.
             </p>
+            <p className="text-xs mt-2 text-gray-500">Powered by TinkerDen</p>
           </div>
 
           <div>
@@ -21,9 +22,9 @@ export default function Footer({ settings }) {
             <ul className="space-y-2 text-sm">
               <li><Link to="/" className="hover:text-white transition-colors">Home</Link></li>
               <li><Link to="/activities" className="hover:text-white transition-colors">Activities</Link></li>
-              <li><Link to="/passes" className="hover:text-white transition-colors">Tickets</Link></li>
+              <li><Link to="/passes" className="hover:text-white transition-colors">Passes</Link></li>
               <li><Link to="/volunteer" className="hover:text-white transition-colors">Volunteer</Link></li>
-              <li><Link to="/exhibitor" className="hover:text-white transition-colors">Exhibitor</Link></li>
+              <li><Link to="/exhibitor" className="hover:text-white transition-colors">Sponsors</Link></li>
             </ul>
           </div>
 
@@ -46,7 +47,7 @@ export default function Footer({ settings }) {
             <h4 className="text-white font-semibold mb-4">Contact</h4>
             <ul className="space-y-2 text-sm">
               <li className="flex items-center gap-2">
-                <Mail className="w-4 h-4" /> info@kidsfest.com
+                <Mail className="w-4 h-4" /> info@intellofest.com
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="w-4 h-4" /> +91 98765 43210
@@ -56,7 +57,7 @@ export default function Footer({ settings }) {
         </div>
 
         <div className="border-t border-gray-800 mt-8 pt-6 text-center text-sm">
-          <p>&copy; {new Date().getFullYear()} {settings?.eventName || 'KidsFest'}. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} {settings?.eventName || 'Intellofest'} by TinkerDen. All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -61,7 +61,7 @@ export default function Volunteer() {
         <div className="relative max-w-4xl mx-auto px-4">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 animate-slide-up">Become a Volunteer 🙋</h1>
           <p className="text-lg sm:text-xl text-white/85 max-w-2xl mx-auto animate-slide-up delay-100">
-            Join our incredible team and help make KidsFest magical for thousands of kids!
+            Join our incredible team and help make Intellofest magical for thousands of young innovators!
           </p>
         </div>
       </section>
@@ -102,10 +102,11 @@ export default function Volunteer() {
                   className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none">
                   <option value="">Select a role (optional)</option>
                   <option value="Event Coordination">Event Coordination</option>
-                  <option value="Activity Management">Activity Management</option>
+                  <option value="Activity Management">Activity / Stall Management</option>
                   <option value="Registration Desk">Registration Desk</option>
-                  <option value="Stage Management">Stage Management</option>
-                  <option value="Crowd Management">Crowd Management</option>
+                  <option value="Stage Management">Stage & Show Management</option>
+                  <option value="STEM Zone Support">STEM Zone Support</option>
+                  <option value="Arena Support">Arena Zone Support</option>
                   <option value="First Aid">First Aid</option>
                   <option value="Other">Other</option>
                 </select>
@@ -125,7 +126,7 @@ export default function Volunteer() {
               { icon: Star, title: 'Certificate & Recognition', desc: 'Get an official volunteer certificate.' },
               { icon: Clock, title: 'Flexible Shifts', desc: 'Choose shifts that fit your schedule.' },
               { icon: Shield, title: 'Free Entry & Meals', desc: 'Complimentary festival access and meals.' },
-              { icon: Heart, title: 'Make a Difference', desc: 'Help create magical moments for kids!' },
+              { icon: Heart, title: 'Make a Difference', desc: 'Help ignite curiosity in young minds!' },
             ].map((p) => {
               const Icon = p.icon;
               return (

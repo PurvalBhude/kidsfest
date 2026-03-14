@@ -59,7 +59,7 @@ export default function Passes() {
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-10 -right-10 w-60 h-60 bg-white/10 rounded-full blur-2xl" />
           <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-yellow-300/15 rounded-full blur-2xl" />
-          {['🎟️', '🎪', '🎠', '🎡'].map((e, i) => (
+          {['🎟️', '🤖', '🚀', '🔬'].map((e, i) => (
             <span key={i} className="absolute text-3xl opacity-20 animate-float"
               style={{ top: `${15 + i * 20}%`, left: `${10 + i * 22}%`, animationDelay: `${i * 0.8}s` }}>
               {e}
@@ -72,7 +72,7 @@ export default function Passes() {
           </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">Get Your Passes 🎟️</h1>
           <p className="text-lg sm:text-xl text-white/85 max-w-2xl mx-auto">
-            Choose from various pass types and secure your spot at the most exciting kids festival!
+            Choose from various pass types and secure your spot at Surat's biggest STEM & Innovation Carnival!
           </p>
         </div>
       </section>
@@ -174,7 +174,7 @@ export default function Passes() {
               {[
                 { icon: Shield, text: '100% Secure Payment' },
                 { icon: Ticket, text: 'Instant E-Ticket' },
-                { icon: Star, text: '5000+ Happy Families' },
+                { icon: Star, text: '2000+ Happy Families' },
               ].map((badge) => {
                 const Icon = badge.icon;
                 return (
