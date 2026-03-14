@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Rocket } from 'lucide-react';
+import { useEffect } from 'react';
+import api from '../api/axios';
+import LoadingSpinner from '../components/LoadingSpinner';
+
+
 
 const links = [
   { to: '/', label: 'Home' },
@@ -10,9 +15,28 @@ const links = [
   { to: '/exhibitor', label: 'Sponsors' },
 ];
 
-export default function Navbar({ banner }) {
+ 
+
+
+export default function Navbar({ banner = {} }) {
   const [open, setOpen] = useState(false);
+  const [settings, setSettings] = useState(null);
+  const [activities, setActivities] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    api.get('/public/data')
+      .then(({ data }) => {
+        const d = data.data || data;
+        setSettings(d.settings);
+        setActivities(d.activities || []);
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
+
+  if (loading) return <LoadingSpinner />;
 
   return (
     <>
@@ -26,7 +50,7 @@ export default function Navbar({ banner }) {
           <div className="flex items-center justify-between h-16">
             <Link to="/" className="flex items-center gap-2 font-bold text-xl text-primary">
               <Rocket className="w-7 h-7 text-secondary" />
-              <span className="font-heading">Intellofest</span>
+              <span className="font-heading">{settings?.eventName || 'Kid-O-Fest 2026'}</span>
             </Link>
 
             <div className="hidden md:flex items-center gap-1">

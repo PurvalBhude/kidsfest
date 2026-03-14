@@ -44,11 +44,27 @@ export default function Home() {
     <div>
       {/* ───── Hero Section ───── */}
       <section className="relative overflow-hidden bg-linear-to-br from-primary via-purple-600 to-accent min-h-[85vh] flex items-center">
+        {/* YouTube Video Background */}
+        <div className="absolute inset-0 overflow-hidden">
+          <iframe
+            className="absolute inset-0 w-full h-full object-cover"
+            src="https://www.youtube.com/embed/UWD7FS7QVMQ?si=XPnxKFr6f0CI5eM7&autoplay=1&mute=1&controls=0&loop=1&playlist=UWD7FS7QVMQ&modestbranding=1&rel=0"
+            title="Intellofest Background Video"
+            allow="autoplay; encrypted-media"
+            allowFullScreen
+            style={{
+              border: 'none',
+              opacity: 0.9,
+            }}
+          />
+          <div className="absolute inset-0 bg-black/40" />
+        </div>
+        
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-20 -left-20 w-80 h-80 bg-secondary/20 rounded-full blur-3xl animate-float-slow" />
           <div className="absolute -bottom-20 -right-20 w-96 h-96 bg-accent/20 rounded-full blur-3xl animate-float-slow delay-300" />
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-white/5 rounded-full" />
-          {['🚀', '🤖', '🔬', '⚡', '🛸', '💡', '⭐', '🧬', '🔭', '🧪'].map((emoji, i) => (
+          {/* {['🚀', '🤖', '🔬', '⚡', '🛸', '💡', '⭐', '🧬', '🔭', '🧪'].map((emoji, i) => (
             <span
               key={i}
               className="absolute text-2xl sm:text-3xl opacity-25 animate-float"
@@ -61,10 +77,10 @@ export default function Home() {
             >
               {emoji}
             </span>
-          ))}
+          ))} */}
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
           <div className="inline-flex items-center gap-2 glass rounded-full px-5 py-2 mb-6 animate-slide-up">
             <Calendar className="w-4 h-4 text-white" />
             <span className="text-white text-sm font-semibold">
@@ -76,7 +92,7 @@ export default function Home() {
           <h1 className="text-5xl sm:text-6xl lg:text-8xl font-bold text-white mb-6 leading-tight animate-slide-up delay-100">
             Welcome to{' '}
             <span className="text-secondary drop-shadow-lg animate-wiggle inline-block">
-              {settings?.eventName || 'Intellofest 2026'} 🚀
+              {settings?.eventName || 'Intellofest 2026'} 
             </span>
           </h1>
 
@@ -110,7 +126,7 @@ export default function Home() {
       </section>
 
       {/* ───── Marquee Strip ───── */}
-      <section className="bg-primary py-3 overflow-hidden">
+      {/* <section className="bg-primary py-3 overflow-hidden">
         <div className="animate-marquee whitespace-nowrap flex gap-8 items-center text-white font-bold text-sm">
           {[...Array(2)].map((_, rep) => (
             <span key={rep} className="flex gap-8 items-center">
@@ -120,14 +136,14 @@ export default function Home() {
             </span>
           ))}
         </div>
-      </section>
+      </section> */}
 
       {/* ───── Why KidsFest ───── */}
       <section className="py-16 sm:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-              Why Intellofest? ✨
+              Why {settings?.eventName || 'Intellofest 2026'}? ✨
             </h2>
             <p className="text-gray-600 text-lg max-w-2xl mx-auto">
               A movement, not just a moment — positioning Surat as a hub of future-ready learning.
@@ -235,44 +251,65 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <Link
               to="/passes"
-              className="group bg-linear-to-br from-primary to-purple-700 rounded-2xl p-8 text-white hover:shadow-2xl transition-all hover:-translate-y-1"
+              className="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all hover:-translate-y-1 h-80"
             >
-              <Ticket className="w-10 h-10 mb-4 group-hover:animate-wiggle" />
-              <h3 className="text-2xl font-bold mb-2">Get Passes 🎟️</h3>
-              <p className="text-white/80 mb-4">
-                Book your passes now and join Surat's biggest STEM carnival!
-              </p>
-              <span className="inline-flex items-center gap-1 font-semibold group-hover:gap-3 transition-all">
-                Book Now <ArrowRight className="w-5 h-5" />
-              </span>
+              <img
+                src="https://kukdukoo.com/images/exhibit-flea.jpg"
+                alt="Get Passes"
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+              <div className="relative z-10 h-full flex flex-col justify-end p-8 text-white">
+                <h3 className="text-2xl font-bold mb-2">Get Passes 🎟️</h3>
+                <p className="text-white/90 mb-4">
+                  Book your passes now and join Surat's biggest STEM carnival!
+                </p>
+                <span className="inline-flex items-center gap-1 font-semibold group-hover:gap-3 transition-all w-fit">
+                  Book Now <ArrowRight className="w-5 h-5" />
+                </span>
+              </div>
             </Link>
 
             <Link
               to="/volunteer"
-              className="group bg-linear-to-br from-green-500 to-emerald-600 rounded-2xl p-8 text-white hover:shadow-2xl transition-all hover:-translate-y-1"
+              className="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all hover:-translate-y-1 h-80"
             >
-              <Users className="w-10 h-10 mb-4 group-hover:animate-wiggle" />
-              <h3 className="text-2xl font-bold mb-2">Volunteer 🙋</h3>
-              <p className="text-white/80 mb-4">
-                Join our crew and help create magical STEM moments for kids!
-              </p>
-              <span className="inline-flex items-center gap-1 font-semibold group-hover:gap-3 transition-all">
-                Join Us <ArrowRight className="w-5 h-5" />
-              </span>
+              <img
+                src="https://kukdukoo.com/images/exhibit-expo.jpg"
+                alt="Volunteer"
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+              <div className="relative z-10 h-full flex flex-col justify-end p-8 text-white">
+                <h3 className="text-2xl font-bold mb-2">Volunteer 🙋</h3>
+                <p className="text-white/90 mb-4">
+                  Join our crew and help create magical STEM moments for kids!
+                </p>
+                <span className="inline-flex items-center gap-1 font-semibold group-hover:gap-3 transition-all w-fit">
+                  Join Us <ArrowRight className="w-5 h-5" />
+                </span>
+              </div>
             </Link>
 
             <Link
               to="/exhibitor"
-              className="group bg-linear-to-br from-secondary to-orange-500 rounded-2xl p-8 text-white hover:shadow-2xl transition-all hover:-translate-y-1"
+              className="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all hover:-translate-y-1 h-80"
             >
-              <Building2 className="w-10 h-10 mb-4 group-hover:animate-wiggle" />
-              <h3 className="text-2xl font-bold mb-2">Sponsor 🏢</h3>
-              <p className="text-white/80 mb-4">
-                Partner with Intellofest and reach 2,000+ premium families!
-              </p>
-              <span className="inline-flex items-center gap-1 font-semibold group-hover:gap-3 transition-all">
-                Learn More <ArrowRight className="w-5 h-5" />
-              </span>
+              <img
+                src="https://kukdukoo.com/images/exhibit-sponsor.jpg"
+                alt="Sponsor"
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+              <div className="relative z-10 h-full flex flex-col justify-end p-8 text-white">
+                <h3 className="text-2xl font-bold mb-2">Sponsor 🏢</h3>
+                <p className="text-white/90 mb-4">
+                  Partner with Intellofest and reach 2,000+ premium families!
+                </p>
+                <span className="inline-flex items-center gap-1 font-semibold group-hover:gap-3 transition-all w-fit">
+                  Learn More <ArrowRight className="w-5 h-5" />
+                </span>
+              </div>
             </Link>
           </div>
         </div>
@@ -280,6 +317,16 @@ export default function Home() {
 
       {/* ───── Stats ───── */}
       <section className="py-16 bg-linear-to-r from-primary via-purple-600 to-accent text-white relative overflow-hidden">
+        {/* Background Image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: 'url(https://kukdukoo.com/images/exhibit-banner.jpg)',
+            opacity: 0.9,
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/80 via-purple-600/80 to-accent/80" />
+        
         <div className="absolute inset-0 overflow-hidden">
           {['✨', '🌟', '💫'].map((e, i) => (
             <span key={i} className="absolute text-4xl opacity-10 animate-float"
@@ -288,7 +335,7 @@ export default function Home() {
             </span>
           ))}
         </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
               { num: '25+', label: 'DIY Activity Stalls' },
@@ -364,8 +411,18 @@ export default function Home() {
       </section>
 
       {/* ───── Final CTA ───── */}
-      <section className="py-16 sm:py-20 bg-linear-to-r from-primary to-accent text-white text-center">
-        <div className="max-w-4xl mx-auto px-4">
+      <section className="py-16 sm:py-20 bg-linear-to-r from-primary to-accent text-white text-center relative overflow-hidden">
+        {/* Background Image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: 'url(https://kukdukoo.com/images/exhibit-banner.jpg)',
+            opacity: 0.9,
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-accent/80" />
+        
+        <div className="relative z-10 max-w-4xl mx-auto px-4">
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">Ready to Ignite Curiosity? 🚀</h2>
           <p className="text-white/80 text-lg mb-8">
             Limited passes available. Don't miss Surat's biggest STEM & Innovation Carnival!
