@@ -5,12 +5,18 @@ import { Building2, Loader2, CheckCircle, Upload, Star, Users, TrendingUp, Eye, 
 import { Link } from 'react-router-dom';
 
 const tierConfig = {
-  'Title Sponsor': { color: 'from-yellow-400 to-amber-500', badge: Crown, label: '👑 Title Sponsor', ring: 'ring-amber-400', bg: 'bg-amber-50' },
-  'Platinum Sponsor': { color: 'from-indigo-400 to-purple-500', badge: Award, label: '💎 Platinum', ring: 'ring-purple-400', bg: 'bg-purple-50' },
-  'Gold Sponsor': { color: 'from-yellow-300 to-yellow-500', badge: Award, label: '🥇 Gold', ring: 'ring-yellow-400', bg: 'bg-yellow-50' },
-  'Silver Sponsor': { color: 'from-gray-300 to-gray-400', badge: Medal, label: '🥈 Silver', ring: 'ring-gray-400', bg: 'bg-gray-100' },
-  'Stall / Booth': { color: 'from-orange-400 to-orange-500', badge: Building2, label: '🏪 Stall Partner', ring: 'ring-orange-300', bg: 'bg-orange-50' },
-  'Food Partner': { color: 'from-red-400 to-red-500', badge: Star, label: '🍕 Food Partner', ring: 'ring-red-300', bg: 'bg-red-50' },
+  'Title Sponsor': { color: '#f59e0b', badge: Crown, label: '👑 Title Sponsor', border: '#f59e0b', bg: '#fffbeb' },
+  'Platinum Sponsor': { color: '#8b5cf6', badge: Award, label: '💎 Platinum', border: '#8b5cf6', bg: '#f5f3ff' },
+  'Gold Sponsor': { color: '#d97706', badge: Award, label: '🥇 Gold', border: '#d97706', bg: '#fffbeb' },
+  'Silver Sponsor': { color: '#6b7280', badge: Medal, label: '🥈 Silver', border: '#9ca3af', bg: '#f9fafb' },
+  'Stall / Booth': { color: '#f7941d', badge: Building2, label: '🏪 Stall Partner', border: '#f7941d', bg: '#fff7ed' },
+  'Food Partner': { color: '#e63228', badge: Star, label: '🍕 Food Partner', border: '#e63228', bg: '#fff0f0' },
+};
+
+const inputStyle = {
+  width: '100%', padding: '0.85rem 1rem', borderRadius: '12px',
+  border: '2px solid #e8e4dc', outline: 'none', fontFamily: 'Signika, sans-serif',
+  fontSize: '0.95rem', color: '#333', background: '#faf9f6', boxSizing: 'border-box',
 };
 
 export default function Exhibitor() {
@@ -55,16 +61,17 @@ export default function Exhibitor() {
 
   if (submitted) {
     return (
-      <div className="min-h-screen bg-linear-to-br from-orange-50 to-amber-100 flex items-center justify-center px-4">
-        <div className="bg-white rounded-3xl shadow-xl p-8 sm:p-12 text-center max-w-md w-full animate-slide-up">
-          <div className="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <CheckCircle className="w-12 h-12 text-orange-600" />
+      <div style={{ minHeight: '100vh', background: '#f5f3ee', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}>
+        <div className="animate-slide-up" style={{ background: '#fff', borderRadius: '20px', boxShadow: '0 8px 32px rgba(0,0,0,.1)', padding: '3rem', textAlign: 'center', maxWidth: 420, width: '100%' }}>
+          <div style={{ width: 80, height: 80, background: '#fff7ed', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem' }}>
+            <CheckCircle style={{ width: 44, height: 44, color: '#f7941d' }} />
           </div>
-          <h2 className="text-2xl font-bold mb-2">Thank You! 🚀</h2>
-          <p className="text-gray-600 mb-6">
+          <h2 style={{ fontFamily: 'Lilita One, sans-serif', fontSize: '1.6rem', color: '#1a1a1a', marginBottom: '0.5rem' }}>Thank You! 🚀</h2>
+          <p style={{ fontFamily: 'Signika, sans-serif', color: '#666', marginBottom: '1.5rem' }}>
             Your sponsorship enquiry has been submitted. Our team will reach out shortly!
           </p>
-          <Link to="/" className="inline-flex items-center gap-2 px-6 py-3 bg-secondary text-white font-bold rounded-full hover:bg-secondary-dark transition-colors">
+          <Link to="/"
+            style={{ fontFamily: 'Lilita One, sans-serif', background: '#f7941d', color: '#fff', borderRadius: '50px', padding: '0.65rem 2rem', textDecoration: 'none', display: 'inline-block', fontSize: '0.95rem' }}>
             Back Home
           </Link>
         </div>
@@ -81,44 +88,58 @@ export default function Exhibitor() {
   });
 
   return (
-    <div className="min-h-screen">
-      <section className="relative overflow-hidden bg-linear-to-br from-secondary via-orange-500 to-red-400 py-16 sm:py-24 text-white text-center">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-10 -left-10 w-60 h-60 bg-white/10 rounded-full blur-2xl" />
-          {['🚀', '🤝', '💎', '🏢'].map((e, i) => (
-            <span key={i} className="absolute text-3xl opacity-20 animate-float"
-              style={{ top: `${10 + i * 22}%`, left: `${8 + i * 25}%`, animationDelay: `${i * 0.7}s` }}>{e}</span>
-          ))}
-        </div>
-        <div className="relative max-w-4xl mx-auto px-4">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 animate-slide-up">Sponsors & Partners 🚀</h1>
-          <p className="text-lg sm:text-xl text-white/85 max-w-2xl mx-auto animate-slide-up delay-100">
-            Meet the brands powering Intellofest — and partner with us!
+    <div style={{ minHeight: '100vh', background: '#f5f3ee' }}>
+      {/* Header */}
+      <section style={{ position: 'relative', overflow: 'hidden', background: '#f7941d', padding: '4rem 1rem', textAlign: 'center' }}>
+        <div style={{ position: 'absolute', top: -40, left: -40, width: 200, height: 200, borderRadius: '50%', background: 'rgba(255,255,255,.1)' }} />
+        {['🚀', '🤝', '💎', '🏢'].map((e, i) => (
+          <span key={i} className="animate-float" style={{
+            position: 'absolute', fontSize: '2rem', opacity: 0.2,
+            top: `${10 + i * 22}%`, left: `${8 + i * 25}%`,
+            animationDelay: `${i * 0.7}s`,
+          }}>{e}</span>
+        ))}
+        <div style={{ position: 'relative', maxWidth: 700, margin: '0 auto' }}>
+          <h1 className="animate-slide-up"
+            style={{ fontFamily: 'Lilita One, sans-serif', fontSize: 'clamp(2rem,5vw,3.5rem)', color: '#fff', marginBottom: '0.75rem' }}>
+            Sponsors & Partners 🚀
+          </h1>
+          <p className="animate-slide-up delay-100"
+            style={{ fontFamily: 'Signika, sans-serif', color: 'rgba(255,255,255,.88)', fontSize: '1.05rem' }}>
+            Meet the brands powering our festival — and partner with us!
           </p>
         </div>
       </section>
 
-      <section className="py-16 sm:py-20 bg-white">
+      {/* Sponsors Grid */}
+      <section style={{ padding: '4rem 0', background: '#fff' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Our Proud Partners ⭐</h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-              Thank you to our incredible sponsors who make Intellofest possible!
+          <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+            <h2 style={{ fontFamily: 'Lilita One, sans-serif', fontSize: 'clamp(1.6rem,3vw,2.2rem)', color: '#1a9fb5' }}>
+              Our Proud Partners ⭐
+            </h2>
+            <p style={{ fontFamily: 'Signika, sans-serif', color: '#666', marginTop: '0.5rem' }}>
+              Thank you to our incredible sponsors who make the festival possible!
             </p>
           </div>
+
           {loadingSponsors ? (
-            <div className="flex items-center justify-center py-12"><Loader2 className="w-8 h-8 text-secondary animate-spin" /></div>
+            <div style={{ display: 'flex', justifyContent: 'center', padding: '3rem' }}>
+              <Loader2 style={{ width: 32, height: 32, color: '#f7941d' }} className="animate-spin" />
+            </div>
           ) : sponsors.length === 0 ? (
-            <div className="text-center py-12 animate-fade-in">
-              <div className="w-20 h-20 bg-orange-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Crown className="w-10 h-10 text-orange-300" />
+            <div className="animate-fade-in" style={{ textAlign: 'center', padding: '3rem' }}>
+              <div style={{ width: 80, height: 80, background: '#fff7ed', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1rem' }}>
+                <Crown style={{ width: 40, height: 40, color: '#f7941d' }} />
               </div>
-              <h3 className="text-xl font-bold text-gray-700 mb-2">Be Our First Sponsor!</h3>
-              <p className="text-gray-500 max-w-md mx-auto mb-6">Sponsorship spots are open. Get premium brand visibility to 2,000+ families!</p>
-              <a href="#become-sponsor" className="inline-flex items-center gap-2 px-6 py-3 bg-secondary text-white font-bold rounded-full hover:bg-secondary-dark transition-all hover:scale-105">Apply Now</a>
+              <h3 style={{ fontFamily: 'Lilita One, sans-serif', color: '#555', fontSize: '1.2rem', marginBottom: '0.5rem' }}>Be Our First Sponsor!</h3>
+              <p style={{ fontFamily: 'Signika, sans-serif', color: '#888', maxWidth: 400, margin: '0 auto 1.5rem' }}>
+                Sponsorship spots are open. Get premium brand visibility to 5,000+ families!
+              </p>
+              <a href="#become-sponsor" className="btn-kk-orange">Apply Now</a>
             </div>
           ) : (
-            <div className="space-y-12">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
               {tierOrder.map((tier) => {
                 const list = groupedSponsors[tier];
                 if (!list || list.length === 0) return null;
@@ -126,9 +147,9 @@ export default function Exhibitor() {
                 const TierIcon = config.badge;
                 return (
                   <div key={tier} className="animate-slide-up">
-                    <div className="flex items-center justify-center gap-2 mb-6">
-                      <TierIcon className="w-5 h-5 text-amber-500" />
-                      <h3 className="text-lg font-bold text-gray-700">{config.label}</h3>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', marginBottom: '1.25rem' }}>
+                      <TierIcon style={{ width: 18, height: 18, color: config.color }} />
+                      <h3 style={{ fontFamily: 'Lilita One, sans-serif', color: '#444', fontSize: '1.05rem' }}>{config.label}</h3>
                     </div>
                     <div className={`grid gap-4 ${
                       tier === 'Title Sponsor' ? 'grid-cols-1 sm:grid-cols-2 max-w-3xl mx-auto' :
@@ -136,18 +157,23 @@ export default function Exhibitor() {
                       'grid-cols-2 sm:grid-cols-3 lg:grid-cols-5'
                     }`}>
                       {list.map((sponsor) => (
-                        <div key={sponsor._id} className={`${config.bg} rounded-2xl p-5 text-center ring-2 ${config.ring} ring-opacity-30 hover:shadow-lg transition-all duration-300 group hover:-translate-y-1`}>
+                        <div key={sponsor._id}
+                          style={{ background: config.bg, borderRadius: '14px', padding: '1.25rem', textAlign: 'center', border: `2px solid ${config.border}30`, transition: 'all .25s', cursor: 'default' }}
+                          onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,.1)'; }}
+                          onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
+                        >
                           {sponsor.logoUrl ? (
-                            <img src={sponsor.logoUrl} alt={sponsor.brandName} className="w-16 h-16 mx-auto mb-3 rounded-xl object-contain" />
+                            <img src={sponsor.logoUrl} alt={sponsor.brandName} style={{ width: 64, height: 64, margin: '0 auto 0.75rem', borderRadius: '10px', objectFit: 'contain' }} />
                           ) : (
-                            <div className={`w-16 h-16 mx-auto mb-3 rounded-xl bg-linear-to-br ${config.color} flex items-center justify-center shadow-md group-hover:scale-110 transition-transform`}>
-                              <span className="text-white font-bold text-xl">{sponsor.brandName.charAt(0).toUpperCase()}</span>
+                            <div style={{ width: 64, height: 64, margin: '0 auto 0.75rem', borderRadius: '10px', background: config.color, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                              <span style={{ fontFamily: 'Lilita One, sans-serif', color: '#fff', fontSize: '1.5rem' }}>{sponsor.brandName.charAt(0).toUpperCase()}</span>
                             </div>
                           )}
-                          <h4 className="font-bold text-gray-900 text-sm mb-1">{sponsor.brandName}</h4>
+                          <h4 style={{ fontFamily: 'Lilita One, sans-serif', color: '#1a1a1a', fontSize: '0.9rem', marginBottom: '0.25rem' }}>{sponsor.brandName}</h4>
                           {sponsor.website && (
-                            <a href={sponsor.website} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-xs text-secondary hover:underline mt-1">
-                              Visit <ExternalLink className="w-3 h-3" />
+                            <a href={sponsor.website} target="_blank" rel="noopener noreferrer"
+                              style={{ fontFamily: 'Signika, sans-serif', fontSize: '0.75rem', color: '#1a9fb5', display: 'inline-flex', alignItems: 'center', gap: '2px', textDecoration: 'none' }}>
+                              Visit <ExternalLink style={{ width: 11, height: 11 }} />
                             </a>
                           )}
                         </div>
@@ -161,11 +187,12 @@ export default function Exhibitor() {
         </div>
       </section>
 
-      <section className="py-16 bg-gray-50">
+      {/* Sponsorship Tiers */}
+      <section style={{ padding: '4rem 0', background: '#f5f3ee' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Sponsorship Opportunities 📊</h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">Tiered partnerships designed to maximize brand visibility and ROI.</p>
+          <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+            <h2 style={{ fontFamily: 'Lilita One, sans-serif', fontSize: 'clamp(1.6rem,3vw,2.2rem)', color: '#1a9fb5' }}>Sponsorship Opportunities 📊</h2>
+            <p style={{ fontFamily: 'Signika, sans-serif', color: '#666', marginTop: '0.5rem' }}>Tiered partnerships designed to maximise brand visibility and ROI.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {[
@@ -174,76 +201,110 @@ export default function Exhibitor() {
               { tier: 'Gold', price: '₹3 Lakhs', emoji: '🥇', perks: ['Activity partner', 'Prime booth', 'Stage mentions', 'Social media'] },
               { tier: 'Silver', price: '₹1.5 Lakhs', emoji: '🥈', perks: ['Brand visibility', 'Event collateral', 'Digital branding', 'Certificate'] },
             ].map((t) => (
-              <div key={t.tier} className={`bg-white rounded-2xl p-6 border-2 hover:shadow-xl transition-all hover:-translate-y-1 ${t.highlight ? 'border-amber-400 relative' : 'border-gray-100'}`}>
-                {t.highlight && <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-400 text-white text-xs font-bold px-4 py-1 rounded-full">NAMING RIGHTS</div>}
-                <div className="text-center mb-4">
-                  <span className="text-4xl">{t.emoji}</span>
-                  <h3 className="text-xl font-bold text-gray-900 mt-2">{t.tier}</h3>
-                  <p className="text-lg font-bold text-primary mt-1">{t.price}</p>
+              <div key={t.tier}
+                style={{
+                  background: '#fff', borderRadius: '16px', padding: '1.5rem',
+                  border: `2px solid ${t.highlight ? '#f59e0b' : '#e8e4dc'}`,
+                  position: 'relative', transition: 'all .25s',
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,.1)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
+              >
+                {t.highlight && (
+                  <div style={{ position: 'absolute', top: -12, left: '50%', transform: 'translateX(-50%)', background: '#f59e0b', color: '#fff', fontSize: '0.7rem', fontFamily: 'Lilita One, sans-serif', padding: '3px 14px', borderRadius: '50px', letterSpacing: '0.06em' }}>
+                    NAMING RIGHTS
+                  </div>
+                )}
+                <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
+                  <span style={{ fontSize: '2.5rem' }}>{t.emoji}</span>
+                  <h3 style={{ fontFamily: 'Lilita One, sans-serif', fontSize: '1.1rem', color: '#1a1a1a', marginTop: '0.35rem' }}>{t.tier}</h3>
+                  <p style={{ fontFamily: 'Lilita One, sans-serif', fontSize: '1.15rem', color: '#e63228', marginTop: '0.25rem' }}>{t.price}</p>
                 </div>
-                <ul className="space-y-2 mb-6">
+                <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 1.25rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                   {t.perks.map((p) => (
-                    <li key={p} className="flex items-start gap-2 text-sm text-gray-600">
-                      <CheckCircle className="w-4 h-4 text-green-500 shrink-0 mt-0.5" /> {p}
+                    <li key={p} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontFamily: 'Signika, sans-serif', fontSize: '0.85rem', color: '#555' }}>
+                      <CheckCircle style={{ width: 14, height: 14, color: '#2db46b', flexShrink: 0, marginTop: '2px' }} /> {p}
                     </li>
                   ))}
                 </ul>
-                <a href="#become-sponsor" className={`block text-center py-2.5 rounded-xl font-bold text-sm transition-all ${t.highlight ? 'bg-secondary text-white hover:bg-secondary-dark' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}>
+                <a href="#become-sponsor"
+                  style={{
+                    display: 'block', textAlign: 'center', padding: '0.6rem', borderRadius: '10px',
+                    fontFamily: 'Lilita One, sans-serif', fontSize: '0.88rem',
+                    background: t.highlight ? '#f7941d' : '#f5f3ee',
+                    color: t.highlight ? '#fff' : '#555',
+                    textDecoration: 'none', transition: 'all .2s',
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.background = t.highlight ? '#d97b10' : '#e8e4dc'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = t.highlight ? '#f7941d' : '#f5f3ee'; }}
+                >
                   Apply Now
                 </a>
               </div>
             ))}
           </div>
-          <div className="text-center mt-8">
-            <p className="text-sm text-gray-500">Also available: <strong>Stall Partners</strong> — Exhibition booths with direct access to 2,000+ families</p>
+          <div style={{ textAlign: 'center', marginTop: '1.5rem', fontFamily: 'Signika, sans-serif', fontSize: '0.85rem', color: '#888' }}>
+            Also available: <strong>Stall Partners</strong> — Exhibition booths with direct access to 5,000+ families
           </div>
         </div>
       </section>
 
-      <section id="become-sponsor" className="py-16 sm:py-20 bg-white">
+      {/* Sponsor Form */}
+      <section id="become-sponsor" style={{ padding: '4rem 0', background: '#fff' }}>
         <div className="max-w-4xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Become a Sponsor 🤝</h2>
-            <p className="text-gray-600 text-lg">Fill out the form and our team will get in touch!</p>
+          <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+            <h2 style={{ fontFamily: 'Lilita One, sans-serif', fontSize: 'clamp(1.6rem,3vw,2.2rem)', color: '#1a9fb5' }}>Become a Sponsor 🤝</h2>
+            <p style={{ fontFamily: 'Signika, sans-serif', color: '#666', marginTop: '0.5rem' }}>Fill out the form and our team will get in touch!</p>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
             <div className="lg:col-span-3">
-              <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 space-y-5 animate-slide-up border border-gray-100">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
-                    <Building2 className="w-5 h-5 text-orange-600" />
+              <form onSubmit={handleSubmit} className="animate-slide-up"
+                style={{ background: '#fff', borderRadius: '20px', boxShadow: '0 4px 20px rgba(0,0,0,.08)', border: '1.5px solid #f0ede6', padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.25rem' }}>
+                  <div style={{ width: 42, height: 42, background: '#fff7ed', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Building2 style={{ width: 20, height: 20, color: '#f7941d' }} />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold">Sponsorship Enquiry</h3>
-                    <p className="text-sm text-gray-500">Tell us about your brand</p>
+                    <h3 style={{ fontFamily: 'Lilita One, sans-serif', fontSize: '1.1rem', color: '#1a1a1a' }}>Sponsorship Enquiry</h3>
+                    <p style={{ fontFamily: 'Signika, sans-serif', fontSize: '0.82rem', color: '#888' }}>Tell us about your brand</p>
                   </div>
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Brand Name *</label>
-                  <input type="text" value={form.brandName} onChange={(e) => setForm({ ...form, brandName: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-secondary focus:border-transparent outline-none" placeholder="Your brand name" required />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Contact Person *</label>
-                  <input type="text" value={form.contactPerson} onChange={(e) => setForm({ ...form, contactPerson: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-secondary focus:border-transparent outline-none" placeholder="Full name" required />
-                </div>
+
+                {[
+                  { key: 'brandName', label: 'Brand Name *', placeholder: 'Your brand name', type: 'text' },
+                  { key: 'contactPerson', label: 'Contact Person *', placeholder: 'Full name', type: 'text' },
+                ].map(({ key, label, placeholder, type }) => (
+                  <div key={key}>
+                    <label style={{ display: 'block', fontFamily: 'Signika, sans-serif', fontWeight: 600, fontSize: '0.88rem', color: '#555', marginBottom: '0.4rem' }}>{label}</label>
+                    <input type={type} value={form[key]} placeholder={placeholder} required
+                      onChange={(e) => setForm({ ...form, [key]: e.target.value })}
+                      style={inputStyle}
+                      onFocus={(e) => e.target.style.borderColor = '#f7941d'}
+                      onBlur={(e) => e.target.style.borderColor = '#e8e4dc'}
+                    />
+                  </div>
+                ))}
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Email *</label>
-                    <input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-secondary focus:border-transparent outline-none" placeholder="you@brand.com" required />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Phone *</label>
-                    <input type="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-secondary focus:border-transparent outline-none" placeholder="+91 98765 43210" required />
-                  </div>
+                  {[
+                    { key: 'email', label: 'Email *', placeholder: 'you@brand.com', type: 'email' },
+                    { key: 'phone', label: 'Phone *', placeholder: '+91 98765 43210', type: 'tel' },
+                  ].map(({ key, label, placeholder, type }) => (
+                    <div key={key}>
+                      <label style={{ display: 'block', fontFamily: 'Signika, sans-serif', fontWeight: 600, fontSize: '0.88rem', color: '#555', marginBottom: '0.4rem' }}>{label}</label>
+                      <input type={type} value={form[key]} placeholder={placeholder} required
+                        onChange={(e) => setForm({ ...form, [key]: e.target.value })}
+                        style={inputStyle}
+                        onFocus={(e) => e.target.style.borderColor = '#f7941d'}
+                        onBlur={(e) => e.target.style.borderColor = '#e8e4dc'}
+                      />
+                    </div>
+                  ))}
                 </div>
+
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Interest Tier</label>
-                  <select value={form.interestTier} onChange={(e) => setForm({ ...form, interestTier: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-secondary focus:border-transparent outline-none">
+                  <label style={{ display: 'block', fontFamily: 'Signika, sans-serif', fontWeight: 600, fontSize: '0.88rem', color: '#555', marginBottom: '0.4rem' }}>Interest Tier</label>
+                  <select value={form.interestTier} onChange={(e) => setForm({ ...form, interestTier: e.target.value })} style={inputStyle}>
                     <option value="">Select tier (optional)</option>
                     <option value="Title Sponsor">Title Sponsor — ₹10 Lakhs</option>
                     <option value="Platinum Sponsor">Platinum — ₹5 Lakhs</option>
@@ -253,38 +314,52 @@ export default function Exhibitor() {
                     <option value="Other">Other</option>
                   </select>
                 </div>
+
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Brochure (optional)</label>
-                  <label className="flex items-center justify-center gap-2 px-4 py-5 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:border-secondary hover:bg-orange-50/50 transition-all">
-                    <Upload className="w-5 h-5 text-gray-400" />
-                    <span className="text-sm text-gray-500">{brochure ? brochure.name : 'Upload PDF or image'}</span>
-                    <input type="file" accept=".pdf,.jpg,.jpeg,.png,.webp" onChange={(e) => setBrochure(e.target.files?.[0] || null)} className="hidden" />
+                  <label style={{ display: 'block', fontFamily: 'Signika, sans-serif', fontWeight: 600, fontSize: '0.88rem', color: '#555', marginBottom: '0.4rem' }}>Brochure (optional)</label>
+                  <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', padding: '1.25rem', border: '2px dashed #e8e4dc', borderRadius: '12px', cursor: 'pointer', transition: 'border-color .2s' }}
+                    onMouseEnter={(e) => e.currentTarget.style.borderColor = '#f7941d'}
+                    onMouseLeave={(e) => e.currentTarget.style.borderColor = '#e8e4dc'}
+                  >
+                    <Upload style={{ width: 18, height: 18, color: '#aaa' }} />
+                    <span style={{ fontFamily: 'Signika, sans-serif', fontSize: '0.88rem', color: '#888' }}>{brochure ? brochure.name : 'Upload PDF or image'}</span>
+                    <input type="file" accept=".pdf,.jpg,.jpeg,.png,.webp" onChange={(e) => setBrochure(e.target.files?.[0] || null)} style={{ display: 'none' }} />
                   </label>
                 </div>
+
                 <button type="submit" disabled={submitting}
-                  className="w-full py-3.5 bg-secondary hover:bg-secondary-dark text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2 disabled:opacity-50 hover:scale-[1.02] active:scale-[0.98]">
-                  {submitting ? <Loader2 className="w-5 h-5 animate-spin" /> : <Building2 className="w-5 h-5" />}
+                  style={{
+                    width: '100%', padding: '0.85rem', background: '#f7941d', color: '#fff',
+                    fontFamily: 'Lilita One, sans-serif', fontSize: '1rem', border: 'none', borderRadius: '12px',
+                    cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
+                    opacity: submitting ? 0.6 : 1, transition: 'all .2s', letterSpacing: '0.02em',
+                  }}
+                  onMouseEnter={(e) => !submitting && (e.currentTarget.style.background = '#d97b10')}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = '#f7941d')}
+                >
+                  {submitting ? <Loader2 style={{ width: 18, height: 18 }} className="animate-spin" /> : <Building2 style={{ width: 18, height: 18 }} />}
                   {submitting ? 'Submitting...' : 'Submit Enquiry'}
                 </button>
               </form>
             </div>
-            <div className="lg:col-span-2 space-y-4 animate-slide-up delay-300">
-              <h3 className="text-lg font-bold text-gray-900 mb-2">Why Sponsor Intellofest? 📈</h3>
+
+            <div className="lg:col-span-2 animate-slide-up delay-300" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <h3 style={{ fontFamily: 'Lilita One, sans-serif', fontSize: '1.15rem', color: '#1a1a1a', marginBottom: '0.25rem' }}>Why Sponsor Us? 📈</h3>
               {[
-                { icon: Eye, title: '2,000+ Premium Families', desc: 'Education-focused households with strong purchasing power.' },
-                { icon: Star, title: 'Innovation Positioning', desc: 'Align with cutting-edge STEM and future tech values.' },
-                { icon: Users, title: 'CSR Education Impact', desc: 'Tangible STEM education contributions for CSR reporting.' },
+                { icon: Eye, title: '5,000+ Premium Families', desc: 'Education-focused households with strong purchasing power.' },
+                { icon: Star, title: 'Cultural Brand Positioning', desc: 'Align with arts, literature & creativity values.' },
+                { icon: Users, title: 'CSR Education Impact', desc: 'Tangible education contributions for CSR reporting.' },
                 { icon: TrendingUp, title: 'Lead Gen & Amplification', desc: 'On-ground engagement + social media visibility.' },
               ].map((p) => {
                 const Icon = p.icon;
                 return (
-                  <div key={p.title} className="flex gap-3 bg-white rounded-xl p-4 shadow-sm border border-gray-50">
-                    <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center shrink-0">
-                      <Icon className="w-5 h-5 text-orange-600" />
+                  <div key={p.title} className="card-border" style={{ display: 'flex', gap: '0.75rem', padding: '1rem' }}>
+                    <div style={{ width: 40, height: 40, background: '#fff7ed', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <Icon style={{ width: 18, height: 18, color: '#f7941d' }} />
                     </div>
                     <div>
-                      <p className="font-bold text-gray-900 text-sm">{p.title}</p>
-                      <p className="text-xs text-gray-500">{p.desc}</p>
+                      <p style={{ fontFamily: 'Lilita One, sans-serif', color: '#1a1a1a', fontSize: '0.9rem', marginBottom: '0.15rem' }}>{p.title}</p>
+                      <p style={{ fontFamily: 'Signika, sans-serif', color: '#777', fontSize: '0.8rem' }}>{p.desc}</p>
                     </div>
                   </div>
                 );

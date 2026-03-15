@@ -3,12 +3,21 @@ import { Link } from 'react-router-dom';
 import api from '../api/axios';
 import LoadingSpinner from '../components/LoadingSpinner';
 import {
-  Sparkles, Ticket, Users, Building2, Calendar, MapPin,
-  ArrowRight, Star, ChevronDown, Cpu, Rocket, Lightbulb, Microscope,
-  Zap, Cog,
+  Sparkles, Ticket, Calendar, MapPin, ArrowRight, Star,
+  ChevronDown, Cpu, Rocket, Lightbulb, Microscope, Zap,
 } from 'lucide-react';
 
 const funIcons = [Star, Cpu, Rocket, Lightbulb, Microscope, Sparkles];
+
+/* ── helpers ── */
+const SectionHeading = ({ teal, red, sub }) => (
+  <div className="text-center mb-10">
+    <h2 style={{ fontFamily: 'Lilita One, sans-serif', fontSize: 'clamp(1.8rem,4vw,2.6rem)', color: '#1a9fb5' }}>
+      {teal}{red && <span style={{ color: '#e63228' }}>{red}</span>}
+    </h2>
+    {sub && <p style={{ fontFamily: 'Signika, sans-serif', color: '#555', marginTop: '0.5rem', maxWidth: 560, margin: '0.5rem auto 0' }}>{sub}</p>}
+  </div>
+);
 
 export default function Home() {
   const [settings, setSettings] = useState(null);
@@ -23,101 +32,74 @@ export default function Home() {
         setSettings(d.settings);
         setActivities(d.activities || []);
       })
-      .catch(() => {})
+      .catch(() => { })
       .finally(() => setLoading(false));
   }, []);
 
   if (loading) return <LoadingSpinner />;
 
   const faqs = [
-    { q: 'What is Intellofest?', a: 'Intellofest is a two-day mega STEM & Innovation Carnival — an electrifying collision of science, robotics, space, AI, engineering, and maker culture, all under one roof, designed to ignite curiosity in thousands of young minds.' },
-    { q: 'What age group is Intellofest for?', a: 'Intellofest is designed for children ages 4–14, along with their parents and educators. Every zone and activity is curated for specific age groups.' },
-    { q: 'How do I book tickets?', a: 'Click the "Get Your Passes" button, select the passes you want, and proceed to our secure checkout powered by Razorpay. You\'ll receive an e-ticket instantly.' },
-    { q: 'Can I cancel or refund my tickets?', a: 'Tickets are non-refundable but fully transferable. Contact our support team if you\'d like to transfer to another person.' },
-    { q: 'Is there a group / bulk booking discount?', a: 'Yes! Select 5 or more passes of the same type to unlock automatic group discounts at checkout.' },
-    { q: 'Is food & parking available?', a: 'Yes! We have a curated food court with kid-friendly options, and ample parking is available near the venue. Arrive early as spots fill up fast.' },
-    { q: 'What activities can kids expect?', a: 'From drone shows and AR/VR zones to robotics showcases, 3D printing, rocketry, science fire shows, maker challenges, and 25+ DIY activity stalls — there\'s something for every young innovator!' },
-    { q: 'Are there sessions for parents?', a: 'Absolutely! We have expert panel discussions, new-age parenting roundtables, live podcasts, and drawing-based child analysis workshops for adults.' },
+    { q: 'What is this festival?', a: 'This is a two-day mega arts & literature carnival — an electrifying collision of storytelling, theatre, crafts, quizzing, and live performances designed to spark creativity and curiosity in young minds.' },
+    { q: 'What age group is it for?', a: 'The fest is designed for children aged 1.5 to 13 years along with parents and guardians. Every zone and activity is curated for specific age groups.' },
+    { q: 'How do I book tickets?', a: 'Click the "Book Passes" button, select the passes you want, and proceed to our secure checkout. You\'ll receive an e-ticket confirmation instantly.' },
+    { q: 'Can I cancel or refund my tickets?', a: 'Tickets are non-refundable but the information on them may be transferred. Please contact our support team for specific requests.' },
+    { q: 'Is there a group / bulk booking discount?', a: 'Yes! We offer discounts for bulk booking of more than 20 passes. Contact +91-8595684432 for more details.' },
+    { q: 'Is food & parking available?', a: 'Yes! We have a curated food festival area with kid-friendly options. Ample parking is available near the venue.' },
+    { q: 'What activities can kids expect?', a: 'Storytelling, theatre, DIY art & craft, puppetry, mime & clowning, superhero cosplay, quizzing & mentalism, kids cosplay conclave, and much more!' },
+    { q: 'Are parents required to buy a ticket?', a: 'Parents accompanying the child (up to two) can enter with the child\'s pass. The festival is primarily ticketed for children.' },
   ];
 
   return (
-    <div>
-      {/* ───── Hero Section ───── */}
-      <section className="relative overflow-hidden bg-linear-to-br from-primary via-purple-600 to-accent min-h-[85vh] flex items-center">
-        {/* YouTube Video Background */}
-        <div className="absolute inset-0 overflow-hidden">
+    <div style={{ background: '#f5f3ee' }}>
+
+      {/* ── HERO ── */}
+      <section style={{ position: 'relative', minHeight: '88vh', display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
+        {/* Video BG */}
+        <div style={{ position: 'absolute', inset: 0, overflow: 'hidden' }}>
           <iframe
-            className="absolute inset-0 w-full h-full object-cover"
+            style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }}
             src="https://www.youtube.com/embed/UWD7FS7QVMQ?si=XPnxKFr6f0CI5eM7&autoplay=1&mute=1&controls=0&loop=1&playlist=UWD7FS7QVMQ&modestbranding=1&rel=0"
-            title="Intellofest Background Video"
+            title="Festival Background Video"
             allow="autoplay; encrypted-media"
             allowFullScreen
-            style={{
-              border: 'none',
-              opacity: 0.9,
-            }}
           />
-          <div className="absolute inset-0 bg-black/40" />
-        </div>
-        
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-20 -left-20 w-80 h-80 bg-secondary/20 rounded-full blur-3xl animate-float-slow" />
-          <div className="absolute -bottom-20 -right-20 w-96 h-96 bg-accent/20 rounded-full blur-3xl animate-float-slow delay-300" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-white/5 rounded-full" />
-          {/* {['🚀', '🤖', '🔬', '⚡', '🛸', '💡', '⭐', '🧬', '🔭', '🧪'].map((emoji, i) => (
-            <span
-              key={i}
-              className="absolute text-2xl sm:text-3xl opacity-25 animate-float"
-              style={{
-                top: `${8 + (i * 11) % 80}%`,
-                left: `${3 + (i * 12) % 90}%`,
-                animationDelay: `${i * 0.4}s`,
-                animationDuration: `${3 + i * 0.6}s`,
-              }}
-            >
-              {emoji}
-            </span>
-          ))} */}
+          <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.45)' }} />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-          <div className="inline-flex items-center gap-2 glass rounded-full px-5 py-2 mb-6 animate-slide-up">
+        {/* Hero content */}
+        <div className="relative z-10 w-full text-center px-4 py-20">
+          <div className="animate-slide-up" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(255,255,255,.15)', backdropFilter: 'blur(8px)', borderRadius: '50px', padding: '0.4rem 1.2rem', marginBottom: '1.2rem' }}>
             <Calendar className="w-4 h-4 text-white" />
-            <span className="text-white text-sm font-semibold">
+            <span style={{ color: '#fff', fontFamily: 'Signika, sans-serif', fontWeight: 600, fontSize: '0.9rem' }}>
               {settings?.eventDates || 'Dates Coming Soon'}
             </span>
           </div>
 
-          <p className="text-xs uppercase tracking-[0.25em] text-white/60 font-bold mb-3 animate-slide-up delay-75">By TinkerDen</p>
-          <h1 className="text-5xl sm:text-6xl lg:text-8xl font-bold text-white mb-6 leading-tight animate-slide-up delay-100">
-            Welcome to{' '}
-            <span className="text-secondary drop-shadow-lg animate-wiggle inline-block">
-              {settings?.eventName || 'Intellofest 2026'} 
-            </span>
-          </h1>
-
-          <p className="text-lg sm:text-xl text-white/80 max-w-2xl mx-auto mb-8 leading-relaxed animate-slide-up delay-200">
-            Surat's Biggest Kids STEM & Innovation Carnival! 🔬 Science, 🤖 Robotics, 🚀 Space, 💡 AI & Engineering
-            — an electrifying experience for the whole family!
-          </p>
+          <h2 className="animate-slide-up delay-100"
+            style={{ fontFamily: 'Lilita One, sans-serif', fontSize: 'clamp(2.5rem,7vw,5.5rem)', color: '#fff', lineHeight: 1.1, marginBottom: '0.5rem' }}>
+            Kid-O-Fest
+            <span style={{ display: 'block', fontSize: 'clamp(1.5rem,5vw,3.5rem)', color: '#e63228' }}>Surat's Biggest Festival for Children</span>
+          </h2>
 
           {settings?.venue && (
-            <div className="inline-flex items-center gap-2 text-white/90 mb-8 animate-slide-up delay-300">
+            <div className="animate-slide-up delay-200" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: 'rgba(255,255,255,.9)', marginBottom: '0.5rem', fontFamily: 'Signika, sans-serif' }}>
               <MapPin className="w-5 h-5" />
-              <span className="text-lg">{settings.venue}</span>
+              <span style={{ fontSize: '1.1rem' }}>{settings.venue}</span>
             </div>
           )}
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up delay-400">
-            <Link
-              to="/passes"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-secondary hover:bg-secondary-dark text-white font-bold rounded-full text-lg shadow-xl hover:shadow-2xl transition-all transform hover:scale-105 active:scale-95"
+          <div className="animate-slide-up delay-300" style={{ marginTop: '2rem', display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Link to="/passes"
+              style={{ fontFamily: 'Lilita One, sans-serif', fontSize: '1.1rem', background: '#e63228', color: '#fff', borderRadius: '50px', padding: '0.75rem 2.2rem', display: 'inline-flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none', letterSpacing: '0.03em', transition: 'transform .2s' }}
+              onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+              onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
             >
-              <Ticket className="w-5 h-5" /> Get Your Tickets
+              <Ticket className="w-5 h-5" /> Book Passes
             </Link>
-            <Link
-              to="/activities"
-              className="inline-flex items-center justify-center gap-2 px-8 py-4 glass hover:bg-white/20 text-white font-bold rounded-full text-lg transition-all"
+            <Link to="/activities"
+              style={{ fontFamily: 'Lilita One, sans-serif', fontSize: '1.1rem', background: 'rgba(255,255,255,.18)', backdropFilter: 'blur(8px)', color: '#fff', borderRadius: '50px', padding: '0.75rem 2.2rem', display: 'inline-flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none', border: '1.5px solid rgba(255,255,255,.4)', transition: 'background .2s' }}
+              onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,.28)'}
+              onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255,255,255,.18)'}
             >
               Explore Activities <ArrowRight className="w-5 h-5" />
             </Link>
@@ -125,114 +107,81 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ───── Marquee Strip ───── */}
-      {/* <section className="bg-primary py-3 overflow-hidden">
-        <div className="animate-marquee whitespace-nowrap flex gap-8 items-center text-white font-bold text-sm">
-          {[...Array(2)].map((_, rep) => (
-            <span key={rep} className="flex gap-8 items-center">
-              {['🤖 Robotics Arena', '🚀 Rocketry & 3D Printing', '🔬 Mega Science Show', '🛸 Drone Performances', '🥽 AR/VR Zones', '🔭 Smart Planetarium', '⚡ Maker Challenges', '🧬 25+ DIY Stalls'].map((f) => (
-                <span key={`${rep}-${f}`} className="flex items-center gap-2 px-4">{f}</span>
-              ))}
-            </span>
-          ))}
-        </div>
-      </section> */}
+      {/* ── BLUE EVENT INFO STRIP ── */}
+      <div style={{ background: '#1a9fb5', padding: '1rem 2rem', display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '2rem', alignItems: 'center' }}>
+        {settings?.eventDates && (
+          <span style={{ fontFamily: 'Lilita One, sans-serif', color: '#fff', fontSize: '1rem', letterSpacing: '0.02em' }}>
+            📅 {settings.eventDates}
+          </span>
+        )}
+        {settings?.venue && (
+          <span style={{ fontFamily: 'Signika, sans-serif', color: 'rgba(255,255,255,.9)', fontSize: '0.95rem' }}>
+            📍 {settings.venue}
+          </span>
+        )}
+        <Link to="/passes"
+          style={{ fontFamily: 'Lilita One, sans-serif', background: '#fff', color: '#1a9fb5', borderRadius: '50px', padding: '0.4rem 1.4rem', textDecoration: 'none', fontSize: '0.9rem', letterSpacing: '0.02em', transition: 'transform .2s' }}
+          onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+          onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+        >
+          BOOK PASSES!
+        </Link>
+      </div>
 
-      {/* ───── Why KidsFest ───── */}
-      <section className="py-16 sm:py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-              Why {settings?.eventName || 'Intellofest 2026'}? ✨
-            </h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-              A movement, not just a moment — positioning Surat as a hub of future-ready learning.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { icon: Microscope, title: 'Experiential STEM', desc: 'Learning by doing — every zone is built around tactile, real-world scientific exploration that makes concepts stick.', color: 'bg-purple-100 text-purple-600' },
-              { icon: Cog, title: 'Hands-On Engineering', desc: 'From building circuits to launching rockets, kids become engineers — designing, testing, and iterating in real time.', color: 'bg-blue-100 text-blue-600' },
-              { icon: Lightbulb, title: 'Innovation Mindset', desc: 'Cultivating creative problem-solving and entrepreneurial thinking from an early age through challenge-based learning.', color: 'bg-green-100 text-green-600' },
-              { icon: Cpu, title: 'Future Technologies', desc: 'AI, AR/VR, 3D printing, drones, and robotics — giving children firsthand access to the tools shaping tomorrow.', color: 'bg-amber-100 text-amber-600' },
-            ].map((f) => {
-              const Icon = f.icon;
-              return (
-                <div key={f.title} className="text-center p-6 rounded-2xl hover:shadow-lg transition-all duration-300 group">
-                  <div className={`w-14 h-14 ${f.color} rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform`}>
-                    <Icon className="w-7 h-7" />
-                  </div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">{f.title}</h3>
-                  <p className="text-gray-500 text-sm leading-relaxed">{f.desc}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ───── Activities Preview ───── */}
+      {/* ── ACTIVITIES GRID ── */}
       {activities.length > 0 && (
-        <section className="py-16 sm:py-20 bg-gray-50">
+        <section style={{ padding: '5rem 0', background: '#f5f3ee' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-                Hero Highlights & Activities 🔬
-              </h2>
-              <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-                From drone shows to robotics arenas, every experience is designed for spectacle, awe, and deep learning.
-              </p>
-            </div>
+            <SectionHeading
+              teal="🎨 Everything Fun "
+              red="In Store"
+              sub="What makes this your child's best weekend of the year — the perfect fusion of art, theater, literature & performances."
+            />
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {activities.slice(0, 6).map((activity, idx) => {
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              {activities.slice(0, 4).map((activity, idx) => {
                 const Icon = funIcons[idx % funIcons.length];
                 return (
                   <div
                     key={activity._id}
-                    className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 group animate-slide-up"
-                    style={{ animationDelay: `${idx * 0.1}s` }}
+                    className="kk-card animate-slide-up group"
+                    style={{ animationDelay: `${idx * 0.07}s`, position: 'relative', aspectRatio: '4/3' }}
                   >
                     {activity.imageUrl ? (
-                      <div className="overflow-hidden">
-                        <img
-                          src={activity.imageUrl}
-                          alt={activity.title}
-                          className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
-                        />
-                      </div>
+                      <img
+                        src={activity.imageUrl}
+                        alt={activity.title}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform .4s' }}
+                        className="group-hover:scale-110"
+                      />
                     ) : (
-                      <div className="w-full h-48 bg-linear-to-br from-primary/10 to-accent/10 flex items-center justify-center">
-                        <Icon className="w-16 h-16 text-primary/30 group-hover:scale-110 transition-transform" />
+                      <div style={{ width: '100%', height: '100%', background: 'linear-gradient(135deg,#1a9fb520,#e6322820)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Icon style={{ width: 48, height: 48, color: '#1a9fb560' }} />
                       </div>
                     )}
-                    <div className="p-5">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="px-3 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-full">
-                          {activity.category}
-                        </span>
-                        {activity.ageGroup && (
-                          <span className="px-3 py-1 bg-secondary/10 text-secondary-dark text-xs font-semibold rounded-full">
-                            {activity.ageGroup}
-                          </span>
-                        )}
-                      </div>
-                      <h3 className="text-lg font-bold text-gray-900 mb-1">{activity.title}</h3>
-                      {activity.description && (
-                        <p className="text-gray-600 text-sm line-clamp-2">{activity.description}</p>
-                      )}
+                    {/* Dark overlay + title */}
+                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,.75) 0%, rgba(0,0,0,.1) 60%)', display: 'flex', alignItems: 'flex-end', padding: '0.75rem' }}>
+                      <span style={{ fontFamily: 'Lilita One, sans-serif', color: '#fff', fontSize: 'clamp(0.75rem,2vw,0.95rem)', letterSpacing: '0.03em', textTransform: 'uppercase' }}>
+                        {activity.title}
+                      </span>
+                    </div>
+                    {/* Hover flip-desc */}
+                    <div style={{ position: 'absolute', inset: 0, background: '#1a9fb5', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem', opacity: 0, transition: 'opacity .3s' }}
+                      onMouseEnter={(e) => e.currentTarget.style.opacity = 1}
+                      onMouseLeave={(e) => e.currentTarget.style.opacity = 0}
+                    >
+                      <p style={{ fontFamily: 'Signika, sans-serif', color: '#fff', textAlign: 'center', fontSize: '0.88rem' }}>
+                        {activity.description || activity.title}
+                      </p>
                     </div>
                   </div>
                 );
               })}
             </div>
 
-            {activities.length > 6 && (
+            {activities.length > 4 && (
               <div className="text-center mt-10">
-                <Link
-                  to="/activities"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-bold rounded-full hover:bg-primary-dark transition-all hover:scale-105"
-                >
+                <Link to="/activities" className="btn-kk">
                   View All Activities <ArrowRight className="w-5 h-5" />
                 </Link>
               </div>
@@ -241,140 +190,80 @@ export default function Home() {
         </section>
       )}
 
-      {/* ───── CTA Cards ───── */}
-      <section className="py-16 sm:py-20 bg-white">
+      {/* ── CTA CARDS (Get Involved) ── */}
+      <section style={{ padding: '4rem 0', background: '#fff' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Get Involved 🤝</h2>
-            <p className="text-gray-600 text-lg">Be a part of the Intellofest movement!</p>
-          </div>
+          <SectionHeading teal="Get Involved " red="🤝" sub="Be a part of the festival movement!" />
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Link
-              to="/passes"
-              className="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all hover:-translate-y-1 h-80"
-            >
-              <img
-                src="https://kukdukoo.com/images/exhibit-flea.jpg"
-                alt="Get Passes"
-                className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-              <div className="relative z-10 h-full flex flex-col justify-end p-8 text-white">
-                <h3 className="text-2xl font-bold mb-2">Get Passes 🎟️</h3>
-                <p className="text-white/90 mb-4">
-                  Book your passes now and join Surat's biggest STEM carnival!
-                </p>
-                <span className="inline-flex items-center gap-1 font-semibold group-hover:gap-3 transition-all w-fit">
-                  Book Now <ArrowRight className="w-5 h-5" />
-                </span>
-              </div>
-            </Link>
-
-            <Link
-              to="/volunteer"
-              className="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all hover:-translate-y-1 h-80"
-            >
-              <img
-                src="https://kukdukoo.com/images/exhibit-expo.jpg"
-                alt="Volunteer"
-                className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-              <div className="relative z-10 h-full flex flex-col justify-end p-8 text-white">
-                <h3 className="text-2xl font-bold mb-2">Volunteer 🙋</h3>
-                <p className="text-white/90 mb-4">
-                  Join our crew and help create magical STEM moments for kids!
-                </p>
-                <span className="inline-flex items-center gap-1 font-semibold group-hover:gap-3 transition-all w-fit">
-                  Join Us <ArrowRight className="w-5 h-5" />
-                </span>
-              </div>
-            </Link>
-
-            <Link
-              to="/exhibitor"
-              className="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all hover:-translate-y-1 h-80"
-            >
-              <img
-                src="https://kukdukoo.com/images/exhibit-sponsor.jpg"
-                alt="Sponsor"
-                className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-              <div className="relative z-10 h-full flex flex-col justify-end p-8 text-white">
-                <h3 className="text-2xl font-bold mb-2">Sponsor 🏢</h3>
-                <p className="text-white/90 mb-4">
-                  Partner with Intellofest and reach 2,000+ premium families!
-                </p>
-                <span className="inline-flex items-center gap-1 font-semibold group-hover:gap-3 transition-all w-fit">
-                  Learn More <ArrowRight className="w-5 h-5" />
-                </span>
-              </div>
-            </Link>
+            {[
+              { to: '/passes', img: 'https://kukdukoo.com/images/exhibit-flea.jpg', title: 'Get Passes 🎟️', desc: 'Book your passes and join the biggest children\'s carnival!', cta: 'Book Now' },
+              { to: '/volunteer', img: 'https://kukdukoo.com/images/exhibit-expo.jpg', title: 'Volunteer 🙋', desc: 'Join our crew and help create magical moments for kids!', cta: 'Join Us' },
+              { to: '/exhibitor', img: 'https://kukdukoo.com/images/exhibit-sponsor.jpg', title: 'Sponsor 🏢', desc: 'Partner with us and reach 2,000+ premium families!', cta: 'Learn More' },
+            ].map((c) => (
+              <Link key={c.to} to={c.to}
+                className="kk-card group"
+                style={{ position: 'relative', height: '320px', display: 'block', textDecoration: 'none' }}>
+                <img src={c.img} alt={c.title}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform .5s' }}
+                  className="group-hover:scale-110" />
+                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,.8) 0%, rgba(0,0,0,.15) 60%)' }} />
+                <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '1.5rem', color: '#fff' }}>
+                  <h3 style={{ fontFamily: 'Lilita One, sans-serif', fontSize: '1.4rem', marginBottom: '0.35rem' }}>{c.title}</h3>
+                  <p style={{ fontFamily: 'Signika, sans-serif', fontSize: '0.9rem', opacity: 0.9, marginBottom: '0.75rem' }}>{c.desc}</p>
+                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem', fontFamily: 'Lilita One, sans-serif', fontSize: '0.95rem', color: '#f7941d' }}>
+                    {c.cta} <ArrowRight className="w-4 h-4" />
+                  </span>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ───── Stats ───── */}
-      <section className="py-16 bg-linear-to-r from-primary via-purple-600 to-accent text-white relative overflow-hidden">
-        {/* Background Image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: 'url(https://kukdukoo.com/images/exhibit-banner.jpg)',
-            opacity: 0.9,
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/80 via-purple-600/80 to-accent/80" />
-        
-        <div className="absolute inset-0 overflow-hidden">
-          {['✨', '🌟', '💫'].map((e, i) => (
-            <span key={i} className="absolute text-4xl opacity-10 animate-float"
-              style={{ top: `${20 + i * 25}%`, left: `${15 + i * 30}%`, animationDelay: `${i}s` }}>
-              {e}
-            </span>
-          ))}
-        </div>
+      {/* ── STATS ── */}
+      <section style={{ position: 'relative', padding: '4rem 0', overflow: 'hidden' }}>
+        <div style={{ position: 'absolute', inset: 0, backgroundImage: 'url(https://kukdukoo.com/images/exhibit-banner.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.9 }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(26,159,181,.88), rgba(230,50,40,.75))' }} />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
-              { num: '25+', label: 'DIY Activity Stalls' },
-              { num: '2K+', label: 'Attendees Expected' },
-              { num: '10+', label: 'High-Impact Shows' },
+              { num: '45+', label: 'Artists & Performers' },
+              { num: '5K+', label: 'Attendees Expected' },
+              { num: '10+', label: 'Shows & Workshops' },
               { num: '2', label: 'Day Mega Festival' },
             ].map((s, i) => (
               <div key={s.label} className="animate-count-up" style={{ animationDelay: `${i * 0.15}s` }}>
-                <div className="text-4xl sm:text-5xl font-bold mb-1">{s.num}</div>
-                <div className="text-white/80 text-sm font-medium">{s.label}</div>
+                <div style={{ fontFamily: 'Lilita One, sans-serif', fontSize: 'clamp(2.2rem,5vw,3.5rem)', color: '#fff' }}>{s.num}</div>
+                <div style={{ fontFamily: 'Signika, sans-serif', color: 'rgba(255,255,255,.85)', fontSize: '0.9rem', marginTop: '0.25rem' }}>{s.label}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ───── Testimonials ───── */}
-      <section className="py-16 sm:py-20 bg-gray-50">
+      {/* ── TESTIMONIALS ── */}
+      <section style={{ padding: '5rem 0', background: '#f5f3ee' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">What Parents Say 💬</h2>
-            <p className="text-gray-600 text-lg">Hear from families who experienced TinkerDen events!</p>
-          </div>
+          <SectionHeading teal="What Parents " red="Say 💬" sub="Hear from families who've experienced our past festivals!" />
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { name: 'Priya Sharma', text: 'My son built his first robot and launched a rocket — all in one day! TinkerDen makes STEM genuinely exciting for kids.', role: 'Mother of 2' },
-              { name: 'Rahul Mehta', text: 'Amazingly organized event. The drone show and AR/VR zones blew our minds. My daughter hasn\'t stopped talking about it!', role: 'Father' },
-              { name: 'Anita Desai', text: 'The best STEM event in Gujarat. My kids loved the maker challenges and the science fire show was spectacular!', role: 'Mother of 3' },
+              { name: 'Priya Sharma', text: 'My daughter built her first puppet and performed on stage — all in one day! The storytelling sessions were absolutely magical.', role: 'Mother of 2' },
+              { name: 'Rahul Mehta', text: 'Amazingly organised event. The theatre and cosplay zones blew our minds. My son hasn\'t stopped talking about it for weeks!', role: 'Father' },
+              { name: 'Anita Desai', text: 'Best literary festival for kids in India. My children loved the quizzing and the DIY art craft was spectacular!', role: 'Mother of 3' },
             ].map((t, i) => (
-              <div key={t.name} className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 animate-slide-up" style={{ animationDelay: `${i * 0.15}s` }}>
-                <div className="flex gap-1 mb-4">
+              <div key={t.name} className="card-border animate-slide-up"
+                style={{ padding: '1.5rem', animationDelay: `${i * 0.15}s` }}>
+                <div style={{ display: 'flex', gap: '0.25rem', marginBottom: '1rem' }}>
                   {[...Array(5)].map((_, j) => (
-                    <Star key={j} className="w-4 h-4 text-secondary fill-secondary" />
+                    <Star key={j} style={{ width: 16, height: 16, color: '#f7941d', fill: '#f7941d' }} />
                   ))}
                 </div>
-                <p className="text-gray-600 mb-4 leading-relaxed italic">"{t.text}"</p>
+                <p style={{ fontFamily: 'Signika, sans-serif', color: '#444', lineHeight: 1.7, fontStyle: 'italic', marginBottom: '1rem' }}>"{t.text}"</p>
                 <div>
-                  <p className="font-bold text-gray-900">{t.name}</p>
-                  <p className="text-sm text-gray-500">{t.role}</p>
+                  <p style={{ fontFamily: 'Lilita One, sans-serif', color: '#1a1a1a', fontSize: '0.95rem' }}>{t.name}</p>
+                  <p style={{ fontFamily: 'Signika, sans-serif', color: '#888', fontSize: '0.82rem' }}>{t.role}</p>
                 </div>
               </div>
             ))}
@@ -382,27 +271,38 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ───── FAQ ───── */}
-      <section className="py-16 sm:py-20 bg-white">
+      {/* ── FAQ ── */}
+      <section style={{ padding: '5rem 0', background: '#fff' }}>
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-              Frequently Asked Questions ❓
-            </h2>
-            <p className="text-gray-600 text-lg">Everything you need to know about Intellofest</p>
-          </div>
-          <div className="space-y-3">
+          <SectionHeading teal="Frequently Asked " red="Questions" />
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             {faqs.map((faq, i) => (
-              <div key={i} className="bg-gray-50 rounded-2xl overflow-hidden transition-all">
+              <div key={i} style={{ borderRadius: '12px', overflow: 'hidden', border: '1.5px solid #e8e4dc', background: '#faf9f5' }}>
                 <button
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full flex items-center justify-between px-6 py-4 text-left font-semibold text-gray-900 hover:bg-gray-100 transition-colors"
+                  style={{
+                    width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                    padding: '1rem 1.25rem', textAlign: 'left', background: 'transparent', border: 'none', cursor: 'pointer',
+                    fontFamily: 'Signika, sans-serif', fontWeight: 600, fontSize: '0.97rem',
+                    color: openFaq === i ? '#1a9fb5' : '#1a1a1a',
+                  }}
                 >
                   <span>{faq.q}</span>
-                  <ChevronDown className={`w-5 h-5 text-gray-500 transition-transform duration-300 shrink-0 ml-4 ${openFaq === i ? 'rotate-180' : ''}`} />
+                  <ChevronDown
+                    style={{
+                      width: 18, height: 18, color: openFaq === i ? '#1a9fb5' : '#888',
+                      transform: openFaq === i ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform .3s',
+                      flexShrink: 0, marginLeft: '1rem',
+                    }}
+                  />
                 </button>
-                <div className={`overflow-hidden transition-all duration-300 ${openFaq === i ? 'max-h-40 pb-4' : 'max-h-0'}`}>
-                  <p className="px-6 text-gray-600 leading-relaxed">{faq.a}</p>
+                <div style={{
+                  overflow: 'hidden', maxHeight: openFaq === i ? '200px' : '0', transition: 'max-height .3s ease',
+                }}>
+                  <p style={{ fontFamily: 'Signika, sans-serif', color: '#555', padding: '0 1.25rem 1rem', lineHeight: 1.7, fontSize: '0.92rem' }}>
+                    {faq.a}
+                  </p>
                 </div>
               </div>
             ))}
@@ -410,28 +310,23 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ───── Final CTA ───── */}
-      <section className="py-16 sm:py-20 bg-linear-to-r from-primary to-accent text-white text-center relative overflow-hidden">
-        {/* Background Image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: 'url(https://kukdukoo.com/images/exhibit-banner.jpg)',
-            opacity: 0.9,
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-accent/80" />
-        
+      {/* ── FINAL CTA ── */}
+      <section style={{ position: 'relative', padding: '5rem 0', overflow: 'hidden', textAlign: 'center' }}>
+        <div style={{ position: 'absolute', inset: 0, backgroundImage: 'url(https://kukdukoo.com/images/exhibit-banner.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.9 }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(230,50,40,.88), rgba(247,148,29,.75))' }} />
         <div className="relative z-10 max-w-4xl mx-auto px-4">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-4">Ready to Ignite Curiosity? 🚀</h2>
-          <p className="text-white/80 text-lg mb-8">
-            Limited passes available. Don't miss Surat's biggest STEM & Innovation Carnival!
+          <h2 style={{ fontFamily: 'Lilita One, sans-serif', fontSize: 'clamp(1.8rem,4vw,2.6rem)', color: '#fff', marginBottom: '1rem' }}>
+            Ready to Create Magical Memories? 🎪
+          </h2>
+          <p style={{ fontFamily: 'Signika, sans-serif', color: 'rgba(255,255,255,.88)', fontSize: '1.1rem', marginBottom: '2rem' }}>
+            Limited passes available. Book now for {settings?.eventDates || 'the upcoming festival!'}
           </p>
-          <Link
-            to="/passes"
-            className="inline-flex items-center justify-center gap-2 px-10 py-4 bg-secondary hover:bg-secondary-dark text-white font-bold rounded-full text-xl shadow-xl hover:shadow-2xl transition-all transform hover:scale-105 active:scale-95"
+          <Link to="/passes"
+            style={{ fontFamily: 'Lilita One, sans-serif', fontSize: '1.15rem', background: '#fff', color: '#e63228', borderRadius: '50px', padding: '0.85rem 2.5rem', display: 'inline-flex', alignItems: 'center', gap: '0.6rem', textDecoration: 'none', letterSpacing: '0.03em', boxShadow: '0 6px 20px rgba(0,0,0,.2)', transition: 'transform .2s' }}
+            onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.06)'}
+            onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
           >
-            <Ticket className="w-6 h-6" /> Book Your Tickets Now
+            <Ticket className="w-5 h-5" /> Book Your Passes Now
           </Link>
         </div>
       </section>

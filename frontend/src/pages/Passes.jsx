@@ -53,26 +53,31 @@ export default function Passes() {
   if (loading) return <LoadingSpinner />;
 
   return (
-    <div className="min-h-screen">
+    <div style={{ minHeight: '100vh', background: '#f5f3ee' }}>
       {/* Header */}
-      <section className="relative overflow-hidden bg-linear-to-br from-secondary via-orange-500 to-red-400 py-16 sm:py-24 text-white text-center">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-10 -right-10 w-60 h-60 bg-white/10 rounded-full blur-2xl" />
-          <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-yellow-300/15 rounded-full blur-2xl" />
-          {['🎟️', '🤖', '🚀', '🔬'].map((e, i) => (
-            <span key={i} className="absolute text-3xl opacity-20 animate-float"
-              style={{ top: `${15 + i * 20}%`, left: `${10 + i * 22}%`, animationDelay: `${i * 0.8}s` }}>
-              {e}
-            </span>
-          ))}
-        </div>
-        <div className="relative max-w-4xl mx-auto px-4">
-          <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm rounded-full px-4 py-1.5 mb-4 text-sm font-semibold">
-            <Star className="w-4 h-4" /> Limited Availability
+      <section style={{ position: 'relative', overflow: 'hidden', background: '#e63228', padding: '4rem 1rem', textAlign: 'center' }}>
+        <div style={{ position: 'absolute', top: -40, right: -40, width: 220, height: 220, borderRadius: '50%', background: 'rgba(255,255,255,.1)' }} />
+        <div style={{ position: 'absolute', bottom: -30, left: -30, width: 160, height: 160, borderRadius: '50%', background: 'rgba(247,148,29,.2)' }} />
+
+        {['🎟️', '🎪', '🌟', '🎭'].map((e, i) => (
+          <span key={i} className="animate-float" style={{
+            position: 'absolute', fontSize: '2rem', opacity: 0.18,
+            top: `${15 + i * 20}%`, left: `${10 + i * 22}%`,
+            animationDelay: `${i * 0.8}s`,
+          }}>{e}</span>
+        ))}
+
+        <div style={{ position: 'relative', maxWidth: 700, margin: '0 auto' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(255,255,255,.18)', borderRadius: '50px', padding: '0.35rem 1rem', marginBottom: '1rem', fontFamily: 'Signika, sans-serif', fontSize: '0.85rem', color: '#fff', fontWeight: 600 }}>
+            <Star style={{ width: 14, height: 14 }} /> Limited Availability
           </div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">Get Your Passes 🎟️</h1>
-          <p className="text-lg sm:text-xl text-white/85 max-w-2xl mx-auto">
-            Choose from various pass types and secure your spot at Surat's biggest STEM & Innovation Carnival!
+          <h1 className="animate-slide-up"
+            style={{ fontFamily: 'Lilita One, sans-serif', fontSize: 'clamp(2rem,5vw,3.5rem)', color: '#fff', marginBottom: '0.75rem' }}>
+            Get Your Passes 🎟️
+          </h1>
+          <p className="animate-slide-up delay-100"
+            style={{ fontFamily: 'Signika, sans-serif', color: 'rgba(255,255,255,.88)', fontSize: '1.05rem', maxWidth: 520, margin: '0 auto' }}>
+            Choose from various pass types and secure your spot at India's biggest arts & literature festival for kids!
           </p>
         </div>
       </section>
@@ -80,11 +85,11 @@ export default function Passes() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         {!isOpen ? (
           <div className="text-center py-20 animate-fade-in">
-            <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Ticket className="w-12 h-12 text-gray-400" />
+            <div style={{ width: 96, height: 96, background: '#fff', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem', boxShadow: '0 4px 16px rgba(0,0,0,.08)' }}>
+              <Ticket style={{ width: 48, height: 48, color: '#e63228' }} />
             </div>
-            <h2 className="text-2xl font-bold text-gray-700 mb-2">Registration is Currently Closed</h2>
-            <p className="text-gray-500 max-w-md mx-auto">
+            <h2 style={{ fontFamily: 'Lilita One, sans-serif', color: '#333', fontSize: '1.5rem', marginBottom: '0.5rem' }}>Registration is Currently Closed</h2>
+            <p style={{ fontFamily: 'Signika, sans-serif', color: '#888', maxWidth: 400, margin: '0 auto' }}>
               Check back soon! We'll open registrations shortly. Follow us for updates.
             </p>
           </div>
@@ -100,67 +105,88 @@ export default function Passes() {
                 return (
                   <div
                     key={pass._id}
-                    className={`relative bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 p-6 border-2 animate-slide-up ${
-                      qty > 0 ? 'border-primary animate-pulse-glow' : 'border-transparent'
-                    }`}
-                    style={{ animationDelay: `${idx * 0.1}s` }}
+                    className="animate-slide-up"
+                    style={{
+                      position: 'relative', background: '#fff', borderRadius: '16px',
+                      boxShadow: qty > 0 ? '0 0 0 3px #e63228, 0 8px 24px rgba(230,50,40,.15)' : '0 2px 12px rgba(0,0,0,.08)',
+                      padding: '1.5rem', transition: 'box-shadow .25s, transform .25s',
+                      transform: qty > 0 ? 'translateY(-2px)' : 'none',
+                      animationDelay: `${idx * 0.1}s`,
+                      border: '2px solid ' + (qty > 0 ? '#e63228' : '#f0ede6'),
+                    }}
                   >
                     {isEarlyBird && (
-                      <div className="absolute -top-3 left-6 bg-linear-to-r from-accent to-pink-500 text-white text-xs font-bold px-4 py-1.5 rounded-full flex items-center gap-1 shadow-lg">
-                        <Zap className="w-3 h-3" /> Early Bird Offer
+                      <div style={{
+                        position: 'absolute', top: -14, left: 20,
+                        background: 'linear-gradient(to right, #e63228, #f7941d)',
+                        color: '#fff', fontSize: '0.75rem', fontWeight: 700, padding: '4px 14px',
+                        borderRadius: '50px', display: 'flex', alignItems: 'center', gap: '4px',
+                        fontFamily: 'Lilita One, sans-serif', letterSpacing: '0.04em', boxShadow: '0 2px 8px rgba(230,50,40,.3)',
+                      }}>
+                        <Zap style={{ width: 11, height: 11 }} /> Early Bird Offer
                       </div>
                     )}
 
-                    <h3 className="text-xl font-bold text-gray-900 mb-2 mt-1">{pass.name}</h3>
+                    <h3 style={{ fontFamily: 'Lilita One, sans-serif', fontSize: '1.2rem', color: '#1a1a1a', marginBottom: '0.35rem', marginTop: isEarlyBird ? '0.5rem' : 0 }}>
+                      {pass.name}
+                    </h3>
                     {pass.description && (
-                      <p className="text-gray-500 text-sm mb-4 leading-relaxed">{pass.description}</p>
+                      <p style={{ fontFamily: 'Signika, sans-serif', color: '#666', fontSize: '0.88rem', marginBottom: '1rem', lineHeight: 1.55 }}>
+                        {pass.description}
+                      </p>
                     )}
 
-                    <div className="mb-4">
+                    <div style={{ marginBottom: '1rem' }}>
                       {isEarlyBird && (
-                        <span className="text-gray-400 line-through text-lg mr-2">
+                        <span style={{ fontFamily: 'Signika, sans-serif', color: '#bbb', textDecoration: 'line-through', fontSize: '1.05rem', marginRight: '0.5rem' }}>
                           ₹{pass.regularPrice}
                         </span>
                       )}
-                      <span className="text-3xl font-bold text-primary">₹{price}</span>
-                      <span className="text-gray-500 text-sm"> / person</span>
+                      <span style={{ fontFamily: 'Lilita One, sans-serif', fontSize: '1.8rem', color: '#e63228' }}>₹{price}</span>
+                      <span style={{ fontFamily: 'Signika, sans-serif', color: '#888', fontSize: '0.85rem' }}> / person</span>
                     </div>
 
                     {pass.minQuantityForDiscount > 0 && (
-                      <p className="text-xs text-green-600 bg-green-50 rounded-lg px-3 py-2 mb-4 font-medium">
+                      <p style={{ fontFamily: 'Signika, sans-serif', fontSize: '0.8rem', color: '#2db46b', background: '#f0fdf4', borderRadius: '8px', padding: '0.5rem 0.75rem', marginBottom: '1rem' }}>
                         🎉 Buy {pass.minQuantityForDiscount}+ and get {pass.bulkDiscountPercentage}% off!
                       </p>
                     )}
 
-                    <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-                      <span className="flex items-center gap-1.5">
-                        <Users className="w-4 h-4" />
-                        <span className={available <= 10 ? 'text-red-500 font-semibold' : ''}>
-                          {available <= 10 ? `Only ${available} left!` : `${available} spots left`}
-                        </span>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem', fontFamily: 'Signika, sans-serif', fontSize: '0.85rem', color: '#888' }}>
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', color: available <= 10 ? '#e63228' : '#888', fontWeight: available <= 10 ? 600 : 400 }}>
+                        <Users style={{ width: 14, height: 14 }} />
+                        {available <= 10 ? `Only ${available} left!` : `${available} spots left`}
                       </span>
                     </div>
 
                     {available > 0 && (pass.isRegistrationOpen !== false) ? (
-                      <div className="flex items-center justify-center gap-4 bg-gray-50 rounded-xl py-3">
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1.25rem', background: '#f5f3ee', borderRadius: '12px', padding: '0.75rem' }}>
                         <button
                           onClick={() => updateQty(pass._id, -1)}
                           disabled={qty === 0}
-                          className="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center hover:bg-gray-100 disabled:opacity-30 transition-all hover:scale-110 active:scale-95"
+                          style={{
+                            width: 38, height: 38, borderRadius: '50%', background: '#fff', border: '1.5px solid #e8e4dc',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+                            opacity: qty === 0 ? 0.3 : 1, transition: 'all .2s',
+                          }}
                         >
-                          <Minus className="w-4 h-4" />
+                          <Minus style={{ width: 15, height: 15, color: '#333' }} />
                         </button>
-                        <span className="text-2xl font-bold w-8 text-center text-primary">{qty}</span>
+                        <span style={{ fontFamily: 'Lilita One, sans-serif', fontSize: '1.5rem', color: '#e63228', width: 28, textAlign: 'center' }}>{qty}</span>
                         <button
                           onClick={() => updateQty(pass._id, 1)}
                           disabled={qty >= available}
-                          className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center hover:bg-primary-dark disabled:opacity-30 transition-all hover:scale-110 active:scale-95"
+                          style={{
+                            width: 38, height: 38, borderRadius: '50%', background: '#e63228', border: 'none',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer',
+                            opacity: qty >= available ? 0.3 : 1, transition: 'all .2s',
+                          }}
                         >
-                          <Plus className="w-4 h-4" />
+                          <Plus style={{ width: 15, height: 15, color: '#fff' }} />
                         </button>
                       </div>
                     ) : (
-                      <div className="text-center py-3 text-red-500 font-semibold bg-red-50 rounded-xl">
+                      <div style={{ textAlign: 'center', padding: '0.75rem', fontFamily: 'Lilita One, sans-serif', color: '#e63228', background: '#fff0f0', borderRadius: '12px', fontSize: '0.9rem' }}>
                         {available <= 0 ? '🚫 Sold Out!' : 'Registration Closed'}
                       </div>
                     )}
@@ -170,17 +196,17 @@ export default function Passes() {
             </div>
 
             {/* Trust badges */}
-            <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-500 py-6">
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '1.5rem', padding: '1.5rem 0', fontFamily: 'Signika, sans-serif', fontSize: '0.87rem', color: '#666' }}>
               {[
                 { icon: Shield, text: '100% Secure Payment' },
                 { icon: Ticket, text: 'Instant E-Ticket' },
-                { icon: Star, text: '2000+ Happy Families' },
+                { icon: Star, text: '5000+ Happy Families' },
               ].map((badge) => {
                 const Icon = badge.icon;
                 return (
-                  <div key={badge.text} className="flex items-center gap-2">
-                    <Icon className="w-4 h-4 text-primary" />
-                    <span className="font-medium">{badge.text}</span>
+                  <div key={badge.text} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <Icon style={{ width: 16, height: 16, color: '#1a9fb5' }} />
+                    <span style={{ fontWeight: 500 }}>{badge.text}</span>
                   </div>
                 );
               })}
@@ -188,19 +214,31 @@ export default function Passes() {
 
             {/* Sticky Cart */}
             {totalItems > 0 && (
-              <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t shadow-2xl z-40 p-4 animate-slide-up">
-                <div className="max-w-7xl mx-auto flex items-center justify-between">
+              <div className="animate-slide-up" style={{
+                position: 'fixed', bottom: 0, left: 0, right: 0,
+                background: 'rgba(255,255,255,.96)', backdropFilter: 'blur(10px)',
+                borderTop: '2px solid #f0ede6', boxShadow: '0 -4px 24px rgba(0,0,0,.1)',
+                zIndex: 40, padding: '1rem',
+              }}>
+                <div className="max-w-7xl mx-auto" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <div>
-                    <p className="text-sm text-gray-600">
-                      <span className="font-bold text-gray-900">{totalItems}</span> pass{totalItems > 1 ? 'es' : ''} selected
+                    <p style={{ fontFamily: 'Signika, sans-serif', fontSize: '0.88rem', color: '#666' }}>
+                      <span style={{ fontWeight: 700, color: '#1a1a1a' }}>{totalItems}</span> pass{totalItems > 1 ? 'es' : ''} selected
                     </p>
-                    <p className="text-2xl font-bold text-primary">₹{totalAmount.toLocaleString('en-IN')}</p>
+                    <p style={{ fontFamily: 'Lilita One, sans-serif', fontSize: '1.5rem', color: '#e63228' }}>₹{totalAmount.toLocaleString('en-IN')}</p>
                   </div>
                   <button
                     onClick={handleCheckout}
-                    className="flex items-center gap-2 px-8 py-3 bg-secondary hover:bg-secondary-dark text-white font-bold rounded-full text-lg transition-all hover:scale-105 hover:shadow-lg active:scale-95"
+                    style={{
+                      display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem 2rem',
+                      background: '#e63228', color: '#fff', fontFamily: 'Lilita One, sans-serif',
+                      fontSize: '1rem', borderRadius: '50px', border: 'none', cursor: 'pointer',
+                      letterSpacing: '0.02em', transition: 'all .2s',
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#c0281f'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = '#e63228'}
                   >
-                    <ShoppingCart className="w-5 h-5" /> Proceed to Checkout
+                    <ShoppingCart style={{ width: 18, height: 18 }} /> Proceed to Checkout
                   </button>
                 </div>
               </div>

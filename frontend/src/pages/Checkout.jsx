@@ -104,63 +104,68 @@ export default function Checkout() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <section className="relative overflow-hidden bg-linear-to-r from-primary via-purple-600 to-accent py-12 sm:py-16 text-white text-center">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-2xl" />
-        </div>
-        <div className="relative">
-          <h1 className="text-3xl sm:text-4xl font-bold animate-slide-up">Secure Checkout 💳</h1>
-          <p className="text-white/80 mt-2 animate-slide-up delay-100">You're almost there!</p>
+    <div style={{ minHeight: '100vh', background: '#f5f3ee' }}>
+      <section style={{ position: 'relative', overflow: 'hidden', background: '#e63228', padding: '3rem 1rem', textAlign: 'center' }}>
+        <div style={{ position: 'absolute', top: -30, right: -30, width: 150, height: 150, borderRadius: '50%', background: 'rgba(255,255,255,.1)' }} />
+        <div style={{ position: 'relative' }}>
+          <h1 className="animate-slide-up" style={{ fontFamily: 'Lilita One, sans-serif', fontSize: 'clamp(1.8rem,4vw,2.5rem)', color: '#fff' }}>Secure Checkout 💳</h1>
+          <p className="animate-slide-up delay-100" style={{ fontFamily: 'Signika, sans-serif', color: 'rgba(255,255,255,.85)', marginTop: '0.4rem' }}>You're almost there!</p>
         </div>
       </section>
 
       <div className="max-w-4xl mx-auto px-4 py-10">
-        <button onClick={() => navigate('/passes')} className="flex items-center gap-2 text-sm text-gray-500 hover:text-primary mb-6 font-medium transition-colors">
+        <button onClick={() => navigate('/passes')} style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontFamily: 'Signika, sans-serif', fontSize: '0.88rem', color: '#888', background: 'none', border: 'none', cursor: 'pointer', marginBottom: '1.5rem' }}
+          onMouseEnter={(e) => e.currentTarget.style.color='#1a9fb5'}
+          onMouseLeave={(e) => e.currentTarget.style.color='#888'}
+        >
           <ArrowLeft className="w-4 h-4" /> Back to Passes
         </button>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
           {/* Form */}
-          <div className="lg:col-span-3 space-y-6">
-            <div className="bg-white rounded-2xl p-6 shadow-sm animate-slide-up">
-              <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
-                <CreditCard className="w-5 h-5 text-primary" /> Your Details
+          <div className="lg:col-span-3" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+            <div className="animate-slide-up" style={{ background: '#fff', borderRadius: '20px', boxShadow: '0 4px 16px rgba(0,0,0,.07)', border: '1.5px solid #f0ede6', padding: '1.75rem' }}>
+              <h2 style={{ fontFamily: 'Lilita One, sans-serif', fontSize: '1.15rem', color: '#1a1a1a', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <CreditCard style={{ width: 20, height: 20, color: '#e63228' }} /> Your Details
               </h2>
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-                  <input type="text" value={form.customerName} onChange={(e) => setForm({ ...form, customerName: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent outline-none" placeholder="Enter your full name" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                  <input type="email" value={form.customerEmail} onChange={(e) => setForm({ ...form, customerEmail: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent outline-none" placeholder="you@email.com" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
-                  <input type="tel" value={form.customerPhone} onChange={(e) => setForm({ ...form, customerPhone: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent outline-none" placeholder="+91 98765 43210" />
-                </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                {[
+                  { key: 'customerName', label: 'Full Name', placeholder: 'Enter your full name', type: 'text' },
+                  { key: 'customerEmail', label: 'Email', placeholder: 'you@email.com', type: 'email' },
+                  { key: 'customerPhone', label: 'Phone', placeholder: '+91 98765 43210', type: 'tel' },
+                ].map(({ key, label, placeholder, type }) => (
+                  <div key={key}>
+                    <label style={{ display: 'block', fontFamily: 'Signika, sans-serif', fontWeight: 600, fontSize: '0.88rem', color: '#555', marginBottom: '0.4rem' }}>{label}</label>
+                    <input type={type} value={form[key]} placeholder={placeholder}
+                      onChange={(e) => setForm({ ...form, [key]: e.target.value })}
+                      style={{ width: '100%', padding: '0.85rem 1rem', borderRadius: '12px', border: '2px solid #e8e4dc', outline: 'none', fontFamily: 'Signika, sans-serif', fontSize: '0.95rem', color: '#333', background: '#faf9f6', boxSizing: 'border-box' }}
+                      onFocus={(e) => e.target.style.borderColor = '#e63228'}
+                      onBlur={(e) => e.target.style.borderColor = '#e8e4dc'}
+                    />
+                  </div>
+                ))}
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl p-6 shadow-sm animate-slide-up delay-100">
-              <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
-                <Tag className="w-5 h-5 text-primary" /> Promo Code
+            <div className="animate-slide-up delay-100" style={{ background: '#fff', borderRadius: '20px', boxShadow: '0 4px 16px rgba(0,0,0,.07)', border: '1.5px solid #f0ede6', padding: '1.75rem' }}>
+              <h2 style={{ fontFamily: 'Lilita One, sans-serif', fontSize: '1.1rem', color: '#1a1a1a', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <Tag style={{ width: 18, height: 18, color: '#1a9fb5' }} /> Promo Code
               </h2>
-              <div className="flex gap-3">
+              <div style={{ display: 'flex', gap: '0.75rem' }}>
                 <input type="text" value={promoCode} onChange={(e) => setPromoCode(e.target.value.toUpperCase())}
-                  className="flex-1 px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent outline-none uppercase font-mono" placeholder="Enter code" />
+                  placeholder="Enter code"
+                  style={{ flex: 1, padding: '0.85rem 1rem', borderRadius: '12px', border: '2px solid #e8e4dc', outline: 'none', fontFamily: 'monospace', fontSize: '0.95rem', color: '#333', background: '#faf9f6', textTransform: 'uppercase' }}
+                  onFocus={(e) => e.target.style.borderColor = '#1a9fb5'}
+                  onBlur={(e) => e.target.style.borderColor = '#e8e4dc'}
+                />
                 <button onClick={validatePromo} disabled={promoLoading}
-                  className="px-6 py-3 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors disabled:opacity-50">
-                  {promoLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Apply'}
+                  style={{ padding: '0.85rem 1.5rem', background: '#1a9fb5', color: '#fff', fontFamily: 'Lilita One, sans-serif', fontSize: '0.95rem', border: 'none', borderRadius: '12px', cursor: 'pointer', opacity: promoLoading ? 0.6 : 1 }}>
+                  {promoLoading ? <Loader2 style={{ width: 18, height: 18 }} className="animate-spin" /> : 'Apply'}
                 </button>
               </div>
               {promoResult && (
-                <div className="mt-3 flex items-center gap-2 text-green-600 text-sm font-medium bg-green-50 rounded-lg px-3 py-2">
-                  <CheckCircle className="w-4 h-4" />
+                <div style={{ marginTop: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#2db46b', fontSize: '0.88rem', fontFamily: 'Signika, sans-serif', fontWeight: 600, background: '#f0fdf4', borderRadius: '10px', padding: '0.5rem 0.75rem' }}>
+                  <CheckCircle style={{ width: 15, height: 15 }} />
                   Promo applied: {promoResult.discountType === 'percentage' ? `${promoResult.discountValue}% off` : `₹${promoResult.discountValue} off`}
                 </div>
               )}
@@ -169,42 +174,50 @@ export default function Checkout() {
 
           {/* Summary */}
           <div className="lg:col-span-2 animate-slide-up delay-200">
-            <div className="bg-white rounded-2xl p-6 shadow-sm sticky top-24">
-              <h2 className="text-xl font-bold mb-4">Order Summary</h2>
-              <div className="space-y-3 mb-4">
+            <div style={{ background: '#fff', borderRadius: '20px', boxShadow: '0 4px 16px rgba(0,0,0,.07)', border: '1.5px solid #f0ede6', padding: '1.75rem', position: 'sticky', top: '5rem' }}>
+              <h2 style={{ fontFamily: 'Lilita One, sans-serif', fontSize: '1.2rem', color: '#1a1a1a', marginBottom: '1rem' }}>Order Summary</h2>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '1rem' }}>
                 {cartDetails.map((c) => (
-                  <div key={c.passId} className="flex justify-between text-sm">
-                    <span className="text-gray-600">{c.name} × {c.quantity}</span>
-                    <span className="font-semibold">₹{c.subtotal.toLocaleString('en-IN')}</span>
+                  <div key={c.passId} style={{ display: 'flex', justifyContent: 'space-between', fontFamily: 'Signika, sans-serif', fontSize: '0.9rem' }}>
+                    <span style={{ color: '#666' }}>{c.name} × {c.quantity}</span>
+                    <span style={{ fontWeight: 600, color: '#1a1a1a' }}>₹{c.subtotal.toLocaleString('en-IN')}</span>
                   </div>
                 ))}
               </div>
-              <div className="border-t pt-3 space-y-2">
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Subtotal</span>
+              <div style={{ borderTop: '1.5px solid #f0ede6', paddingTop: '0.75rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: 'Signika, sans-serif', fontSize: '0.88rem' }}>
+                  <span style={{ color: '#666' }}>Subtotal</span>
                   <span>₹{subtotal.toLocaleString('en-IN')}</span>
                 </div>
                 {discount > 0 && (
-                  <div className="flex justify-between text-sm text-green-600">
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontFamily: 'Signika, sans-serif', fontSize: '0.88rem', color: '#2db46b' }}>
                     <span>Discount</span>
                     <span>-₹{discount.toLocaleString('en-IN')}</span>
                   </div>
                 )}
-                <div className="flex justify-between text-lg font-bold pt-2 border-t">
-                  <span>Total</span>
-                  <span className="text-primary">₹{total.toLocaleString('en-IN')}</span>
+                <div style={{ display: 'flex', justifyContent: 'space-between', borderTop: '1.5px solid #f0ede6', paddingTop: '0.5rem', fontFamily: 'Lilita One, sans-serif', fontSize: '1.1rem' }}>
+                  <span style={{ color: '#1a1a1a' }}>Total</span>
+                  <span style={{ color: '#e63228' }}>₹{total.toLocaleString('en-IN')}</span>
                 </div>
               </div>
 
               <button onClick={handlePayment} disabled={submitting}
-                className="w-full mt-6 px-6 py-4 bg-secondary hover:bg-secondary-dark text-white font-bold rounded-xl text-lg transition-all disabled:opacity-50 flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98]">
-                {submitting ? <Loader2 className="w-5 h-5 animate-spin" /> : (
-                  <><ShieldCheck className="w-5 h-5" /> Pay ₹{total.toLocaleString('en-IN')}</>
+                style={{
+                  width: '100%', marginTop: '1.25rem', padding: '0.95rem', background: '#e63228', color: '#fff',
+                  fontFamily: 'Lilita One, sans-serif', fontSize: '1.05rem', border: 'none', borderRadius: '12px',
+                  cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
+                  opacity: submitting ? 0.6 : 1, letterSpacing: '0.03em', transition: 'all .2s',
+                }}
+                onMouseEnter={(e) => !submitting && (e.currentTarget.style.background = '#c0281f')}
+                onMouseLeave={(e) => (e.currentTarget.style.background = '#e63228')}
+              >
+                {submitting ? <Loader2 style={{ width: 18, height: 18 }} className="animate-spin" /> : (
+                  <><ShieldCheck style={{ width: 18, height: 18 }} /> Pay ₹{total.toLocaleString('en-IN')}</>
                 )}
               </button>
 
-              <div className="flex items-center justify-center gap-2 mt-4 text-xs text-gray-400">
-                <Lock className="w-3 h-3" />
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.35rem', marginTop: '0.85rem', fontFamily: 'Signika, sans-serif', fontSize: '0.75rem', color: '#aaa' }}>
+                <Lock style={{ width: 11, height: 11 }} />
                 Secured by Razorpay. 100% safe & encrypted.
               </div>
             </div>

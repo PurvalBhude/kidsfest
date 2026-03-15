@@ -1,119 +1,377 @@
+/* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Lilita+One&family=Signika:wght@300;400;500;600;700&display=swap');
+
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #7C3AED;
-  --color-primary-dark: #6D28D9;
-  --color-primary-light: #A78BFA;
-  --color-secondary: #F59E0B;
-  --color-secondary-dark: #D97706;
-  --color-accent: #EC4899;
-  --color-accent-light: #F472B6;
-  --color-success: #10B981;
-  --color-danger: #EF4444;
-  --color-warning: #F59E0B;
-  --color-info: #3B82F6;
-  --font-heading: 'Fredoka', 'Nunito', sans-serif;
-  --font-body: 'Nunito', 'Inter', sans-serif;
+  /* Kukdukoo palette */
+  --color-primary: #e63228;
+  /* red  */
+  --color-primary-dark: #c0281f;
+  --color-secondary: #1a9fb5;
+  /* teal/blue headings */
+  --color-secondary-dark: #157a8a;
+  --color-accent: #f7941d;
+  /* orange buttons */
+  --color-accent-dark: #d97b10;
+  --color-success: #2db46b;
+  --color-danger: #e63228;
+  --color-warning: #f7941d;
+  --color-info: #1a9fb5;
+
+  /* Typography */
+  --font-heading: 'Lilita One', 'Fredoka', sans-serif;
+  --font-body: 'Signika', 'Nunito', sans-serif;
+
+  /* Paper bg */
+  --color-paper: #f5f3ee;
 }
 
 @layer base {
   body {
     font-family: var(--font-body);
-    @apply bg-gray-50 text-gray-800 antialiased;
+    background-color: var(--color-paper);
+    color: #1a1a1a;
+    margin: 0;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-heading);
+    letter-spacing: 0.01em;
   }
 }
 
+/* ─── Paper texture background ─── */
 body {
-  margin: 0;
+  background-image:
+    repeating-linear-gradient(90deg,
+      transparent,
+      transparent 80px,
+      rgba(0, 0, 0, .015) 80px,
+      rgba(0, 0, 0, .015) 81px),
+    repeating-linear-gradient(0deg,
+      transparent,
+      transparent 80px,
+      rgba(0, 0, 0, .015) 80px,
+      rgba(0, 0, 0, .015) 81px);
 }
 
-/* ───── Custom Animations ───── */
-
+/* ─── Custom Animations ─── */
 @keyframes float {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  25%      { transform: translateY(-12px) rotate(3deg); }
-  75%      { transform: translateY(8px) rotate(-3deg); }
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  25% {
+    transform: translateY(-12px) rotate(3deg);
+  }
+
+  75% {
+    transform: translateY(8px) rotate(-3deg);
+  }
 }
 
 @keyframes float-slow {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50%      { transform: translateY(-20px) scale(1.05); }
+
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-16px) scale(1.03);
+  }
 }
 
 @keyframes wiggle {
-  0%, 100% { transform: rotate(0deg); }
-  25%      { transform: rotate(6deg); }
-  75%      { transform: rotate(-6deg); }
+
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(5deg);
+  }
+
+  75% {
+    transform: rotate(-5deg);
+  }
 }
 
 @keyframes slide-up {
-  from { opacity: 0; transform: translateY(30px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.25); }
-  50%      { box-shadow: 0 0 20px 8px rgba(124, 58, 237, 0.1); }
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(230, 50, 40, .2);
+  }
+
+  50% {
+    box-shadow: 0 0 18px 6px rgba(230, 50, 40, .08);
+  }
 }
 
 @keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 @keyframes count-up {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.animate-float       { animation: float 4s ease-in-out infinite; }
-.animate-float-slow  { animation: float-slow 6s ease-in-out infinite; }
-.animate-wiggle      { animation: wiggle 2s ease-in-out infinite; }
-.animate-slide-up    { animation: slide-up 0.6s ease-out both; }
-.animate-fade-in     { animation: fade-in 0.5s ease-out both; }
-.animate-pulse-glow  { animation: pulse-glow 2s ease-in-out infinite; }
-.animate-marquee     { animation: marquee 30s linear infinite; }
-.animate-count-up    { animation: count-up 0.6s ease-out both; }
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
 
-/* Staggered animation delays */
-.delay-100  { animation-delay: 0.1s; }
-.delay-200  { animation-delay: 0.2s; }
-.delay-300  { animation-delay: 0.3s; }
-.delay-400  { animation-delay: 0.4s; }
-.delay-500  { animation-delay: 0.5s; }
-.delay-600  { animation-delay: 0.6s; }
-.delay-700  { animation-delay: 0.7s; }
-.delay-800  { animation-delay: 0.8s; }
-.delay-1000 { animation-delay: 1s; }
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
 
-/* ───── Smooth scrolling ───── */
-html { scroll-behavior: smooth; }
+.animate-wiggle {
+  animation: wiggle 2s ease-in-out infinite;
+}
 
-/* ───── Selection color ───── */
+.animate-slide-up {
+  animation: slide-up 0.55s ease-out both;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.45s ease-out both;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+.animate-count-up {
+  animation: count-up 0.55s ease-out both;
+}
+
+/* Staggered delays */
+.delay-75 {
+  animation-delay: 0.075s;
+}
+
+.delay-100 {
+  animation-delay: 0.1s;
+}
+
+.delay-200 {
+  animation-delay: 0.2s;
+}
+
+.delay-300 {
+  animation-delay: 0.3s;
+}
+
+.delay-400 {
+  animation-delay: 0.4s;
+}
+
+.delay-500 {
+  animation-delay: 0.5s;
+}
+
+.delay-600 {
+  animation-delay: 0.6s;
+}
+
+.delay-700 {
+  animation-delay: 0.7s;
+}
+
+.delay-800 {
+  animation-delay: 0.8s;
+}
+
+.delay-1000 {
+  animation-delay: 1s;
+}
+
+/* ─── Smooth scrolling ─── */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ─── Selection ─── */
 ::selection {
-  background: #7C3AED;
-  color: white;
+  background: #e63228;
+  color: #fff;
 }
 
-/* ───── Custom scrollbar ───── */
-::-webkit-scrollbar       { width: 8px; }
-::-webkit-scrollbar-track  { background: #f1f1f1; }
-::-webkit-scrollbar-thumb  { background: #c4b5fd; border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: #7C3AED; }
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar {
+  width: 7px;
+}
 
-/* ───── Glass Card ───── */
+::-webkit-scrollbar-track {
+  background: #f0ede6;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e63228;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c0281f;
+}
+
+/* ─── Glass card ─── */
 .glass {
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, .15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, .22);
+}
+
+/* ─── Red underline heading style (like Kukdukoo) ─── */
+.heading-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.heading-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 4px;
+  background: #e63228;
+  border-radius: 2px;
+}
+
+/* ─── Activity / gallery card ─── */
+.kk-card {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .08);
+  transition: transform .25s, box-shadow .25s;
+}
+
+.kk-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .14);
+}
+
+/* ─── Red CTA button ─── */
+.btn-kk {
+  background: #e63228;
+  color: #fff;
+  font-family: var(--font-heading);
+  letter-spacing: .04em;
+  border-radius: 50px;
+  padding: .65rem 2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  transition: background .2s, transform .15s;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.btn-kk:hover {
+  background: #c0281f;
+  transform: scale(1.04);
+}
+
+.btn-kk:active {
+  transform: scale(.97);
+}
+
+/* ─── Orange CTA button ─── */
+.btn-kk-orange {
+  background: #f7941d;
+  color: #fff;
+  font-family: var(--font-heading);
+  letter-spacing: .04em;
+  border-radius: 50px;
+  padding: .65rem 2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  transition: background .2s, transform .15s;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.btn-kk-orange:hover {
+  background: #d97b10;
+  transform: scale(1.04);
+}
+
+/* ─── Teal/blue section heading ─── */
+.section-heading {
+  font-family: var(--font-heading);
+  color: #1a9fb5;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  text-align: center;
+}
+
+.section-heading .red {
+  color: #e63228;
+}
+
+/* ─── White card with border ─── */
+.card-border {
+  background: #fff;
+  border: 2px solid #e8e4dc;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: box-shadow .22s, transform .22s;
+}
+
+.card-border:hover {
+  box-shadow: 0 6px 22px rgba(0, 0, 0, .12);
+  transform: translateY(-3px);
 }

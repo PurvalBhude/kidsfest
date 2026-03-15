@@ -34,25 +34,29 @@ export default function Activities() {
   });
 
   return (
-    <div className="min-h-screen">
-      {/* Header */}
-      <section className="relative overflow-hidden bg-linear-to-br from-primary via-purple-600 to-accent py-16 sm:py-24 text-white text-center">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-10 -left-10 w-60 h-60 bg-white/10 rounded-full blur-2xl" />
-          <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-pink-300/15 rounded-full blur-2xl" />
-          {['🤖', '🚀', '🔬', '⚡', '💡'].map((e, i) => (
-            <span key={i} className="absolute text-3xl opacity-20 animate-float"
-              style={{ top: `${10 + i * 18}%`, left: `${5 + i * 20}%`, animationDelay: `${i * 0.6}s` }}>
-              {e}
-            </span>
-          ))}
-        </div>
-        <div className="relative max-w-4xl mx-auto px-4">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 animate-slide-up">
-            Activities & Experiences 🔬
+    <div style={{ minHeight: '100vh', background: '#f5f3ee' }}>
+      {/* Header Banner */}
+      <section style={{ position: 'relative', overflow: 'hidden', background: '#1a9fb5', padding: '4rem 1rem', textAlign: 'center' }}>
+        {/* Decorative blobs */}
+        <div style={{ position: 'absolute', top: -40, left: -40, width: 200, height: 200, borderRadius: '50%', background: 'rgba(255,255,255,.1)' }} />
+        <div style={{ position: 'absolute', bottom: -30, right: -30, width: 160, height: 160, borderRadius: '50%', background: 'rgba(230,50,40,.15)' }} />
+
+        {['🎭', '🎨', '📚', '🎪', '🌟'].map((e, i) => (
+          <span key={i} className="animate-float" style={{
+            position: 'absolute', fontSize: '2rem', opacity: 0.2,
+            top: `${10 + i * 18}%`, left: `${5 + i * 20}%`,
+            animationDelay: `${i * 0.6}s`,
+          }}>{e}</span>
+        ))}
+
+        <div style={{ position: 'relative', maxWidth: 700, margin: '0 auto' }}>
+          <h1 className="animate-slide-up"
+            style={{ fontFamily: 'Lilita One, sans-serif', fontSize: 'clamp(2rem,5vw,3.5rem)', color: '#fff', marginBottom: '0.75rem' }}>
+            🎨 Activities & Experiences
           </h1>
-          <p className="text-lg sm:text-xl text-white/85 max-w-2xl mx-auto animate-slide-up delay-100">
-            Discover 25+ hands-on STEM activities, maker challenges, and live shows at Intellofest!
+          <p className="animate-slide-up delay-100"
+            style={{ fontFamily: 'Signika, sans-serif', color: 'rgba(255,255,255,.88)', fontSize: '1.05rem', maxWidth: 520, margin: '0 auto' }}>
+            Discover all the hands-on fun activities, shows, and workshops at our festival!
           </p>
         </div>
       </section>
@@ -60,26 +64,33 @@ export default function Activities() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         {/* Filters */}
         <div className="flex flex-col sm:flex-row gap-4 mb-8 animate-slide-up delay-200">
-          <div className="relative flex-1">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+          <div style={{ position: 'relative', flex: 1 }}>
+            <Search style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', width: 18, height: 18, color: '#888' }} />
             <input
               type="text"
               placeholder="Search activities..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent outline-none shadow-sm"
+              style={{
+                width: '100%', paddingLeft: '2.75rem', paddingRight: '1rem', paddingTop: '0.85rem', paddingBottom: '0.85rem',
+                borderRadius: '50px', border: '2px solid #e8e4dc', outline: 'none', background: '#fff',
+                fontFamily: 'Signika, sans-serif', fontSize: '0.95rem', color: '#333',
+              }}
             />
           </div>
-          <div className="flex gap-2 flex-wrap">
+          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2.5 rounded-full text-sm font-semibold transition-all ${
-                  selectedCategory === cat
-                    ? 'bg-primary text-white shadow-md'
-                    : 'bg-gray-100 text-gray-700 hover:bg-primary/10 hover:text-primary'
-                }`}
+                style={{
+                  padding: '0.5rem 1.2rem', borderRadius: '50px', border: '2px solid',
+                  fontFamily: 'Lilita One, sans-serif', fontSize: '0.82rem', cursor: 'pointer', transition: 'all .2s',
+                  borderColor: selectedCategory === cat ? '#1a9fb5' : '#e8e4dc',
+                  background: selectedCategory === cat ? '#1a9fb5' : '#fff',
+                  color: selectedCategory === cat ? '#fff' : '#555',
+                  letterSpacing: '0.02em',
+                }}
               >
                 {cat}
               </button>
@@ -88,53 +99,61 @@ export default function Activities() {
         </div>
 
         {/* Results count */}
-        <p className="text-sm text-gray-500 mb-4 font-medium">{filtered.length} activities found</p>
+        <p style={{ fontFamily: 'Signika, sans-serif', color: '#888', fontSize: '0.88rem', marginBottom: '1.25rem' }}>
+          {filtered.length} activities found
+        </p>
 
         {/* Grid */}
         {filtered.length === 0 ? (
-          <div className="text-center py-20 text-gray-500 animate-fade-in">
-            <Filter className="w-14 h-14 mx-auto mb-4 opacity-40" />
-            <p className="text-lg font-semibold">No activities found</p>
-            <p className="text-sm mt-1">Try a different search or category filter.</p>
+          <div className="text-center py-20 animate-fade-in" style={{ color: '#aaa' }}>
+            <Filter style={{ width: 56, height: 56, margin: '0 auto 1rem', opacity: 0.4 }} />
+            <p style={{ fontFamily: 'Lilita One, sans-serif', fontSize: '1.2rem' }}>No activities found</p>
+            <p style={{ fontFamily: 'Signika, sans-serif', fontSize: '0.9rem', marginTop: '0.35rem' }}>Try a different search or category filter.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
             {filtered.map((activity, idx) => {
               const Icon = funIcons[idx % funIcons.length];
               return (
                 <div
                   key={activity._id}
-                  className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 group animate-slide-up"
-                  style={{ animationDelay: `${Math.min(idx * 0.08, 0.6)}s` }}
+                  className="kk-card animate-slide-up group"
+                  style={{ animationDelay: `${Math.min(idx * 0.07, 0.5)}s`, position: 'relative', aspectRatio: '1/1' }}
                 >
                   {activity.imageUrl ? (
-                    <div className="overflow-hidden">
-                      <img
-                        src={activity.imageUrl}
-                        alt={activity.title}
-                        className="w-full h-52 object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                    </div>
+                    <img
+                      src={activity.imageUrl}
+                      alt={activity.title}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform .4s' }}
+                      className="group-hover:scale-110"
+                    />
                   ) : (
-                    <div className="w-full h-52 bg-linear-to-br from-primary/10 to-accent/10 flex items-center justify-center">
-                      <Icon className="w-16 h-16 text-primary/30 group-hover:scale-110 transition-transform" />
+                    <div style={{ width: '100%', height: '100%', background: 'linear-gradient(135deg,#1a9fb520,#e6322820)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <Icon style={{ width: 52, height: 52, color: '#1a9fb550' }} />
                     </div>
                   )}
-                  <div className="p-5">
-                    <div className="flex items-center gap-2 mb-3">
-                      <span className="px-3 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-full">
-                        {activity.category}
+                  {/* Overlay */}
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,.8) 0%, rgba(0,0,0,.05) 55%)', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '0.75rem' }}>
+                    <span style={{ fontFamily: 'Lilita One, sans-serif', color: '#fff', fontSize: 'clamp(0.72rem,1.8vw,0.9rem)', textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+                      {activity.title}
+                    </span>
+                    {activity.ageGroup && (
+                      <span style={{ fontFamily: 'Signika, sans-serif', color: 'rgba(255,255,255,.75)', fontSize: '0.72rem', marginTop: '0.2rem' }}>
+                        Ages: {activity.ageGroup}
                       </span>
-                      {activity.ageGroup && (
-                        <span className="px-3 py-1 bg-secondary/10 text-secondary-dark text-xs font-semibold rounded-full">
-                          Ages: {activity.ageGroup}
-                        </span>
-                      )}
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">{activity.title}</h3>
-                    {activity.description && (
-                      <p className="text-gray-500 text-sm leading-relaxed line-clamp-3">{activity.description}</p>
                     )}
+                  </div>
+                  {/* Hover desc */}
+                  <div style={{
+                    position: 'absolute', inset: 0, background: '#1a9fb5', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    padding: '1rem', opacity: 0, transition: 'opacity .3s',
+                  }}
+                    onMouseEnter={(e) => e.currentTarget.style.opacity = 1}
+                    onMouseLeave={(e) => e.currentTarget.style.opacity = 0}
+                  >
+                    <p style={{ fontFamily: 'Signika, sans-serif', color: '#fff', textAlign: 'center', fontSize: '0.88rem', lineHeight: 1.5 }}>
+                      {activity.description || activity.title}
+                    </p>
                   </div>
                 </div>
               );
