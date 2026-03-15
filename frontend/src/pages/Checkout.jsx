@@ -52,9 +52,10 @@ export default function Checkout() {
     if (!promoCode.trim()) return;
     setPromoLoading(true);
     try {
-      const { data } = await api.post('/checkout/validate-promo', { code: promoCode });
-      setPromoResult(data);
-      toast.success(`Promo applied! ${data.discountType === 'percentage' ? data.discountValue + '%' : '₹' + data.discountValue} off`);
+      const response = await api.post('/checkout/validate-promo', { code: promoCode });
+      const promoData = response.data?.data || response.data;
+      setPromoResult(promoData);
+      toast.success(`Promo applied! ${promoData.discountType === 'percentage' ? promoData.discountValue + '%' : '₹' + promoData.discountValue} off`);
     } catch (err) {
       setPromoResult(null);
       toast.error(err.response?.data?.message || 'Invalid promo code');
@@ -70,13 +71,14 @@ export default function Checkout() {
     }
     setSubmitting(true);
     try {
-      const { data } = await api.post('/checkout/create-order', {
+      const response = await api.post('/checkout/create-order', {
         ...form, items, promoCode: promoResult ? promoCode : undefined,
       });
+      const orderData = response.data?.data || response.data;
       const options = {
-        key: data.keyId, amount: data.amount, currency: data.currency,
+        key: orderData.keyId, amount: orderData.amount, currency: orderData.currency,
         name: 'KidsFest', description: 'Festival Pass Booking',
-        order_id: data.razorpayOrderId,
+        order_id: orderData.razorpayOrderId,
         handler: async (response) => {
           try {
             const verifyRes = await api.post('/checkout/verify-payment', {
@@ -84,8 +86,9 @@ export default function Checkout() {
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_signature: response.razorpay_signature,
             });
+            const verifyData = verifyRes.data?.data || verifyRes.data;
             toast.success('Payment successful!');
-            navigate('/booking-confirmation', { state: { bookingId: verifyRes.data.bookingId }, replace: true });
+            navigate('/booking-confirmation', { state: { bookingId: verifyData.bookingId }, replace: true });
           } catch {
             toast.error('Payment verification failed. Contact support.');
           }
