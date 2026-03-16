@@ -134,7 +134,13 @@ export default function EventSettings() {
               <span className="text-xs text-gray-500">Enable early bird discounts on eligible passes</span>
             </div>
           </label>
-
+          <label className="flex items-center gap-3 cursor-pointer p-3 bg-gray-50 rounded-xl">
+            <input type="checkbox" checked={local.isSponsorshipOpen !== false} onChange={(e) => setLocal({ ...local, isSponsorshipOpen: e.target.checked })} className="w-5 h-5 text-primary rounded" />
+            <div>
+              <span className="text-sm font-semibold block">Global Sponsorship Open</span>
+              <span className="text-xs text-gray-500">Allow new exhibitor inquiries & show opportunities section</span>
+            </div>
+          </label>
         </div>
 
         {/* Branding & Uploads */}

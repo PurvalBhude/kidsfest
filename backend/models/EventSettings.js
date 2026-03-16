@@ -34,6 +34,10 @@ const eventSettingsSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    isSponsorshipOpen: {
+      type: Boolean,
+      default: true,
+    },
     eventDescription: {
       type: String,
       default: '',

@@ -20,7 +20,9 @@ const SectionHeading = ({ teal, red, sub }) => (
 );
 
 const getReconstructedVideoUrl = (url) => {
-  // if (!url) return "https://www.youtube.com/embed/UWD7FS7QVMQ?si=XPnxKFr6f0CI5eM7&autoplay=1&mute=1&controls=0&loop=1&playlist=UWD7FS7QVMQ&modestbranding=1&rel=0&playsinline=1";
+  if (!url || typeof url !== 'string') {
+    return "https://www.youtube.com/embed/UWD7FS7QVMQ?si=XPnxKFr6f0CI5eM7&autoplay=1&mute=1&controls=0&loop=1&playlist=UWD7FS7QVMQ&modestbranding=1&rel=0&playsinline=1";
+  }
 
   // Extract the 11-character YouTube video ID from various URL formats
   const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
@@ -238,9 +240,9 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { to: '/passes', img: settings?.homePassesImage || 'https://placehold.co/600x400?text=Get+Passes', title: 'Get Passes 🎟️', desc: 'Book your passes and join the biggest children\'s carnival!', cta: 'Book Now' },
-              { to: '/volunteer', img: settings?.homeVolunteerImage || 'https://placehold.co/600x400?text=Volunteer', title: 'Volunteer 🙋', desc: 'Join our crew and help create magical moments for kids!', cta: 'Join Us' },
-              { to: '/exhibitor', img: settings?.homeSponsorImage || 'https://placehold.co/600x400?text=Sponsor', title: 'Sponsor 🏢', desc: settings?.sponsorshipOpportunities || 'Partner with us and reach 2,000+ premium families!', cta: 'Learn More' },
+              { to: '/passes', img: settings?.homePassesImage || 'https://kukdukoo.com/images/exhibit-flea.jpg', title: 'Get Passes 🎟️', desc: 'Book your passes and join the biggest children\'s carnival!', cta: 'Book Now' },
+              { to: '/volunteer', img: settings?.homeVolunteerImage || 'https://kukdukoo.com/images/exhibit-expo.jpg', title: 'Volunteer 🙋', desc: 'Join our crew and help create magical moments for kids!', cta: 'Join Us' },
+              { to: '/exhibitor', img: settings?.homeSponsorImage || 'https://kukdukoo.com/images/exhibit-sponsor.jpg', title: 'Sponsor 🏢', desc: settings?.sponsorshipOpportunities || 'Partner with us and reach 2,000+ premium families!', cta: 'Learn More' },
             ].map((c) => (
               <Link key={c.to} to={c.to}
                 className="kk-card group"

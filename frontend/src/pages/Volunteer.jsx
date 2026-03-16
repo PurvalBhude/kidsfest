@@ -15,6 +15,19 @@ export default function Volunteer() {
       toast.error('Please fill in all required fields');
       return;
     }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^[\d\s+\-()]{10,15}$/;
+
+    if (!emailRegex.test(form.email)) {
+      toast.error('Please enter a valid email address');
+      return;
+    }
+    if (!phoneRegex.test(form.phone)) {
+      toast.error('Please enter a valid phone number (10-15 digits)');
+      return;
+    }
+
     setSubmitting(true);
     try {
       await api.post('/public/volunteer', form);

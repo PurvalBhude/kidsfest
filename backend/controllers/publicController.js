@@ -35,6 +35,7 @@ export const getPublicData = async (req, res, next) => {
           homePassesImage: settings.homePassesImage,
           homeVolunteerImage: settings.homeVolunteerImage,
           homeSponsorImage: settings.homeSponsorImage,
+          isSponsorshipOpen: settings.isSponsorshipOpen,
         },
         activities,
       },

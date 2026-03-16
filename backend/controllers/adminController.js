@@ -131,6 +131,7 @@ export const updateEventSettings = async (req, res, next) => {
       'heroVideoLink',
       'locationMapLink',
       'sponsorshipOpportunities',
+      'isSponsorshipOpen',
     ];
 
     const updates = {};

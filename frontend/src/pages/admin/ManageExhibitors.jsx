@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchExhibitors, updateExhibitorStatus, deleteExhibitor } from '../../store/slices/exhibitorSlice';
 import toast from 'react-hot-toast';
 import LoadingSpinner from '../../components/LoadingSpinner';
-import { CheckCircle, XCircle, Trash2, ExternalLink } from 'lucide-react';
+import { CheckCircle, XCircle, Trash2, ExternalLink, Download } from 'lucide-react';
 
 const statusColors = {
   Pending: 'bg-yellow-100 text-yellow-700',
@@ -32,13 +32,45 @@ export default function ManageExhibitors() {
     } catch (err) { toast.error(err || 'Failed to delete'); }
   };
 
+  const exportToCSV = () => {
+    if (!exhibitors || exhibitors.length === 0) return toast.error('No data to export');
+    
+    const headers = ['Brand Name', 'Contact Person', 'Email', 'Phone', 'Tier', 'Status', 'Submitted At'];
+    const csvContent = [
+      headers.join(','),
+      ...exhibitors.map(e => 
+        [
+          `"${(e.brandName || '').replace(/"/g, '""')}"`,
+          `"${(e.contactPerson || '').replace(/"/g, '""')}"`,
+          `"${(e.email || '').replace(/"/g, '""')}"`,
+          `"${(e.phone || '').replace(/"/g, '""')}"`,
+          `"${(e.interestTier || '').replace(/"/g, '""')}"`,
+          `"${(e.status || '').replace(/"/g, '""')}"`,
+          `"${new Date(e.createdAt).toLocaleString()}"`
+        ].join(',')
+      )
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `exhibitor_enquiries_${new Date().toISOString().split('T')[0]}.csv`;
+    link.click();
+  };
+
   if (loading) return <LoadingSpinner />;
 
   return (
     <div>
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Exhibitors</h1>
-        <p className="text-gray-500">Manage exhibitor & sponsor enquiries</p>
+      <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">Exhibitors</h1>
+          <p className="text-gray-500">Manage exhibitor & sponsor enquiries</p>
+        </div>
+        <button onClick={exportToCSV} className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 text-sm font-semibold text-gray-700 transition-colors shadow-sm self-start sm:self-auto">
+          <Download className="w-4 h-4" />
+          Download CSV
+        </button>
       </div>
       <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
         <div className="overflow-x-auto">

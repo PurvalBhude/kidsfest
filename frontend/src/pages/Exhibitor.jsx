@@ -35,10 +35,12 @@ export default function Exhibitor() {
       try {
         const [sponsorRes, settingsRes] = await Promise.all([
           api.get('/public/sponsors'),
-          api.get('/public/settings') // Fetching global event settings
+          api.get('/public/data') // Fetching global event settings
         ]);
         setSponsors(sponsorRes.data.data || []);
-        setSettings(settingsRes.data.data || null);
+        // Safely extract nested settings depending on the backend response structure
+        const resData = settingsRes.data.data;
+        setSettings(resData.settings ? resData.settings : resData);
       } catch (err) {
         console.error("Error fetching page data", err);
       } finally {
@@ -54,6 +56,19 @@ export default function Exhibitor() {
       toast.error('Please fill in all required fields');
       return;
     }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^[\d\s+\-()]{10,15}$/;
+
+    if (!emailRegex.test(form.email)) {
+      toast.error('Please enter a valid email address');
+      return;
+    }
+    if (!phoneRegex.test(form.phone)) {
+      toast.error('Please enter a valid phone number (10-15 digits)');
+      return;
+    }
+
     setSubmitting(true);
     try {
       const formData = new FormData();
@@ -200,7 +215,8 @@ export default function Exhibitor() {
 
 
       {/* Sponsorship Tiers */}
-      <section style={{ padding: '4rem 0', background: '#f5f3ee' }}>
+      {(settings?.isSponsorshipOpen !== false) && (
+        <section style={{ padding: '4rem 0', background: '#f5f3ee' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
             <h2 style={{ fontFamily: 'Lilita One, sans-serif', fontSize: 'clamp(1.6rem,3vw,2.2rem)', color: '#1a9fb5' }}>Sponsorship Opportunities 📊</h2>
@@ -260,8 +276,10 @@ export default function Exhibitor() {
           </div>
         </div>
       </section>
+      )}
 
       {/* Sponsor Form */}
+      {(settings?.isSponsorshipOpen !== false) && (
       <section id="become-sponsor" style={{ padding: '4rem 0', background: '#fff' }}>
         <div className="max-w-4xl mx-auto px-4">
           <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
@@ -380,6 +398,7 @@ export default function Exhibitor() {
           </div>
         </div>
       </section>
+      )}
 
     </div>
   );

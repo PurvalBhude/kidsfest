@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchVolunteers, updateVolunteerStatus, deleteVolunteer } from '../../store/slices/volunteerSlice';
 import toast from 'react-hot-toast';
 import LoadingSpinner from '../../components/LoadingSpinner';
-import { CheckCircle, XCircle, Trash2 } from 'lucide-react';
+import { CheckCircle, XCircle, Trash2, Download } from 'lucide-react';
 
 const statusColors = {
   Pending: 'bg-yellow-100 text-yellow-700',
@@ -38,13 +38,44 @@ export default function ManageVolunteers() {
     }
   };
 
+  const exportToCSV = () => {
+    if (!volunteers || volunteers.length === 0) return toast.error('No data to export');
+    
+    const headers = ['Name', 'Email', 'Phone', 'Role', 'Status', 'Submitted At'];
+    const csvContent = [
+      headers.join(','),
+      ...volunteers.map(v => 
+        [
+          `"${(v.fullName || '').replace(/"/g, '""')}"`,
+          `"${(v.email || '').replace(/"/g, '""')}"`,
+          `"${(v.phone || '').replace(/"/g, '""')}"`,
+          `"${(v.preferredRole || '').replace(/"/g, '""')}"`,
+          `"${(v.status || '').replace(/"/g, '""')}"`,
+          `"${new Date(v.createdAt).toLocaleString()}"`
+        ].join(',')
+      )
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `volunteers_${new Date().toISOString().split('T')[0]}.csv`;
+    link.click();
+  };
+
   if (loading) return <LoadingSpinner />;
 
   return (
     <div>
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Volunteers</h1>
-        <p className="text-gray-500">Manage volunteer applications</p>
+      <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">Volunteers</h1>
+          <p className="text-gray-500">Manage volunteer applications</p>
+        </div>
+        <button onClick={exportToCSV} className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 text-sm font-semibold text-gray-700 transition-colors shadow-sm self-start sm:self-auto">
+          <Download className="w-4 h-4" />
+          Download CSV
+        </button>
       </div>
 
       <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
