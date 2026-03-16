@@ -133,8 +133,8 @@ export default function Activities() {
                     </div>
                   )}
                   {/* Overlay */}
-                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,.8) 0%, rgba(0,0,0,.05) 55%)', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '0.75rem' }}>
-                    <span style={{ fontFamily: 'Lilita One, sans-serif', color: '#fff', fontSize: 'clamp(0.72rem,1.8vw,0.9rem)', textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+                  <div className="absolute inset-0 flex flex-col justify-end p-3 transition-opacity duration-300 group-hover:opacity-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,.8) 0%, rgba(0,0,0,.05) 55%)' }}>
+                    <span style={{ fontFamily: 'Lilita One, sans-serif', color: '#fff', fontSize: 'clamp(0.81rem,2.2vw,1.2rem)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                       {activity.title}
                     </span>
                     {activity.ageGroup && (
@@ -144,14 +144,8 @@ export default function Activities() {
                     )}
                   </div>
                   {/* Hover desc */}
-                  <div style={{
-                    position: 'absolute', inset: 0, background: '#1a9fb5', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    padding: '1rem', opacity: 0, transition: 'opacity .3s',
-                  }}
-                    onMouseEnter={(e) => e.currentTarget.style.opacity = 1}
-                    onMouseLeave={(e) => e.currentTarget.style.opacity = 0}
-                  >
-                    <p style={{ fontFamily: 'Signika, sans-serif', color: '#fff', textAlign: 'center', fontSize: '0.88rem', lineHeight: 1.5 }}>
+                  <div className="absolute inset-0 bg-black/40 backdrop-blur-[6px] flex items-center justify-center p-5 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                    <p className="transform translate-y-3 group-hover:translate-y-0 transition-transform duration-300" style={{ fontFamily: 'Signika, sans-serif', color: '#fff', textAlign: 'center', fontSize: '0.95rem', fontWeight: 500, lineHeight: 1.4, textShadow: '0 2px 4px rgba(0,0,0,0.6)' }}>
                       {activity.description || activity.title}
                     </p>
                   </div>

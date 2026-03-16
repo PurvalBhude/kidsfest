@@ -80,9 +80,21 @@ export default function Footer({ settings }) {
                   borderRadius: '12px',
                   padding: '8px 14px',
                   display: 'inline-block',
+                  minWidth: '100px',
+                  textAlign: 'center'
                 }}>
-                  <div style={{ fontFamily: 'Lilita One, sans-serif', fontSize: '1.1rem', color: '#1a9fb5', lineHeight: 1.1 }}>KID-O</div>
-                  <div style={{ fontFamily: 'Lilita One, sans-serif', fontSize: '1.1rem', color: '#e63228', lineHeight: 1.1 }}>FEST</div>
+                  {settings?.navbarLogo ? (
+                    <img
+                      src={settings.navbarLogo}
+                      alt={settings?.eventName || 'Logo'}
+                      style={{ maxHeight: '100px', width: 'auto', display: 'block' }}
+                    />
+                  ) : (
+                    <>
+                      <div style={{ fontFamily: 'Lilita One, sans-serif', fontSize: '1.1rem', color: '#1a9fb5', lineHeight: 1.1 }}>KID-O</div>
+                      <div style={{ fontFamily: 'Lilita One, sans-serif', fontSize: '1.1rem', color: '#e63228', lineHeight: 1.1 }}>FEST</div>
+                    </>
+                  )}
                 </div>
               </Link>
               <p style={{ fontFamily: 'Signika, sans-serif', fontSize: '0.82rem', color: '#b0ccb0', lineHeight: 1.6 }}>

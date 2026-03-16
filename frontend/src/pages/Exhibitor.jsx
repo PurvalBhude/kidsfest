@@ -173,35 +173,61 @@ export default function Exhibitor() {
                 const config = tierConfig[tier] || tierConfig['Stall / Booth'];
                 const TierIcon = config.badge;
                 return (
-                  <div key={tier} className="animate-slide-up">
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', marginBottom: '1.25rem' }}>
-                      <TierIcon style={{ width: 18, height: 18, color: config.color }} />
-                      <h3 style={{ fontFamily: 'Lilita One, sans-serif', color: '#444', fontSize: '1.05rem' }}>{config.label}</h3>
+                  <div key={tier} className="animate-slide-up mb-10">
+                    <div className="flex items-center justify-center gap-2 mb-6">
+                      <div className="p-2 rounded-full" style={{ background: `${config.color}15` }}>
+                        <TierIcon className="w-6 h-6" style={{ color: config.color }} />
+                      </div>
+                      <h3 style={{ fontFamily: 'Lilita One, sans-serif', color: '#2d3748', fontSize: '1.4rem', letterSpacing: '0.02em' }}>
+                        {config.label}
+                      </h3>
                     </div>
-                    <div className={`grid gap-4 ${tier === 'Title Sponsor' ? 'grid-cols-1 sm:grid-cols-2 max-w-3xl mx-auto' :
-                      tier === 'Platinum Sponsor' || tier === 'Gold Sponsor' ? 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-4' :
-                        'grid-cols-2 sm:grid-cols-3 lg:grid-cols-5'
-                      }`}>
+                    
+                    <div className="flex flex-wrap justify-center gap-6 max-w-6xl mx-auto">
+                      
                       {list.map((sponsor) => (
                         <div key={sponsor._id}
-                          style={{ background: config.bg, borderRadius: '14px', padding: '1.25rem', textAlign: 'center', border: `2px solid ${config.border}30`, transition: 'all .25s', cursor: 'default' }}
-                          onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,.1)'; }}
-                          onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
+                          className={`group relative bg-white flex flex-col items-center justify-end overflow-hidden text-center transition-all duration-300 transform hover:-translate-y-2 ${
+                            tier === 'Title Sponsor' 
+                              ? 'w-full sm:w-[400px] h-[300px]' 
+                              : tier === 'Platinum Sponsor' || tier === 'Gold Sponsor'
+                                ? 'w-[calc(50%-0.75rem)] sm:w-[240px] h-[220px]'
+                                : 'w-[calc(50%-0.75rem)] sm:w-[200px] h-[190px]'
+                          }`}
+                          style={{
+                            borderRadius: '20px',
+                            border: `2px solid ${config.border}25`,
+                            boxShadow: '0 4px 15px rgba(0,0,0,0.03)',
+                          }}
+                          onMouseEnter={(e) => { e.currentTarget.style.boxShadow = `0 12px 30px ${config.color}25`; e.currentTarget.style.borderColor = config.color; }}
+                          onMouseLeave={(e) => { e.currentTarget.style.boxShadow = '0 4px 15px rgba(0,0,0,0.03)'; e.currentTarget.style.borderColor = `${config.border}25`; }}
                         >
                           {sponsor.logoUrl ? (
-                            <img src={sponsor.logoUrl} alt={sponsor.brandName} style={{ width: 64, height: 64, margin: '0 auto 0.75rem', borderRadius: '10px', objectFit: 'contain' }} />
+                            <img src={sponsor.logoUrl} alt={sponsor.brandName} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                           ) : (
-                            <div style={{ width: 64, height: 64, margin: '0 auto 0.75rem', borderRadius: '10px', background: config.color, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                              <span style={{ fontFamily: 'Lilita One, sans-serif', color: '#fff', fontSize: '1.5rem' }}>{sponsor.brandName.charAt(0).toUpperCase()}</span>
+                            <div className="absolute inset-0 w-full h-full flex items-center justify-center transition-all duration-300" style={{ background: `linear-gradient(135deg, ${config.color}20, ${config.color}40)` }}>
+                              <span style={{ fontFamily: 'Lilita One, sans-serif', color: config.color, fontSize: tier === 'Title Sponsor' ? '5rem' : '3.5rem' }}>
+                                {sponsor.brandName.charAt(0).toUpperCase()}
+                              </span>
                             </div>
                           )}
-                          <h4 style={{ fontFamily: 'Lilita One, sans-serif', color: '#1a1a1a', fontSize: '0.9rem', marginBottom: '0.25rem' }}>{sponsor.brandName}</h4>
-                          {sponsor.website && (
-                            <a href={sponsor.website} target="_blank" rel="noopener noreferrer"
-                              style={{ fontFamily: 'Signika, sans-serif', fontSize: '0.75rem', color: '#1a9fb5', display: 'inline-flex', alignItems: 'center', gap: '2px', textDecoration: 'none' }}>
-                              Visit <ExternalLink style={{ width: 11, height: 11 }} />
-                            </a>
-                          )}
+                          
+                          {/* Dark bottom gradient overlay for text legibility */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
+
+                          <div className="relative z-10 w-full p-4 flex flex-col items-center">
+                            <h4 className="w-full truncate px-2" style={{ fontFamily: 'Lilita One, sans-serif', color: '#fff', fontSize: tier === 'Title Sponsor' ? '1.4rem' : '1.1rem', marginBottom: '0.35rem', textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
+                              {sponsor.brandName}
+                            </h4>
+                            
+                            {sponsor.website && (
+                              <a href={sponsor.website} target="_blank" rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/20 backdrop-blur-md rounded-full hover:bg-white/30 transition-colors"
+                                style={{ fontFamily: 'Signika, sans-serif', fontSize: '0.8rem', color: '#fff', textDecoration: 'none', border: '1px solid rgba(255,255,255,0.3)' }}>
+                                Visit Site <ExternalLink className="w-3 h-3" />
+                              </a>
+                            )}
+                          </div>
                         </div>
                       ))}
                     </div>
