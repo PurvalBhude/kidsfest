@@ -17,7 +17,9 @@ export const updateSettings = createAsyncThunk(
   'settings/update',
   async (payload, { rejectWithValue }) => {
     try {
-      const { data } = await api.put('/admin/settings', payload);
+      const isFormData = payload instanceof FormData;
+      const headers = isFormData ? { 'Content-Type': 'multipart/form-data' } : undefined;
+      const { data } = await api.put('/admin/settings', payload, { headers });
       return data.data || data.settings || data;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || 'Failed to save settings');

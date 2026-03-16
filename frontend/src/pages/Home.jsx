@@ -19,6 +19,23 @@ const SectionHeading = ({ teal, red, sub }) => (
   </div>
 );
 
+const getReconstructedVideoUrl = (url) => {
+  if (!url) return "https://www.youtube.com/embed/UWD7FS7QVMQ?si=XPnxKFr6f0CI5eM7&autoplay=1&mute=1&controls=0&loop=1&playlist=UWD7FS7QVMQ&modestbranding=1&rel=0&playsinline=1";
+  
+  // Extract the 11-character YouTube video ID from various URL formats
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  const match = url.match(regExp);
+
+  if (match && match[2].length === 11) {
+    const videoId = match[2];
+    // Adding playlist=videoId is required for loop=1 to work in embedded players
+    return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}&modestbranding=1&rel=0&playsinline=1`;
+  }
+  
+  // Fallback if the URL format isn't recognized
+  return url;
+};
+
 export default function Home() {
   const [settings, setSettings] = useState(null);
   const [activities, setActivities] = useState([]);
@@ -69,7 +86,7 @@ export default function Home() {
               border: 'none',
               pointerEvents: 'none'
             }}
-            src="https://www.youtube.com/embed/UWD7FS7QVMQ?si=XPnxKFr6f0CI5eM7&autoplay=1&mute=1&controls=0&loop=1&playlist=UWD7FS7QVMQ&modestbranding=1&rel=0&playsinline=1"
+            src={getReconstructedVideoUrl(settings?.heroVideoLink)}
             title="Festival Background Video"
             allow="autoplay; encrypted-media"
             allowFullScreen
@@ -88,15 +105,23 @@ export default function Home() {
 
           <h2 className="animate-slide-up delay-100"
             style={{ fontFamily: 'Lilita One, sans-serif', fontSize: 'clamp(2.5rem,7vw,5.5rem)', color: '#fff', lineHeight: 1.1, marginBottom: '0.5rem' }}>
-            Kid-O-Fest
-            <span style={{ display: 'block', fontSize: 'clamp(1.5rem,5vw,3.5rem)', color: '#e63228' }}>Surat's Biggest Festival for Children</span>
+            {settings?.eventName || 'KidsFest'}
+            <span style={{ display: 'block', fontSize: 'clamp(1.5rem,5vw,3.5rem)', color: '#e63228' }}>
+              {settings?.eventDescription || "Surat's Biggest Festival for Children"}
+            </span>
           </h2>
 
           {settings?.venue && (
-            <div className="animate-slide-up delay-200" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: 'rgba(255,255,255,.9)', marginBottom: '0.5rem', fontFamily: 'Signika, sans-serif' }}>
+            <a 
+              href={settings?.locationMapLink || '#'} 
+              target={settings?.locationMapLink ? "_blank" : "_self"}
+              rel="noopener noreferrer"
+              className="animate-slide-up delay-200" 
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: 'rgba(255,255,255,.9)', marginBottom: '0.5rem', fontFamily: 'Signika, sans-serif', textDecoration: 'none' }}
+            >
               <MapPin className="w-5 h-5" />
               <span style={{ fontSize: '1.1rem' }}>{settings.venue}</span>
-            </div>
+            </a>
           )}
 
           <div className="animate-slide-up delay-300" style={{ marginTop: '2rem', display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -126,9 +151,14 @@ export default function Home() {
           </span>
         )}
         {settings?.venue && (
-          <span style={{ fontFamily: 'Signika, sans-serif', color: 'rgba(255,255,255,.9)', fontSize: '0.95rem' }}>
+          <a
+            href={settings?.locationMapLink || '#'}
+            target={settings?.locationMapLink ? "_blank" : "_self"}
+            rel="noopener noreferrer"
+            style={{ fontFamily: 'Signika, sans-serif', color: 'rgba(255,255,255,.9)', fontSize: '0.95rem', textDecoration: 'none' }}
+          >
             📍 {settings.venue}
-          </span>
+          </a>
         )}
         <Link to="/passes"
           style={{ fontFamily: 'Lilita One, sans-serif', background: '#fff', color: '#1a9fb5', borderRadius: '50px', padding: '0.4rem 1.4rem', textDecoration: 'none', fontSize: '0.9rem', letterSpacing: '0.02em', transition: 'transform .2s' }}
@@ -208,9 +238,9 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { to: '/passes', img: 'https://kukdukoo.com/images/exhibit-flea.jpg', title: 'Get Passes 🎟️', desc: 'Book your passes and join the biggest children\'s carnival!', cta: 'Book Now' },
-              { to: '/volunteer', img: 'https://kukdukoo.com/images/exhibit-expo.jpg', title: 'Volunteer 🙋', desc: 'Join our crew and help create magical moments for kids!', cta: 'Join Us' },
-              { to: '/exhibitor', img: 'https://kukdukoo.com/images/exhibit-sponsor.jpg', title: 'Sponsor 🏢', desc: 'Partner with us and reach 2,000+ premium families!', cta: 'Learn More' },
+              { to: '/passes', img: settings?.homePassesImage || 'https://kukdukoo.com/images/exhibit-flea.jpg', title: 'Get Passes 🎟️', desc: 'Book your passes and join the biggest children\'s carnival!', cta: 'Book Now' },
+              { to: '/volunteer', img: settings?.homeVolunteerImage || 'https://kukdukoo.com/images/exhibit-expo.jpg', title: 'Volunteer 🙋', desc: 'Join our crew and help create magical moments for kids!', cta: 'Join Us' },
+              { to: '/exhibitor', img: settings?.homeSponsorImage || 'https://kukdukoo.com/images/exhibit-sponsor.jpg', title: 'Sponsor 🏢', desc: settings?.sponsorshipOpportunities || 'Partner with us and reach 2,000+ premium families!', cta: 'Learn More' },
             ].map((c) => (
               <Link key={c.to} to={c.to}
                 className="kk-card group"
@@ -253,35 +283,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── TESTIMONIALS ── */}
-      <section style={{ padding: '5rem 0', background: '#f5f3ee' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeading teal="What Parents " red="Say 💬" sub="Hear from families who've experienced our past festivals!" />
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { name: 'Priya Sharma', text: 'My daughter built her first puppet and performed on stage — all in one day! The storytelling sessions were absolutely magical.', role: 'Mother of 2' },
-              { name: 'Rahul Mehta', text: 'Amazingly organised event. The theatre and cosplay zones blew our minds. My son hasn\'t stopped talking about it for weeks!', role: 'Father' },
-              { name: 'Anita Desai', text: 'Best literary festival for kids in India. My children loved the quizzing and the DIY art craft was spectacular!', role: 'Mother of 3' },
-            ].map((t, i) => (
-              <div key={t.name} className="card-border animate-slide-up"
-                style={{ padding: '1.5rem', animationDelay: `${i * 0.15}s` }}>
-                <div style={{ display: 'flex', gap: '0.25rem', marginBottom: '1rem' }}>
-                  {[...Array(5)].map((_, j) => (
-                    <Star key={j} style={{ width: 16, height: 16, color: '#f7941d', fill: '#f7941d' }} />
-                  ))}
-                </div>
-                <p style={{ fontFamily: 'Signika, sans-serif', color: '#444', lineHeight: 1.7, fontStyle: 'italic', marginBottom: '1rem' }}>"{t.text}"</p>
-                <div>
-                  <p style={{ fontFamily: 'Lilita One, sans-serif', color: '#1a1a1a', fontSize: '0.95rem' }}>{t.name}</p>
-                  <p style={{ fontFamily: 'Signika, sans-serif', color: '#888', fontSize: '0.82rem' }}>{t.role}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
+      
       {/* ── FAQ ── */}
       <section style={{ padding: '5rem 0', background: '#fff' }}>
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">

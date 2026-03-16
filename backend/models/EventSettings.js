@@ -34,6 +34,42 @@ const eventSettingsSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    eventDescription: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+    heroVideoLink: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+    locationMapLink: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+    sponsorshipOpportunities: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+    navbarLogo: {
+      type: String,
+      default: '',
+    },
+    homePassesImage: {
+      type: String,
+      default: '',
+    },
+    homeVolunteerImage: {
+      type: String,
+      default: '',
+    },
+    homeSponsorImage: {
+      type: String,
+      default: '',
+    },
   },
   { timestamps: true }
 );

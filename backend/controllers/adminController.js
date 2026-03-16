@@ -127,12 +127,29 @@ export const updateEventSettings = async (req, res, next) => {
       'venue',
       'announcementBanner',
       'isBannerActive',
+      'eventDescription',
+      'heroVideoLink',
+      'locationMapLink',
+      'sponsorshipOpportunities',
     ];
 
     const updates = {};
     for (const key of allowedFields) {
       if (req.body[key] !== undefined) {
-        updates[key] = req.body[key];
+        // If "null" is passed from FormData, treat it as empty string
+        updates[key] = req.body[key] === 'null' ? '' : req.body[key];
+      }
+    }
+
+    // Process file uploads if present (via multer upload.fields)
+    // multer puts files like req.files['navbarLogo'][0]
+    if (req.files) {
+      const fileFields = ['navbarLogo', 'homePassesImage', 'homeVolunteerImage', 'homeSponsorImage'];
+      for (const field of fileFields) {
+        if (req.files[field] && req.files[field][0]) {
+          const file = req.files[field][0];
+          updates[field] = await uploadToCloudinary(file.buffer, 'kidsfest/settings');
+        }
       }
     }
 

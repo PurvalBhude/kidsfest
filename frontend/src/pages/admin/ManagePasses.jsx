@@ -150,16 +150,7 @@ export default function ManagePasses() {
                 <label className="block text-sm font-medium text-gray-700 mb-1">Capacity *</label>
                 <input type="number" min="1" value={form.capacity} onChange={(e) => setForm({ ...form, capacity: e.target.value })} className="w-full px-3 py-2 rounded-lg border border-gray-200 outline-none focus:ring-2 focus:ring-primary" required />
               </div>
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Min Qty for Discount</label>
-                  <input type="number" min="0" value={form.minQuantityForDiscount} onChange={(e) => setForm({ ...form, minQuantityForDiscount: e.target.value })} className="w-full px-3 py-2 rounded-lg border border-gray-200 outline-none focus:ring-2 focus:ring-primary" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Bulk Discount %</label>
-                  <input type="number" min="0" max="100" value={form.bulkDiscountPercentage} onChange={(e) => setForm({ ...form, bulkDiscountPercentage: e.target.value })} className="w-full px-3 py-2 rounded-lg border border-gray-200 outline-none focus:ring-2 focus:ring-primary" />
-                </div>
-              </div>
+              
               <div className="flex gap-6">
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input type="checkbox" checked={form.isRegistrationOpen} onChange={(e) => setForm({ ...form, isRegistrationOpen: e.target.checked })} className="w-4 h-4 text-primary rounded" />

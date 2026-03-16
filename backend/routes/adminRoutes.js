@@ -49,7 +49,16 @@ router.get('/dashboard', getDashboardStats);
 
 // Event settings
 router.get('/settings', getEventSettings);
-router.put('/settings', updateEventSettings);
+router.put(
+  '/settings',
+  upload.fields([
+    { name: 'navbarLogo', maxCount: 1 },
+    { name: 'homePassesImage', maxCount: 1 },
+    { name: 'homeVolunteerImage', maxCount: 1 },
+    { name: 'homeSponsorImage', maxCount: 1 },
+  ]),
+  updateEventSettings
+);
 
 // Passes
 router.get('/passes', getAllPasses);

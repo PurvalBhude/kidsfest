@@ -68,17 +68,21 @@ export default function Navbar({ banner = {} }) {
 
             {/* Logo - centered */}
             <Link to="/" className="flex-shrink-0 mx-6 flex flex-col items-center">
-              <div className="text-center leading-none">
-                <div style={{ fontFamily: 'Lilita One, sans-serif', fontSize: '1.6rem', color: '#1a9fb5', lineHeight: 1 }}>
-                  KID-O
+              {settings?.navbarLogo ? (
+                <img src={settings.navbarLogo} alt="Event Logo" className="h-14 object-contain" />
+              ) : (
+                <div className="text-center leading-none">
+                  <div style={{ fontFamily: 'Lilita One, sans-serif', fontSize: '1.6rem', color: '#1a9fb5', lineHeight: 1 }}>
+                    KID-O
+                  </div>
+                  <div style={{ fontFamily: 'Lilita One, sans-serif', fontSize: '1.6rem', color: '#e63228', lineHeight: 1 }}>
+                    FEST
+                  </div>
+                  <div style={{ fontFamily: 'Signika, sans-serif', fontSize: '0.6rem', color: '#666', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+                    {settings?.eventName || '2026'}
+                  </div>
                 </div>
-                <div style={{ fontFamily: 'Lilita One, sans-serif', fontSize: '1.6rem', color: '#e63228', lineHeight: 1 }}>
-                  FEST
-                </div>
-                <div style={{ fontFamily: 'Signika, sans-serif', fontSize: '0.6rem', color: '#666', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-                  {settings?.eventName || '2026'}
-                </div>
-              </div>
+              )}
             </Link>
 
             {/* Right links */}
@@ -119,8 +123,14 @@ export default function Navbar({ banner = {} }) {
 
           {/* Mobile bar */}
           <div className="flex md:hidden items-center justify-between py-3">
-            <Link to="/" style={{ fontFamily: 'Lilita One, sans-serif', fontSize: '1.3rem', color: '#1a9fb5' }}>
-              KID-O<span style={{ color: '#e63228' }}>FEST</span>
+            <Link to="/">
+              {settings?.navbarLogo ? (
+                <img src={settings.navbarLogo} alt="Event Logo" className="h-10 object-contain" />
+              ) : (
+                <span style={{ fontFamily: 'Lilita One, sans-serif', fontSize: '1.3rem', color: '#1a9fb5' }}>
+                  KID-O<span style={{ color: '#e63228' }}>FEST</span>
+                </span>
+              )}
             </Link>
             <button onClick={() => setOpen(!open)} className="p-2 rounded-lg" style={{ color: '#333' }}>
               {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
