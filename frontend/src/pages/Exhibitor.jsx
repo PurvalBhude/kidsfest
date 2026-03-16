@@ -107,12 +107,6 @@ export default function Exhibitor() {
   }
 
   const tierOrder = ['Title Sponsor', 'Platinum Sponsor', 'Gold Sponsor', 'Silver Sponsor', 'Stall / Booth', 'Food Partner'];
-  const groupedSponsors = {};
-  sponsors.forEach((s) => {
-    const tier = s.tier || 'Other';
-    if (!groupedSponsors[tier]) groupedSponsors[tier] = [];
-    groupedSponsors[tier].push(s);
-  });
 
   return (
     <div style={{ minHeight: '100vh', background: '#f5f3ee' }}>
@@ -166,70 +160,100 @@ export default function Exhibitor() {
               <a href="#become-sponsor" className="btn-kk-orange">Apply Now</a>
             </div>
           ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
+            <div className="flex flex-col gap-16">
               {tierOrder.map((tier) => {
-                const list = groupedSponsors[tier];
-                if (!list || list.length === 0) return null;
+                const list = sponsors.filter(s => s.tier === tier);
+                if (list.length === 0) return null;
                 const config = tierConfig[tier] || tierConfig['Stall / Booth'];
                 const TierIcon = config.badge;
-                return (
-                  <div key={tier} className="animate-slide-up mb-10">
-                    <div className="flex items-center justify-center gap-2 mb-6">
-                      <div className="p-2 rounded-full" style={{ background: `${config.color}15` }}>
-                        <TierIcon className="w-6 h-6" style={{ color: config.color }} />
-                      </div>
-                      <h3 style={{ fontFamily: 'Lilita One, sans-serif', color: '#2d3748', fontSize: '1.4rem', letterSpacing: '0.02em' }}>
-                        {config.label}
-                      </h3>
-                    </div>
-                    
-                    <div className="flex flex-wrap justify-center gap-6 max-w-6xl mx-auto">
-                      
-                      {list.map((sponsor) => (
-                        <div key={sponsor._id}
-                          className={`group relative bg-white flex flex-col items-center justify-end overflow-hidden text-center transition-all duration-300 transform hover:-translate-y-2 ${
-                            tier === 'Title Sponsor' 
-                              ? 'w-full sm:w-[400px] h-[300px]' 
-                              : tier === 'Platinum Sponsor' || tier === 'Gold Sponsor'
-                                ? 'w-[calc(50%-0.75rem)] sm:w-[240px] h-[220px]'
-                                : 'w-[calc(50%-0.75rem)] sm:w-[200px] h-[190px]'
-                          }`}
-                          style={{
-                            borderRadius: '20px',
-                            border: `2px solid ${config.border}25`,
-                            boxShadow: '0 4px 15px rgba(0,0,0,0.03)',
-                          }}
-                          onMouseEnter={(e) => { e.currentTarget.style.boxShadow = `0 12px 30px ${config.color}25`; e.currentTarget.style.borderColor = config.color; }}
-                          onMouseLeave={(e) => { e.currentTarget.style.boxShadow = '0 4px 15px rgba(0,0,0,0.03)'; e.currentTarget.style.borderColor = `${config.border}25`; }}
-                        >
-                          {sponsor.logoUrl ? (
-                            <img src={sponsor.logoUrl} alt={sponsor.brandName} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                          ) : (
-                            <div className="absolute inset-0 w-full h-full flex items-center justify-center transition-all duration-300" style={{ background: `linear-gradient(135deg, ${config.color}20, ${config.color}40)` }}>
-                              <span style={{ fontFamily: 'Lilita One, sans-serif', color: config.color, fontSize: tier === 'Title Sponsor' ? '5rem' : '3.5rem' }}>
-                                {sponsor.brandName.charAt(0).toUpperCase()}
-                              </span>
-                            </div>
-                          )}
-                          
-                          {/* Dark bottom gradient overlay for text legibility */}
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
 
-                          <div className="relative z-10 w-full p-4 flex flex-col items-center">
-                            <h4 className="w-full truncate px-2" style={{ fontFamily: 'Lilita One, sans-serif', color: '#fff', fontSize: tier === 'Title Sponsor' ? '1.4rem' : '1.1rem', marginBottom: '0.35rem', textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
-                              {sponsor.brandName}
-                            </h4>
-                            
-                            {sponsor.website && (
-                              <a href={sponsor.website} target="_blank" rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1.5 px-3 py-1 bg-white/20 backdrop-blur-md rounded-full hover:bg-white/30 transition-colors"
-                                style={{ fontFamily: 'Signika, sans-serif', fontSize: '0.8rem', color: '#fff', textDecoration: 'none', border: '1px solid rgba(255,255,255,0.3)' }}>
-                                Visit Site <ExternalLink className="w-3 h-3" />
-                              </a>
-                            )}
+                return (
+                  <div key={tier} className="flex flex-col items-center">
+                    {/* Centered Tier Heading */}
+                    <div className="flex flex-col items-center mb-10 w-full animate-slide-up">
+                      <div className="flex items-center gap-3 px-6 py-2.5 rounded-full border-2 border-dashed mb-4" 
+                           style={{ borderColor: `${config.border}60`, background: `${config.bg}` }}>
+                        <TierIcon style={{ width: 22, height: 22, color: config.color }} />
+                        <span style={{ fontFamily: 'Lilita One, sans-serif', color: '#1a1a1a', fontSize: '1.25rem', letterSpacing: '0.04em' }}>
+                          {config.label.toUpperCase()}
+                        </span>
+                      </div>
+                      <div className="h-1.5 w-32 rounded-full" style={{ background: config.color, opacity: 0.3 }} />
+                    </div>
+
+                    {/* Centered Horizontal Flex Row for this Tier */}
+                    <div className="w-full">
+                      {(() => {
+                        const isBig = tier === 'Title Sponsor' || tier === 'Platinum Sponsor';
+                        const isMedium = tier === 'Gold Sponsor' || tier === 'Silver Sponsor';
+                        const isSmall = !isBig && !isMedium;
+
+                        // Updated widths (+15%) and adjusted height for more squarish overall look
+                        const cardWidthClass = isBig 
+                          ? 'w-[320px] sm:w-[370px]' 
+                          : isMedium 
+                            ? 'w-[210px] sm:w-[255px]' 
+                            : 'w-[165px] sm:w-[200px]';
+
+                        return (
+                          <div className="flex flex-wrap justify-center gap-6 md:gap-10 w-full max-w-7xl mx-auto">
+                            {list.map((sponsor) => (
+                              <div 
+                                key={sponsor._id}
+                                className={`group relative bg-white overflow-hidden transition-all duration-300 hover:-translate-y-1.5 flex flex-col shadow-sm hover:shadow-lg animate-slide-up ${cardWidthClass} ${
+                                  isBig ? 'rounded-3xl' : isMedium ? 'rounded-2xl' : 'rounded-xl'
+                                }`}
+                                style={{ border: `1px solid ${config.border}25` }}
+                              >
+                                {/* Image Container - Adjusted aspect for squarish look (+15% W, -10% H ratio) */}
+                                <div className="relative w-full aspect-[1.3/1] bg-white overflow-hidden">
+                                  {sponsor.logoUrl ? (
+                                    <img 
+                                      src={sponsor.logoUrl} 
+                                      alt={sponsor.brandName} 
+                                      className={`w-full h-full relative z-10 transition-transform duration-700 group-hover:scale-105 ${
+                                        isSmall ? 'object-contain p-4' : 'object-cover'
+                                      }`}
+                                    />
+                                  ) : (
+                                    <div className="w-full h-full flex items-center justify-center" 
+                                         style={{ background: `linear-gradient(135deg, ${config.color}15, ${config.color}35)` }}>
+                                      <span className={`font-heading ${isBig ? 'text-5xl' : isMedium ? 'text-4xl' : 'text-2xl'}`} style={{ color: config.color }}>
+                                        {sponsor.brandName.charAt(0).toUpperCase()}
+                                      </span>
+                                    </div>
+                                  )}
+                                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
+                                </div>
+
+                                {/* Info area - Tightened padding to reduce overall height */}
+                                <div className={`${isBig ? 'p-4' : isMedium ? 'p-3' : 'p-2'} text-center bg-white flex-grow flex flex-col justify-center items-center relative z-20`}>
+                                  <h4 className={`font-heading text-[#333] leading-tight line-clamp-2 ${
+                                    isBig ? 'text-base md:text-lg' : isMedium ? 'text-sm md:text-base' : 'text-[0.7rem] sm:text-xs'
+                                  }`}>
+                                    {sponsor.brandName}
+                                  </h4>
+                                  {sponsor.website && (
+                                    <a 
+                                      href={sponsor.website} 
+                                      target="_blank" 
+                                      rel="noopener noreferrer"
+                                      className={`mt-1 text-[#1a9fb5] font-bold font-body inline-flex items-center gap-1 hover:underline underline-offset-2 ${
+                                        isBig ? 'text-sm' : isMedium ? 'text-[0.7rem]' : 'text-[0.6rem]'
+                                      }`}
+                                    >
+                                      {isSmall ? 'Link' : 'Visit Website'} <ExternalLink className={isBig ? 'w-4 h-4' : 'w-3 h-3'} />
+                                    </a>
+                                  )}
+                                </div>
+                                
+                                {/* Tier Accent Bar */}
+                                <div className={`${isBig ? 'h-2' : 'h-1.5'} w-full`} style={{ background: config.color, opacity: 0.9 }} />
+                              </div>
+                            ))}
                           </div>
-                        </div>
-                      ))}
+                        );
+                      })()}
                     </div>
                   </div>
                 );
