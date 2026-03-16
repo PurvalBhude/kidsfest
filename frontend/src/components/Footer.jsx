@@ -2,6 +2,50 @@ import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, Instagram, Facebook, Youtube, Linkedin } from 'lucide-react';
 
 export default function Footer({ settings }) {
+  const getMapEmbedUrl = (link, venue) => {
+    if (!link) return '';
+
+    // 1. If user paster whole iframe, extract src
+    if (link.includes('<iframe')) {
+      const match = link.match(/src="([^"]+)"/);
+      if (match) return match[1];
+    }
+
+    // 2. If already an embed link
+    if (link.includes('/embed') || link.includes('output=embed')) return link;
+
+    // 3. Try to extract from standard Google Maps URLs
+    try {
+      if (link.includes('/place/')) {
+        // Extract the name between /place/ and the next / (usually @...)
+        const placeName = link.split('/place/')[1].split('/')[0];
+        if (placeName) {
+          return `https://maps.google.com/maps?q=${placeName}&output=embed`;
+        }
+      }
+
+      if (link.includes('/search/')) {
+        const searchPart = link.split('/search/')[1].split('/')[0];
+        if (searchPart) {
+          return `https://maps.google.com/maps?q=${searchPart}&output=embed`;
+        }
+      }
+
+      // Handle ?q= links
+      if (link.includes('q=')) {
+        const part = link.split('q=')[1].split('&')[0];
+        if (part) {
+          return `https://maps.google.com/maps?q=${part}&output=embed`;
+        }
+      }
+    } catch (e) {
+      console.warn("Failed to parse map link, falling back to venue", e);
+    }
+
+    // 4. Final Fallback search using the venue address
+    return `https://maps.google.com/maps?q=${encodeURIComponent(venue || 'Event Location')}&output=embed`;
+  };
+
   return (
     <footer style={{ position: 'relative', overflow: 'hidden', background: '#fff' }}>
       {/* Green hill illustration SVG */}
@@ -26,10 +70,10 @@ export default function Footer({ settings }) {
       {/* Dark footer content */}
       <div style={{ background: '#1a2e1a', color: '#d4e8d4', paddingTop: '2rem', paddingBottom: '1.5rem' }}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-8">
 
             {/* Logo + tagline */}
-            <div>
+            <div className="lg:col-span-1">
               <Link to="/" className="flex items-center gap-3 mb-3">
                 <div style={{
                   background: '#fff',
@@ -134,6 +178,38 @@ export default function Footer({ settings }) {
                   Questions? We're here to help.
                 </div>
               </div>
+            </div>
+
+            {/* Map */}
+            <div className="lg:col-span-1">
+              <h4 style={{ fontFamily: 'Lilita One, sans-serif', color: '#fff', marginBottom: '0.75rem', fontSize: '1rem' }}>
+                LOCATION
+              </h4>
+              <div style={{
+                borderRadius: '15px',
+                overflow: 'hidden',
+                height: '140px',
+                background: '#0a1a0a',
+                border: '2px solid #2e4a2e',
+                boxShadow: '0 4px 15px rgba(0,0,0,0.2)'
+              }}>
+                {settings?.locationMapLink || settings?.venue ? (
+                  <iframe
+                    title="Map"
+                    src={getMapEmbedUrl(settings?.locationMapLink, settings?.venue)}
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen=""
+                    loading="lazy"
+                  ></iframe>
+                ) : (
+                  <div className="flex items-center justify-center h-full text-[#5a7a5a] text-[10px] uppercase tracking-wider font-bold">
+                    Location Coming Soon
+                  </div>
+                )}
+              </div>
+
             </div>
           </div>
 

@@ -21,7 +21,8 @@ const inputStyle = {
 
 export default function Exhibitor() {
   const [sponsors, setSponsors] = useState([]);
-  const [loadingSponsors, setLoadingSponsors] = useState(true);
+  const [settings, setSettings] = useState(null); // Added for toggle control
+  const [loading, setLoading] = useState(true);
   const [form, setForm] = useState({
     brandName: '', contactPerson: '', email: '', phone: '', interestTier: '',
   });
@@ -30,10 +31,21 @@ export default function Exhibitor() {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    api.get('/public/sponsors')
-      .then(({ data }) => setSponsors(data.data || []))
-      .catch(() => {})
-      .finally(() => setLoadingSponsors(false));
+    const fetchData = async () => {
+      try {
+        const [sponsorRes, settingsRes] = await Promise.all([
+          api.get('/public/sponsors'),
+          api.get('/public/settings') // Fetching global event settings
+        ]);
+        setSponsors(sponsorRes.data.data || []);
+        setSettings(settingsRes.data.data || null);
+      } catch (err) {
+        console.error("Error fetching page data", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
   }, []);
 
   const handleSubmit = async (e) => {
@@ -111,7 +123,7 @@ export default function Exhibitor() {
         </div>
       </section>
 
-      {/* Sponsors Grid */}
+      {/* Sponsors Grid - Always visible if sponsors exist */}
       <section style={{ padding: '4rem 0', background: '#fff' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
@@ -123,7 +135,7 @@ export default function Exhibitor() {
             </p>
           </div>
 
-          {loadingSponsors ? (
+          {loading ? (
             <div style={{ display: 'flex', justifyContent: 'center', padding: '3rem' }}>
               <Loader2 style={{ width: 32, height: 32, color: '#f7941d' }} className="animate-spin" />
             </div>
@@ -151,11 +163,10 @@ export default function Exhibitor() {
                       <TierIcon style={{ width: 18, height: 18, color: config.color }} />
                       <h3 style={{ fontFamily: 'Lilita One, sans-serif', color: '#444', fontSize: '1.05rem' }}>{config.label}</h3>
                     </div>
-                    <div className={`grid gap-4 ${
-                      tier === 'Title Sponsor' ? 'grid-cols-1 sm:grid-cols-2 max-w-3xl mx-auto' :
+                    <div className={`grid gap-4 ${tier === 'Title Sponsor' ? 'grid-cols-1 sm:grid-cols-2 max-w-3xl mx-auto' :
                       tier === 'Platinum Sponsor' || tier === 'Gold Sponsor' ? 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-4' :
-                      'grid-cols-2 sm:grid-cols-3 lg:grid-cols-5'
-                    }`}>
+                        'grid-cols-2 sm:grid-cols-3 lg:grid-cols-5'
+                      }`}>
                       {list.map((sponsor) => (
                         <div key={sponsor._id}
                           style={{ background: config.bg, borderRadius: '14px', padding: '1.25rem', textAlign: 'center', border: `2px solid ${config.border}30`, transition: 'all .25s', cursor: 'default' }}
@@ -186,6 +197,7 @@ export default function Exhibitor() {
           )}
         </div>
       </section>
+
 
       {/* Sponsorship Tiers */}
       <section style={{ padding: '4rem 0', background: '#f5f3ee' }}>
@@ -368,6 +380,7 @@ export default function Exhibitor() {
           </div>
         </div>
       </section>
+
     </div>
   );
 }

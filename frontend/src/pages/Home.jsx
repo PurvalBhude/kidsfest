@@ -20,8 +20,8 @@ const SectionHeading = ({ teal, red, sub }) => (
 );
 
 const getReconstructedVideoUrl = (url) => {
-  if (!url) return "https://www.youtube.com/embed/UWD7FS7QVMQ?si=XPnxKFr6f0CI5eM7&autoplay=1&mute=1&controls=0&loop=1&playlist=UWD7FS7QVMQ&modestbranding=1&rel=0&playsinline=1";
-  
+  // if (!url) return "https://www.youtube.com/embed/UWD7FS7QVMQ?si=XPnxKFr6f0CI5eM7&autoplay=1&mute=1&controls=0&loop=1&playlist=UWD7FS7QVMQ&modestbranding=1&rel=0&playsinline=1";
+
   // Extract the 11-character YouTube video ID from various URL formats
   const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
   const match = url.match(regExp);
@@ -31,7 +31,7 @@ const getReconstructedVideoUrl = (url) => {
     // Adding playlist=videoId is required for loop=1 to work in embedded players
     return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}&modestbranding=1&rel=0&playsinline=1`;
   }
-  
+
   // Fallback if the URL format isn't recognized
   return url;
 };
@@ -112,11 +112,11 @@ export default function Home() {
           </h2>
 
           {settings?.venue && (
-            <a 
-              href={settings?.locationMapLink || '#'} 
+            <a
+              href={settings?.locationMapLink || '#'}
               target={settings?.locationMapLink ? "_blank" : "_self"}
               rel="noopener noreferrer"
-              className="animate-slide-up delay-200" 
+              className="animate-slide-up delay-200"
               style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: 'rgba(255,255,255,.9)', marginBottom: '0.5rem', fontFamily: 'Signika, sans-serif', textDecoration: 'none' }}
             >
               <MapPin className="w-5 h-5" />
@@ -238,9 +238,9 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { to: '/passes', img: settings?.homePassesImage || 'https://kukdukoo.com/images/exhibit-flea.jpg', title: 'Get Passes 🎟️', desc: 'Book your passes and join the biggest children\'s carnival!', cta: 'Book Now' },
-              { to: '/volunteer', img: settings?.homeVolunteerImage || 'https://kukdukoo.com/images/exhibit-expo.jpg', title: 'Volunteer 🙋', desc: 'Join our crew and help create magical moments for kids!', cta: 'Join Us' },
-              { to: '/exhibitor', img: settings?.homeSponsorImage || 'https://kukdukoo.com/images/exhibit-sponsor.jpg', title: 'Sponsor 🏢', desc: settings?.sponsorshipOpportunities || 'Partner with us and reach 2,000+ premium families!', cta: 'Learn More' },
+              { to: '/passes', img: settings?.homePassesImage || 'https://placehold.co/600x400?text=Get+Passes', title: 'Get Passes 🎟️', desc: 'Book your passes and join the biggest children\'s carnival!', cta: 'Book Now' },
+              { to: '/volunteer', img: settings?.homeVolunteerImage || 'https://placehold.co/600x400?text=Volunteer', title: 'Volunteer 🙋', desc: 'Join our crew and help create magical moments for kids!', cta: 'Join Us' },
+              { to: '/exhibitor', img: settings?.homeSponsorImage || 'https://placehold.co/600x400?text=Sponsor', title: 'Sponsor 🏢', desc: settings?.sponsorshipOpportunities || 'Partner with us and reach 2,000+ premium families!', cta: 'Learn More' },
             ].map((c) => (
               <Link key={c.to} to={c.to}
                 className="kk-card group"
@@ -283,7 +283,7 @@ export default function Home() {
         </div>
       </section>
 
-      
+
       {/* ── FAQ ── */}
       <section style={{ padding: '5rem 0', background: '#fff' }}>
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">

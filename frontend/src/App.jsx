@@ -44,7 +44,7 @@ function App() {
   useEffect(() => {
     if (!isAdmin) {
       api.get('/public/data')
-        .then(({ data }) => setSettings(data.settings))
+        .then(({ data }) => setSettings(data.data.settings))
         .catch(() => {});
     }
   }, [isAdmin]);

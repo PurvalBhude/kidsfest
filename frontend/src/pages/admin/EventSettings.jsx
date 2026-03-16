@@ -9,7 +9,7 @@ export default function EventSettings() {
   const dispatch = useDispatch();
   const { data: settings, loading, saving } = useSelector((s) => s.settings);
   const [local, setLocal] = useState(null);
-  
+
   // Track files separately so we can build FormData accurately
   const [files, setFiles] = useState({
     navbarLogo: null,
@@ -31,7 +31,7 @@ export default function EventSettings() {
     e.preventDefault();
     try {
       const formData = new FormData();
-      
+
       // Append all textual/boolean strings
       Object.keys(local).forEach((key) => {
         // Exclude system fields or old file strings if uploading new replacements
@@ -67,8 +67,8 @@ export default function EventSettings() {
             [New File Selected]
           </span>
         )}
-        <input 
-          type="file" 
+        <input
+          type="file"
           accept="image/*"
           onChange={(e) => handleFileChange(e, field)}
           className="text-sm border border-gray-200 p-2 rounded-lg cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary-dark"
@@ -84,7 +84,7 @@ export default function EventSettings() {
         <p className="text-gray-500">Configure your event details and visual media</p>
       </div>
       <form onSubmit={handleSave} className="max-w-3xl space-y-6">
-        
+
         {/* Core Event Configuration */}
         <div className="bg-white rounded-2xl p-6 shadow-sm space-y-4">
           <h2 className="text-lg font-bold flex items-center gap-2"><Settings className="w-5 h-5 text-primary" /> General Info</h2>
@@ -112,8 +112,8 @@ export default function EventSettings() {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Map / Location Tracker Link</label>
-            <input type="url" value={local.locationMapLink || ''} onChange={(e) => setLocal({ ...local, locationMapLink: e.target.value })}
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent outline-none" placeholder="https://maps.google.com/..." />
+            <input type="text" value={local.locationMapLink || ''} onChange={(e) => setLocal({ ...local, locationMapLink: e.target.value })}
+              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent outline-none" placeholder="Paste URL or <iframe> here..." />
           </div>
         </div>
 
@@ -134,15 +134,16 @@ export default function EventSettings() {
               <span className="text-xs text-gray-500">Enable early bird discounts on eligible passes</span>
             </div>
           </label>
+
         </div>
 
         {/* Branding & Uploads */}
         <div className="bg-white rounded-2xl p-6 shadow-sm space-y-5">
           <h2 className="text-lg font-bold mb-4">Branding & Media Integration</h2>
-          
+
           <FileUploadField label="Navbar Brand Logo" field="navbarLogo" currentUrl={local.navbarLogo} />
           <hr className="my-2 border-gray-100" />
-          
+
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Hero Background Video URL</label>
             <input type="url" value={local.heroVideoLink || ''} onChange={(e) => setLocal({ ...local, heroVideoLink: e.target.value })}
@@ -150,7 +151,7 @@ export default function EventSettings() {
             <p className="text-xs text-gray-500 mt-1">Provide a raw video link to be scaled as the immersive background cover on the home page.</p>
           </div>
           <hr className="my-2 border-gray-100" />
-          
+
           <h3 className="text-md font-semibold text-gray-800">Homepage Call-to-Action Grid</h3>
           <p className="text-xs text-gray-500 mb-3">Upload replacement illustrations for the 3 main grid boxes.</p>
           <div className="space-y-4">
@@ -158,12 +159,7 @@ export default function EventSettings() {
             <FileUploadField label="Card 2: Volunteer Cover" field="homeVolunteerImage" currentUrl={local.homeVolunteerImage} />
             <FileUploadField label="Card 3: Sponsor Cover" field="homeSponsorImage" currentUrl={local.homeSponsorImage} />
           </div>
-          
-          <div className="pt-3">
-            <label className="block text-sm font-medium text-gray-700 mb-1">Sponsoship Pitch (Card Description)</label>
-            <input type="text" value={local.sponsorshipOpportunities || ''} onChange={(e) => setLocal({ ...local, sponsorshipOpportunities: e.target.value })}
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent outline-none" placeholder="Partner with us and reach 2,000+ premium families!" />
-          </div>
+
         </div>
 
         {/* Submit */}
