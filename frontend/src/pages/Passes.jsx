@@ -4,6 +4,7 @@ import api from '../api/axios';
 import toast from 'react-hot-toast';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { Ticket, Minus, Plus, ShoppingCart, Zap, Users, Shield, Star } from 'lucide-react';
+import StemBackground from '../components/StemBackground';
 
 export default function Passes() {
   const [passes, setPasses] = useState([]);
@@ -53,7 +54,8 @@ export default function Passes() {
   if (loading) return <LoadingSpinner />;
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f5f3ee' }}>
+    <div style={{ minHeight: '100vh', background: '#f5f3ee', position: 'relative' }}>
+      <StemBackground numberOfEmojis={40} />
       {/* Header */}
       <section style={{ position: 'relative', overflow: 'hidden', background: '#e63228', padding: '4rem 1rem', textAlign: 'center' }}>
         <div style={{ position: 'absolute', top: -40, right: -40, width: 220, height: 220, borderRadius: '50%', background: 'rgba(255,255,255,.1)' }} />

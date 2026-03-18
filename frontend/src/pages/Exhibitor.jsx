@@ -3,6 +3,7 @@ import api from '../api/axios';
 import toast from 'react-hot-toast';
 import { Building2, Loader2, CheckCircle, Upload, Star, Users, TrendingUp, Eye, Award, Crown, Medal, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import StemBackground from '../components/StemBackground';
 
 const tierConfig = {
   'Title Sponsor': { color: '#f59e0b', badge: Crown, label: '👑 Title Sponsor', border: '#f59e0b', bg: '#fffbeb' },
@@ -109,7 +110,8 @@ export default function Exhibitor() {
   const tierOrder = ['Title Sponsor', 'Platinum Sponsor', 'Gold Sponsor', 'Silver Sponsor', 'Stall / Booth', 'Food Partner'];
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f5f3ee' }}>
+    <div style={{ minHeight: '100vh', background: '#f5f3ee', position: 'relative' }}>
+      <StemBackground numberOfEmojis={40} />
       {/* Header */}
       <section style={{ position: 'relative', overflow: 'hidden', background: '#f7941d', padding: '4rem 1rem', textAlign: 'center' }}>
         <div style={{ position: 'absolute', top: -40, left: -40, width: 200, height: 200, borderRadius: '50%', background: 'rgba(255,255,255,.1)' }} />
@@ -133,7 +135,8 @@ export default function Exhibitor() {
       </section>
 
       {/* Sponsors Grid - Always visible if sponsors exist */}
-      <section style={{ padding: '4rem 0', background: '#fff' }}>
+      <section style={{ padding: '4rem 0', background: '#fff', position: 'relative' }}>
+        <StemBackground numberOfEmojis={30} />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
             <h2 style={{ fontFamily: 'Lilita One, sans-serif', fontSize: 'clamp(1.6rem,3vw,2.2rem)', color: '#1a9fb5' }}>
@@ -266,7 +269,8 @@ export default function Exhibitor() {
 
       {/* Sponsorship Tiers */}
       {(settings?.isSponsorshipOpen !== false) && (
-        <section style={{ padding: '4rem 0', background: '#f5f3ee' }}>
+        <section style={{ padding: '4rem 0', background: '#f5f3ee', position: 'relative' }}>
+          <StemBackground numberOfEmojis={30} />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
             <h2 style={{ fontFamily: 'Lilita One, sans-serif', fontSize: 'clamp(1.6rem,3vw,2.2rem)', color: '#1a9fb5' }}>Sponsorship Opportunities 📊</h2>
@@ -330,7 +334,8 @@ export default function Exhibitor() {
 
       {/* Sponsor Form */}
       {(settings?.isSponsorshipOpen !== false) && (
-      <section id="become-sponsor" style={{ padding: '4rem 0', background: '#fff' }}>
+      <section id="become-sponsor" style={{ padding: '4rem 0', background: '#fff', position: 'relative' }}>
+        <StemBackground numberOfEmojis={30} />
         <div className="max-w-4xl mx-auto px-4">
           <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
             <h2 style={{ fontFamily: 'Lilita One, sans-serif', fontSize: 'clamp(1.6rem,3vw,2.2rem)', color: '#1a9fb5' }}>Become a Sponsor 🤝</h2>

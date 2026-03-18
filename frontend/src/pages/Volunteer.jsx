@@ -3,6 +3,7 @@ import api from '../api/axios';
 import toast from 'react-hot-toast';
 import { Users, Heart, Loader2, CheckCircle, Star, Clock, Shield } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import StemBackground from '../components/StemBackground';
 
 export default function Volunteer() {
   const [form, setForm] = useState({ fullName: '', email: '', phone: '', preferredRole: '' });
@@ -68,7 +69,8 @@ export default function Volunteer() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f5f3ee' }}>
+    <div style={{ minHeight: '100vh', background: '#f5f3ee', position: 'relative' }}>
+      <StemBackground numberOfEmojis={40} />
       {/* Header */}
       <section style={{ position: 'relative', overflow: 'hidden', background: '#2db46b', padding: '4rem 1rem', textAlign: 'center' }}>
         <div style={{ position: 'absolute', top: -40, right: -40, width: 200, height: 200, borderRadius: '50%', background: 'rgba(255,255,255,.1)' }} />
