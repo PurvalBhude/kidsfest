@@ -4,10 +4,11 @@ import { fetchSponsors, createSponsor, updateSponsor, deleteSponsor } from '../.
 import toast from 'react-hot-toast';
 import { Plus, Pencil, Trash2, Crown, Award, Medal, Building2, Star, Loader2, Image, X } from 'lucide-react';
 
-const tierOptions = ['Title Sponsor', 'Gold Sponsor', 'Silver Sponsor', 'Stall / Booth', 'Food Partner', 'Other'];
+const tierOptions = ['Title Sponsor', 'Platinum Sponsor', 'Gold Sponsor', 'Silver Sponsor', 'Stall / Booth', 'Food Partner', 'Other'];
 
 const tierBadge = {
   'Title Sponsor': 'bg-amber-100 text-amber-700',
+  'Platinum Sponsor': 'bg-purple-100 text-purple-700',
   'Gold Sponsor': 'bg-yellow-100 text-yellow-700',
   'Silver Sponsor': 'bg-gray-100 text-gray-600',
   'Stall / Booth': 'bg-orange-100 text-orange-700',

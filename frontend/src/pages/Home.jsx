@@ -209,11 +209,8 @@ export default function Home() {
                       </span>
                     </div>
                     {/* Hover flip-desc */}
-                    <div style={{ position: 'absolute', inset: 0, background: '#1a9fb5', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem', opacity: 0, transition: 'opacity .3s' }}
-                      onMouseEnter={(e) => e.currentTarget.style.opacity = 1}
-                      onMouseLeave={(e) => e.currentTarget.style.opacity = 0}
-                    >
-                      <p style={{ fontFamily: 'Signika, sans-serif', color: '#fff', textAlign: 'center', fontSize: '0.88rem' }}>
+                    <div className="absolute inset-0 bg-black/40 backdrop-blur-[6px] flex items-center justify-center p-4 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                      <p className="transform translate-y-3 group-hover:translate-y-0 transition-transform duration-300" style={{ fontFamily: 'Signika, sans-serif', color: '#fff', textAlign: 'center', fontSize: '0.88rem', fontWeight: 500, lineHeight: 1.4, textShadow: '0 2px 4px rgba(0,0,0,0.6)' }}>
                         {activity.description || activity.title}
                       </p>
                     </div>

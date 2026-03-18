@@ -13,7 +13,7 @@ const sponsorSchema = new mongoose.Schema(
     },
     tier: {
       type: String,
-      enum: ['Title Sponsor', 'Gold Sponsor', 'Silver Sponsor', 'Stall / Booth', 'Food Partner', 'Other'],
+      enum: ['Title Sponsor', 'Platinum Sponsor', 'Gold Sponsor', 'Silver Sponsor', 'Stall / Booth', 'Food Partner', 'Other'],
       default: 'Other',
     },
     website: {
