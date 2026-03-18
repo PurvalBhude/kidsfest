@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import api from '../api/axios';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { Search, Filter, Star, Cpu, Rocket, Lightbulb, Microscope, Sparkles } from 'lucide-react';
+import StemBackground from '../components/StemBackground';
 
 const funIcons = [Star, Cpu, Rocket, Lightbulb, Microscope, Sparkles];
 
@@ -34,7 +35,8 @@ export default function Activities() {
   });
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f5f3ee' }}>
+    <div style={{ minHeight: '100vh', background: '#f5f3ee', position: 'relative' }}>
+      <StemBackground numberOfEmojis={50} />
       {/* Header Banner */}
       <section style={{ position: 'relative', overflow: 'hidden', background: '#1a9fb5', padding: '4rem 1rem', textAlign: 'center' }}>
         {/* Decorative blobs */}

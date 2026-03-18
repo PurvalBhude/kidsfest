@@ -6,6 +6,7 @@ import {
   Sparkles, Ticket, Calendar, MapPin, ArrowRight, Star,
   ChevronDown, Cpu, Rocket, Lightbulb, Microscope, Zap,
 } from 'lucide-react';
+import StemBackground from '../components/StemBackground';
 
 const funIcons = [Star, Cpu, Rocket, Lightbulb, Microscope, Sparkles];
 
@@ -173,7 +174,8 @@ export default function Home() {
 
       {/* ── ACTIVITIES GRID ── */}
       {activities.length > 0 && (
-        <section style={{ padding: '5rem 0', background: '#f5f3ee' }}>
+        <section style={{ padding: '5rem 0', background: '#f5f3ee', position: 'relative' }}>
+          <StemBackground numberOfEmojis={40} />
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <SectionHeading
               teal="🎨 Everything Fun "
@@ -231,7 +233,8 @@ export default function Home() {
       )}
 
       {/* ── CTA CARDS (Get Involved) ── */}
-      <section style={{ padding: '4rem 0', background: '#fff' }}>
+      <section style={{ padding: '4rem 0', background: '#fff', position: 'relative' }}>
+        <StemBackground />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading teal="Get Involved " red="🤝" sub="Be a part of the festival movement!" />
 
@@ -284,7 +287,8 @@ export default function Home() {
 
 
       {/* ── FAQ ── */}
-      <section style={{ padding: '5rem 0', background: '#fff' }}>
+      <section style={{ padding: '5rem 0', background: '#fff', position: 'relative' }}>
+        <StemBackground />
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading teal="Frequently Asked " red="Questions" />
 
